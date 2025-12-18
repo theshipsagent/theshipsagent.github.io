@@ -153,6 +153,20 @@
             font-size: 0.85rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        .layer-link {
+            text-decoration: none;
+            color: var(--secondary-dark);
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .layer-link:hover {
+            background: var(--secondary);
+            color: var(--white);
+            border-color: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
         .callout {
             background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
             color: var(--white);
@@ -512,26 +526,26 @@
         <div class="map-embed" style="min-height: 250px;">
             <h3>National View</h3>
             <div class="layer-list">
-                <span class="layer-item">us_cement_plants_national.geojson</span>
-                <span class="layer-item">us_ports_cement_imports.geojson</span>
-                <span class="layer-item">us_states_cement.geojson</span>
+                <a href="https://www.arcgis.com/home/item.html?id=747aaef2f7d94b1490b53f5af009a124" target="_blank" class="layer-item layer-link">us_cement_plants_national.geojson</a>
+                <a href="https://www.arcgis.com/home/item.html?id=ddb3a31d206e4df38243097848b8f062" target="_blank" class="layer-item layer-link">us_ports_cement_imports.geojson</a>
+                <a href="https://www.arcgis.com/home/item.html?id=bb93c17c60174b068df3707e432a290a" target="_blank" class="layer-item layer-link">us_states_cement.geojson</a>
             </div>
         </div>
         <div class="map-embed" style="min-height: 250px;">
             <h3>Florida Regional</h3>
             <div class="layer-list">
-                <span class="layer-item">cement_plants_florida_gulf.geojson</span>
-                <span class="layer-item">import_terminals_florida.geojson</span>
-                <span class="layer-item">florida_counties_demand.geojson</span>
+                <a href="https://www.arcgis.com/home/item.html?id=3f3ef46aefe5477aa130d4545f4a5316" target="_blank" class="layer-item layer-link">cement_plants_florida_gulf.geojson</a>
+                <a href="https://www.arcgis.com/home/item.html?id=e99c0f3a723e4801a82777da2a8ed63f" target="_blank" class="layer-item layer-link">import_terminals_florida.geojson</a>
+                <a href="https://www.arcgis.com/home/item.html?id=97716968517a4cc0a74b1df20209b8a6" target="_blank" class="layer-item layer-link">florida_counties_demand.geojson</a>
             </div>
         </div>
         <div class="map-embed" style="min-height: 250px;">
             <h3>Trade & Export</h3>
             <div class="layer-list">
-                <span class="layer-item">caribbean_markets.geojson</span>
-                <span class="layer-item">shipping_routes.geojson</span>
-                <span class="layer-item">trade_flows_weighted.geojson</span>
-                <span class="layer-item">import_origins.geojson</span>
+                <a href="https://www.arcgis.com/home/item.html?id=ba30152c4156465e84330df9182ed39d" target="_blank" class="layer-item layer-link">caribbean_markets.geojson</a>
+                <a href="https://www.arcgis.com/home/item.html?id=c0db62b743824e8eb0b68e52e5bbb882" target="_blank" class="layer-item layer-link">shipping_routes.geojson</a>
+                <a href="https://www.arcgis.com/home/item.html?id=9c7534e2091d46f391b35582c47bb922" target="_blank" class="layer-item layer-link">trade_flows_weighted.geojson</a>
+                <a href="https://www.arcgis.com/home/item.html?id=cf36e49a685e4052a22f6ebf44f31d75" target="_blank" class="layer-item layer-link">import_origins.geojson</a>
             </div>
         </div>
     </div>
