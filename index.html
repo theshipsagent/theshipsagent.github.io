@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ship's Agent | Maritime Consulting & Market Intelligence</title>
+    <meta name="description" content="Professional maritime consulting, ship agency services, and market intelligence reports for the shipping industry.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a365d;
+            --navy-dark: #0f172a;
+            --gold: #d69e2e;
+            --gold-light: #ecc94b;
+            --white: #f8fafc;
+            --gray: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--navy-dark);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), transparent);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/hero.jpg') center/cover no-repeat;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(15, 23, 42, 0.85) 0%,
+                rgba(26, 54, 93, 0.7) 50%,
+                rgba(15, 23, 42, 0.8) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--navy-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--navy-dark);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(26, 54, 93, 0.5);
+            border: 1px solid rgba(214, 158, 46, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--gold);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Reports Section */
+        .reports-section {
+            background: linear-gradient(to bottom, var(--navy-dark), var(--navy));
+        }
+
+        .reports-preview {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(214, 158, 46, 0.3);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .reports-preview h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .reports-preview p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .report-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .report-tag {
+            background: rgba(214, 158, 46, 0.15);
+            color: var(--gold);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--navy);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .contact-item h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            color: var(--gray);
+        }
+
+        .contact-item a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--gold);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy-dark);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(214, 158, 46, 0.2);
+        }
+
+        footer p {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">The Ship's <span>Agent</span></a>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#reports">Reports</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Maritime <span>Intelligence</span> & Consulting</h1>
+            <p class="hero-subtitle">
+                Professional market research, trade analysis, and strategic consulting for the global shipping industry.
+            </p>
+            <div class="hero-buttons">
+                <a href="/reports/" class="btn btn-primary">View Reports</a>
+                <a href="#contact" class="btn btn-outline">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2 class="section-title">Our <span>Services</span></h2>
+            <p class="section-subtitle">
+                Comprehensive maritime solutions backed by deep industry expertise and data-driven insights.
+            </p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">&#9875;</div>
+                    <h3>Market Intelligence</h3>
+                    <p>In-depth analysis of commodity flows, port operations, and competitive landscapes across global shipping markets.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#128202;</div>
+                    <h3>Trade Data Analysis</h3>
+                    <p>Custom reports on import/export patterns, vessel movements, and supply chain optimization opportunities.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#127758;</div>
+                    <h3>Port & Terminal Studies</h3>
+                    <p>Detailed assessments of port infrastructure, capacity analysis, and terminal operations benchmarking.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#128736;</div>
+                    <h3>Strategic Consulting</h3>
+                    <p>Expert guidance on market entry, logistics optimization, and maritime business development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reports" class="reports-section">
+        <div class="container">
+            <h2 class="section-title">Research <span>Reports</span></h2>
+            <p class="section-subtitle">
+                Access our library of professional market research and industry analysis reports.
+            </p>
+            <div class="reports-preview">
+                <h3>Featured: Florida Cement Market Analysis</h3>
+                <p>
+                    Comprehensive market intelligence covering supply infrastructure, import trends, customer segmentation, and growth opportunities in the Tampa Bay region.
+                </p>
+                <div class="report-tags">
+                    <span class="report-tag">Market Intelligence</span>
+                    <span class="report-tag">Infrastructure Maps</span>
+                    <span class="report-tag">Trade Flow Analysis</span>
+                    <span class="report-tag">Customer Mapping</span>
+                    <span class="report-tag">Executive Summary</span>
+                </div>
+                <a href="/reports/cement/" class="btn btn-primary">View Cement Reports</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Get in <span>Touch</span></h2>
+            <p class="section-subtitle">
+                Ready to discuss your maritime research needs? We're here to help.
+            </p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3>Email</h3>
+                    <p><a href="mailto:contact@theshipsagent.com">contact@theshipsagent.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Location</h3>
+                    <p>United States</p>
+                </div>
+                <div class="contact-item">
+                    <h3>Connect</h3>
+                    <p><a href="https://linkedin.com" target="_blank">LinkedIn</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 The Ship's Agent. All rights reserved.</p>
+    </footer>
+</body>
+</html>
