@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William S. Davis III | Links</title>
+    <meta name="description" content="Connect with William S. Davis III - Maritime Operations Executive">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --gray-mid: #666666;
+            --gray-light: #999999;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            max-width: 380px;
+            width: 100%;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid var(--gray-mid);
+            margin: 0 auto 1.25rem;
+            overflow: hidden;
+            filter: grayscale(100%);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.75rem;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--gray-light);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Links */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+        }
+
+        .link-button {
+            display: block;
+            padding: 0.9rem 1.5rem;
+            text-decoration: none;
+            color: var(--white);
+            border: 1px solid var(--gray-mid);
+            background: transparent;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .link-button:hover {
+            border-color: var(--white);
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .link-button.location {
+            border-style: dashed;
+            color: var(--gray-light);
+            cursor: default;
+        }
+
+        .link-button.location:hover {
+            border-color: var(--gray-mid);
+            background: transparent;
+            color: var(--gray-light);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.7rem;
+            color: var(--gray-mid);
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 400px) {
+            .name {
+                font-size: 1.5rem;
+            }
+
+            .link-button {
+                padding: 0.8rem 1.25rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile-image">
+                <!-- PLACEHOLDER: Professional headshot -->
+                <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Haddock-in-Red-Rackham%27s-Treasure.jpg" alt="William S. Davis III">
+            </div>
+            <h1 class="name">WILLIAM S. DAVIS III</h1>
+            <p class="tagline">Maritime Operations Executive</p>
+        </div>
+
+        <div class="links">
+            <a href="/" class="link-button">Website</a>
+            <a href="/cv/" class="link-button">CV & Resume</a>
+            <a href="/reports/cement/" class="link-button">Sample Work</a>
+            <a href="https://www.linkedin.com/in/williamsdavis" class="link-button" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:theshipsagent@pm.me" class="link-button">Email</a>
+            <div class="link-button location">Chesapeake, Virginia</div>
+        </div>
+
+        <div class="footer">
+            William S. Davis III
+        </div>
+    </div>
+</body>
+</html>

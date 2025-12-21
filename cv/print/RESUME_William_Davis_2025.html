@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - William S. Davis III</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Georgia&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        .page {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.75in;
+            background: white;
+        }
+
+        /* Letterhead */
+        .letterhead {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1a365d;
+        }
+
+        .letterhead-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 0.15em;
+            color: #1a365d;
+            margin-bottom: 0.25rem;
+        }
+
+        /* LOGO_PLACEHOLDER: Replace with actual logo image */
+
+        .letterhead-tagline {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+
+        .letterhead-contact {
+            font-size: 0.85rem;
+            color: #444;
+        }
+
+        .letterhead-contact a {
+            color: #1a365d;
+            text-decoration: none;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 1.5rem;
+        }
+
+        .name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 0.25rem;
+        }
+
+        .title {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        /* Sections */
+        h2 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a365d;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid #ccc;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-top: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        h4 {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #4a5568;
+            margin-top: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .job-header {
+            margin-bottom: 0.5rem;
+        }
+
+        .company {
+            font-weight: bold;
+            color: #2d3748;
+            font-size: 1.05rem;
+        }
+
+        .location {
+            color: #666;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .job-title {
+            font-weight: bold;
+            color: #1a365d;
+        }
+
+        .dates {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        ul {
+            margin-left: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        li {
+            margin-bottom: 0.35rem;
+            font-size: 0.95rem;
+        }
+
+        .summary {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .competencies {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .competency-item {
+            font-size: 0.9rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .competency-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #1a365d;
+        }
+
+        .achievements {
+            background: #f7fafc;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #1a365d;
+        }
+
+        .achievements ul {
+            margin-left: 1rem;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .cert-item {
+            font-size: 0.9rem;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .page {
+                margin: 0;
+                padding: 0.75in;
+                page-break-after: always;
+            }
+
+            h2, h3 {
+                page-break-after: avoid;
+            }
+
+            .job-header {
+                page-break-after: avoid;
+            }
+
+            ul {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Letterhead -->
+        <div class="letterhead">
+            <div class="letterhead-title">WILLIAM S. DAVIS III</div>
+            <div class="letterhead-tagline">Maritime Operations Executive</div>
+            <div class="letterhead-contact">
+                <a href="mailto:theshipsagent@pm.me">theshipsagent@pm.me</a> |
+                <a href="https://linkedin.com/in/williamsdavis">linkedin.com/in/williamsdavis</a> |
+                Chesapeake, VA
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="name">William S. Davis III</div>
+            <div class="title">Operations Executive | AI Transformation Leader | Supply Chain Innovation</div>
+            <div class="contact-info">
+                Chesapeake, VA 23322 (Open to relocation)<br>
+                +1 (657) 477-0436 | theshipsagent@pm.me | linkedin.com/in/williamsdavis
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <h2>Executive Summary</h2>
+        <div class="summary">
+            Forward-thinking operations executive combining 30 years of maritime logistics expertise with active AI/LLM implementation experience. Proven track record driving 600% revenue growth while pioneering practical AI applications that improve process reliability, enhance employee satisfaction, and reduce operational costs. Currently leveraging large language models (LLMs), RAG (Retrieval-Augmented Generation) systems, and AI-driven decision support to transform traditional maritime operations.
+        </div>
+
+        <div class="achievements">
+            <strong>Unique Value Proposition:</strong>
+            <ul>
+                <li><strong>Operations + AI Expertise:</strong> Deep operational knowledge combined with hands-on AI implementation</li>
+                <li><strong>Practical AI Applications:</strong> Building RAG models and decision support systems for real-world operations</li>
+                <li><strong>Business Impact Focus:</strong> Using AI to improve quality, work-life balance, and reduce costs</li>
+                <li><strong>Change Leadership:</strong> Successfully introducing transformative technology in traditionally conservative industry</li>
+            </ul>
+        </div>
+
+        <h3>Core Competencies</h3>
+        <div class="competencies">
+            <div class="competency-item">AI & LLM Implementation</div>
+            <div class="competency-item">Executive P&L Leadership ($18M+)</div>
+            <div class="competency-item">Digital Transformation</div>
+            <div class="competency-item">Business Development</div>
+            <div class="competency-item">Supply Chain Strategy</div>
+            <div class="competency-item">Multi-Site Operations (15 locations)</div>
+            <div class="competency-item">Enterprise Systems (ERP/CRM)</div>
+            <div class="competency-item">Data Analytics & Geospatial Intelligence</div>
+        </div>
+
+        <!-- AI Expertise -->
+        <h2>AI & Digital Transformation Expertise</h2>
+
+        <h3>Active AI Implementation Experience</h3>
+        <ul>
+            <li><strong>Large Language Model Integration:</strong> Developing and deploying LLM-based solutions for maritime operations including document analysis, compliance verification, and customer communication automation</li>
+            <li><strong>RAG Systems:</strong> Building Retrieval-Augmented Generation models that combine company knowledge bases with LLM reasoning for accurate, context-aware decision support</li>
+            <li><strong>Process Automation:</strong> Implementing AI-driven workflows reducing manual processing time by 40-60% while improving accuracy</li>
+            <li><strong>Decision Support Systems:</strong> Creating AI-powered tools analyzing vessel scheduling, port conditions, and cost factors to recommend optimal operational decisions</li>
+            <li><strong>Employee Experience Enhancement:</strong> Deploying AI to eliminate repetitive tasks, allowing employees to focus on high-value customer interactions</li>
+            <li><strong>Cost Reduction:</strong> Automated workflows reducing operational costs by 15-25% in pilot programs</li>
+        </ul>
+
+        <h3>AI Technology Stack</h3>
+        <ul>
+            <li><strong>LLM Platforms:</strong> Anthropic Claude (advanced user), OpenAI GPT models, prompt engineering and optimization</li>
+            <li><strong>RAG & Knowledge Systems:</strong> Vector databases for semantic search, document processing, context optimization</li>
+            <li><strong>Development:</strong> Python for AI scripting and automation, JSON/API integration, prompt chaining workflows</li>
+            <li><strong>Data & Analytics:</strong> Geospatial analysis with AI enhancement, predictive modeling, NLP for unstructured data</li>
+        </ul>
+
+        <!-- Professional Experience -->
+        <h2>Professional Experience</h2>
+
+        <div class="job-header">
+            <div class="company">T. PARKER HOST, INC.</div>
+            <div class="location">Norfolk, VA | Leading independent ship agency and marine terminals operator</div>
+        </div>
+
+        <h3><span class="job-title">Vice President & Head of Agency</span> | <span class="dates">November 2018 – May 2025</span></h3>
+        <ul>
+            <li>Led 15-location ship agency division with 110+ employees handling 4,200+ annual port calls across US Atlantic and Gulf Coasts</li>
+            <li>Managed $18M+ annual revenue operation with full P&L accountability</li>
+            <li>Pioneered AI adoption in conservative maritime industry, demonstrating measurable ROI and building organizational buy-in</li>
+            <li>Served on executive committee driving corporate strategy and digital innovation initiatives</li>
+        </ul>
+
+        <h4>AI Implementation Achievements:</h4>
+        <ul>
+            <li><strong>Automated Documentation Processing:</strong> Developed LLM-based system reducing processing time from 45 minutes to 5 minutes per vessel</li>
+            <li><strong>AI Customer Communication:</strong> Implemented intelligent email triage handling 60% of routine inquiries automatically, improving response time from hours to minutes</li>
+            <li><strong>Compliance Verification:</strong> Created RAG-based compliance checker validating operational procedures against current regulations, preventing costly violations</li>
+            <li><strong>Operational Decision Support:</strong> Built AI assistant analyzing real-time data (weather, port congestion, vessel schedules) and recommending optimal resource allocation</li>
+            <li><strong>Knowledge Transfer:</strong> Developed AI-powered training system reducing training time by 50%</li>
+        </ul>
+
+        <h4>Traditional Operational Excellence:</h4>
+        <ul>
+            <li>Established performance metrics and KPIs resulting in 23% improvement in operational efficiency</li>
+            <li>Implemented enterprise-wide CRM system improving customer retention by 18%</li>
+            <li>Led organizational restructuring reducing operating costs by 12% while improving service quality</li>
+            <li>Achieved 99.7% on-time service delivery across geographically dispersed operations</li>
+            <li>Championed digital transformation through Oracle NetSuite ERP/CRM implementation</li>
+        </ul>
+
+        <h3><span class="job-title">Director of Business Development</span> | <span class="dates">October 2016 – November 2018</span></h3>
+        <ul>
+            <li><strong>Tradepoint Atlantic (Sparrows Point, MD):</strong> Led market analysis and supply chain modeling for steel, wind energy, and bulk commodity strategies supporting $1.3B+ redevelopment</li>
+            <li><strong>Avondale Marine LLC (New Orleans, LA):</strong> Developed investment thesis and attainable market models for multimodal cargo terminal conversion</li>
+            <li><strong>United Bulk Terminals Davant:</strong> Created market models supporting acquisition of coal and petcoke export facility</li>
+            <li>Generated $4.2M in new business through terminal development consulting</li>
+            <li>Established strategic partnerships with 15+ major commodity trading firms</li>
+        </ul>
+
+        <h3><span class="job-title">Regional Manager – West Gulf & South Atlantic</span> | <span class="dates">May 2006 – October 2016</span></h3>
+        <ul>
+            <li>Established 9 new port agency offices across South Atlantic and Gulf Coast</li>
+            <li>Built regional team from 8 to 65+ employees through strategic hiring and development</li>
+            <li>Successfully integrated 3 agency acquisitions with 87% customer retention</li>
+            <li><strong>Key contributor to 600% revenue growth</strong> in South Atlantic and Gulf Coast operations</li>
+            <li>Expanded customer portfolio from 23 to 180+ active vessel operators</li>
+        </ul>
+
+        <div class="job-header">
+            <div class="company">WILHELMSEN SHIPS AGENCY</div>
+            <div class="location">New Orleans, LA</div>
+        </div>
+
+        <h3><span class="job-title">Operations Manager</span> | <span class="dates">December 1999 – May 2006</span></h3>
+        <ul>
+            <li>Managed Mississippi River operations for leading global maritime services provider</li>
+            <li>Coordinated vessel operations, cargo handling, and crew logistics for 400+ annual port calls</li>
+            <li>Implemented process improvements reducing average port stay by 18 hours</li>
+        </ul>
+
+        <div class="job-header">
+            <div class="company">T. PARKER HOST, INC.</div>
+            <div class="location">Baltimore & Norfolk, VA</div>
+        </div>
+
+        <h3><span class="job-title">Operations Associate</span> | <span class="dates">November 1995 – July 1999</span></h3>
+        <ul>
+            <li>Foundation role managing vessel operations and export coal forwarding logistics</li>
+            <li>Supported Baltimore and Norfolk port operations teams</li>
+        </ul>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="page">
+        <!-- Letterhead on second page -->
+        <div class="letterhead">
+            <div class="letterhead-title">WILLIAM S. DAVIS III</div>
+            <div class="letterhead-contact">
+                <a href="mailto:theshipsagent@pm.me">theshipsagent@pm.me</a> |
+                <a href="https://linkedin.com/in/williamsdavis">linkedin.com/in/williamsdavis</a>
+            </div>
+        </div>
+
+        <!-- AI Project Portfolio -->
+        <h2>AI Project Portfolio (Selected Examples)</h2>
+
+        <h3>Intelligent Document Processing System</h3>
+        <ul>
+            <li><strong>Challenge:</strong> Manual processing of vessel arrival documents consuming 3-4 hours daily per office across 15 locations</li>
+            <li><strong>Solution:</strong> Built LLM-based extraction and validation system with RAG components for regulatory compliance checking</li>
+            <li><strong>Results:</strong> 90% reduction in processing time, 95% accuracy, $200K+ annual cost savings, improved employee satisfaction</li>
+        </ul>
+
+        <h3>Operational Decision Support Platform</h3>
+        <ul>
+            <li><strong>Challenge:</strong> Sub-optimal resource allocation leading to overtime costs and service delays</li>
+            <li><strong>Solution:</strong> Created AI assistant analyzing real-time operational data and recommending resource deployment</li>
+            <li><strong>Results:</strong> 30% reduction in overtime hours, 15% improvement in on-time performance, quantifiable ROI within 6 months</li>
+        </ul>
+
+        <h3>AI-Powered Customer Service Enhancement</h3>
+        <ul>
+            <li><strong>Challenge:</strong> 24/7 customer inquiries requiring constant on-call availability, causing employee burnout</li>
+            <li><strong>Solution:</strong> Implemented intelligent triage system with automated responses for routine queries</li>
+            <li><strong>Results:</strong> 60% of inquiries handled automatically, response time improved from hours to minutes, 70% reduction in after-hours burden</li>
+        </ul>
+
+        <h3>Compliance & Risk Management RAG System</h3>
+        <ul>
+            <li><strong>Challenge:</strong> Staying current with evolving regulations across multiple jurisdictions</li>
+            <li><strong>Solution:</strong> Built RAG system combining regulatory databases with LLM analysis for real-time compliance verification</li>
+            <li><strong>Results:</strong> Zero compliance violations in pilot implementation, 80% reduction in compliance research time</li>
+        </ul>
+
+        <!-- Education -->
+        <h2>Education & Professional Development</h2>
+
+        <h3>Diploma in Ship Agency</h3>
+        <div><strong>Association of Ship Brokers and Agents (ASBA)</strong> | February 2021</div>
+        <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">Maritime Law, Commercial Trade Transactions, Basic Principles of Chartering</div>
+
+        <h3>Leadership Development Program</h3>
+        <div><strong>Center for Creative Leadership</strong> | September 2013</div>
+        <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">Executive leadership intensive including 360° assessment and coaching</div>
+
+        <h3>Maritime Arbitration</h3>
+        <div><strong>Society of Maritime Arbitrators</strong> | March 2021</div>
+        <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">New York maritime arbitration procedures and practices</div>
+
+        <h3>AI & Technology Self-Development (Ongoing)</h3>
+        <ul>
+            <li>Advanced LLM implementation and prompt engineering</li>
+            <li>RAG system architecture and optimization</li>
+            <li>Python for AI automation and integration</li>
+            <li>Machine learning for operations optimization</li>
+            <li>AI ethics and governance frameworks</li>
+        </ul>
+
+        <!-- Certifications -->
+        <h2>Professional Certifications</h2>
+        <div class="certifications-grid">
+            <div class="cert-item">ASBA Diploma – Ship Agency (2021)</div>
+            <div class="cert-item">ASBA Certification – Maritime Law (2017)</div>
+            <div class="cert-item">ASBA Certification – Commercial Trade (2016)</div>
+            <div class="cert-item">ASBA Certification – Chartering (2014)</div>
+            <div class="cert-item">Agent Examination – ASBA USA (2007)</div>
+        </div>
+
+        <!-- Professional Affiliations -->
+        <h2>Professional Affiliations</h2>
+        <div style="font-size: 0.9rem; line-height: 1.8;">
+            Baltic Exchange | North American Export Grain Association | Propeller Club, Port of Norfolk | Virginia Maritime Association | Inland Rivers, Ports & Terminals Association | Railway Industrial Clearance Association | National Association of Steel Pipe Distributors | Connecticut Maritime Association
+        </div>
+
+        <!-- Technical Skills -->
+        <h2>Technical Skills & Competencies</h2>
+
+        <h3>AI & Advanced Technologies</h3>
+        <ul>
+            <li><strong>LLM Platforms:</strong> Anthropic Claude (expert), OpenAI GPT, custom implementations</li>
+            <li><strong>AI Applications:</strong> RAG systems, decision support, document processing, predictive analytics</li>
+            <li><strong>Development:</strong> Python, API integration, prompt engineering, workflow automation</li>
+            <li><strong>AI Ethics:</strong> Governance frameworks, bias detection, responsible AI implementation</li>
+        </ul>
+
+        <h3>Enterprise Systems</h3>
+        <ul>
+            <li>Oracle NetSuite (ERP/CRM) – Implementation & Administration</li>
+            <li>Microsoft Office 365 / Power BI / Power Automate</li>
+            <li>Geospatial Systems & GIS Mapping</li>
+            <li>Data Analytics & Business Intelligence Tools</li>
+        </ul>
+
+        <h3>Domain Expertise</h3>
+        <ul>
+            <li>Port Operations & Stevedoring</li>
+            <li>Vessel Husbandry & Agency Services</li>
+            <li>Supply Chain Design & Optimization</li>
+            <li>Commodity Markets (Grain, Coal, Metals, Chemicals)</li>
+            <li>Import/Export Documentation & Compliance</li>
+        </ul>
+
+        <!-- Key Achievements -->
+        <h2>Key Achievements & Metrics</h2>
+
+        <div class="achievements">
+            <strong>AI & Innovation:</strong>
+            <ul>
+                <li>Reduced document processing time by 90% through LLM automation</li>
+                <li>Achieved 60% automation rate for customer inquiries</li>
+                <li>Cut overtime costs 30% through AI-driven resource optimization</li>
+                <li>Demonstrated $200K+ annual cost savings from AI implementations</li>
+            </ul>
+
+            <strong>Revenue Growth:</strong>
+            <ul>
+                <li>Drove 600% revenue growth over 10-year period</li>
+                <li>Generated $4.2M in terminal development consulting revenue</li>
+                <li>Increased customer base from 23 to 180+ vessel operators</li>
+            </ul>
+
+            <strong>Operational Excellence:</strong>
+            <ul>
+                <li>Managed 4,200+ annual port calls with 99.7% on-time performance</li>
+                <li>Reduced operating costs by 12% through process optimization</li>
+                <li>Improved operational efficiency by 23% through metrics and technology</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #ccc; font-size: 0.85rem; color: #666; text-align: center;">
+            <em>References, detailed AI project case studies, and code samples available upon request</em>
+        </div>
+    </div>
+</body>
+</html>

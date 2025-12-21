@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV | William S. Davis III</title>
+    <meta name="description" content="Professional resume and background for William S. Davis III, Maritime Operations Executive.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --noir-black: #1a1a1a;
+            --gray-mid: #666666;
+            --gray-light: #999999;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-name {
+            font-size: 0.875rem;
+            letter-spacing: 2px;
+            color: var(--gray-light);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-name:hover {
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gray-mid);
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 4px;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--gray-light);
+            font-weight: 300;
+            font-size: 1.1rem;
+        }
+
+        /* Download Section */
+        .downloads {
+            display: flex;
+            gap: 1rem;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: var(--noir-black);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border: 1px solid var(--gray-mid);
+            background: transparent;
+            color: var(--white);
+            font-weight: 400;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--white);
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* Summary Section */
+        .summary {
+            margin-bottom: 4rem;
+        }
+
+        .summary h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .summary p {
+            color: var(--gray-light);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        /* Experience */
+        .experience {
+            margin-bottom: 4rem;
+        }
+
+        .experience h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .job {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .job:last-child {
+            border-bottom: none;
+        }
+
+        .job-year {
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+        }
+
+        .job-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .job-company {
+            color: var(--gray-mid);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-desc {
+            color: var(--gray-light);
+            font-weight: 300;
+            font-size: 0.95rem;
+        }
+
+        /* Skills */
+        .skills {
+            margin-bottom: 4rem;
+        }
+
+        .skills h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .skill-category h3 {
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            color: var(--gray-light);
+            font-weight: 300;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 2rem;
+        }
+
+        footer p {
+            color: var(--gray-mid);
+            font-size: 0.75rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .downloads {
+                flex-direction: column;
+            }
+
+            .job {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-name">William S. Davis III</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/#expertise">Expertise</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="section-label">Professional Background</div>
+            <h1>CURRICULUM VITAE</h1>
+            <p class="subtitle">Maritime Operations Executive</p>
+        </div>
+
+        <div class="downloads">
+            <a href="print/RESUME_William_Davis_2025.html" class="btn" target="_blank">Download Resume</a>
+            <a href="print/BIOGRAPHY_William_Davis_2025.html" class="btn" target="_blank">Download Biography</a>
+        </div>
+
+        <div class="summary">
+            <h2>SUMMARY</h2>
+            <p>
+                Thirty years of progressive experience in maritime logistics, port operations, and supply chain management.
+                Career spans vessel operations, terminal development, M&A integration, and enterprise systems implementation.
+            </p>
+            <p>
+                Most recently served as Vice President and Head of Agency at T. Parker Host, overseeing ship agency
+                operations across the US Atlantic and Gulf Coasts. Available for employment opportunities or consulting engagements.
+            </p>
+        </div>
+
+        <div class="experience">
+            <h2>EXPERIENCE</h2>
+            <div class="job">
+                <div class="job-year">2018 - 2025</div>
+                <div>
+                    <div class="job-title">Vice President & Head of Agency</div>
+                    <div class="job-company">T. Parker Host, Inc. | Norfolk, VA</div>
+                    <p class="job-desc">Executive leadership of ship agency operations across 15 US ports. Full P&L responsibility, enterprise systems implementation, and operational strategy.</p>
+                </div>
+            </div>
+            <div class="job">
+                <div class="job-year">2016 - 2018</div>
+                <div>
+                    <div class="job-title">Director of Business Development</div>
+                    <div class="job-company">T. Parker Host, Inc. | Norfolk, VA</div>
+                    <p class="job-desc">Terminal development consulting including Tradepoint Atlantic redevelopment. Market analysis, supply chain modeling, and strategic partnerships.</p>
+                </div>
+            </div>
+            <div class="job">
+                <div class="job-year">2006 - 2016</div>
+                <div>
+                    <div class="job-title">Regional Manager - West Gulf & South Atlantic</div>
+                    <div class="job-company">T. Parker Host, Inc.</div>
+                    <p class="job-desc">Established nine new port offices across the Gulf and South Atlantic. Led acquisition integrations and built regional operations infrastructure.</p>
+                </div>
+            </div>
+            <div class="job">
+                <div class="job-year">1999 - 2006</div>
+                <div>
+                    <div class="job-title">Operations Manager</div>
+                    <div class="job-company">Wilhelmsen Ships Agency | New Orleans, LA</div>
+                    <p class="job-desc">Mississippi River operations management. Vessel coordination, cargo logistics, and regulatory compliance.</p>
+                </div>
+            </div>
+            <div class="job">
+                <div class="job-year">1995 - 1999</div>
+                <div>
+                    <div class="job-title">Operations Associate</div>
+                    <div class="job-company">T. Parker Host, Inc. | Baltimore & Norfolk, VA</div>
+                    <p class="job-desc">Foundation in vessel operations, coal forwarding logistics, and port coordination.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="skills">
+            <h2>EXPERTISE</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Port & Terminal Operations</h3>
+                    <ul class="skill-list">
+                        <li>Cargo and Labor Planning</li>
+                        <li>Bulk Dry and Tank Terminal Operations</li>
+                        <li>Break Bulk and Liner Cargo</li>
+                        <li>Vessel Husbandry and Ship Agency</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Market Intelligence</h3>
+                    <ul class="skill-list">
+                        <li>Port & Terminal Econometric Modeling</li>
+                        <li>Commodity Market Analytics</li>
+                        <li>Supply Chain Modeling</li>
+                        <li>Geospatial Analysis</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Strategic Consulting</h3>
+                    <ul class="skill-list">
+                        <li>Port Site Due Diligence</li>
+                        <li>Market Entry Consultancy</li>
+                        <li>Expert Witness - Port Operations</li>
+                        <li>Customs Compliance</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Systems & Technology</h3>
+                    <ul class="skill-list">
+                        <li>ERP and CRM Implementation</li>
+                        <li>AI Analytics and Systems Design</li>
+                        <li>Maritime Data Transformations</li>
+                        <li>Business Intelligence Platforms</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>William S. Davis III</p>
+    </footer>
+</body>
+</html>

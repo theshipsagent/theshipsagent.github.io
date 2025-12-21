@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ship's Agent | Maritime Intelligence & Consulting</title>
-    <meta name="description" content="Professional maritime consulting, ship agency services, and market intelligence reports for the shipping industry.">
+    <title>William S. Davis III | Maritime Operations Executive</title>
+    <meta name="description" content="Maritime operations executive with 30 years experience in port operations, terminal development, supply chain strategy, and enterprise systems implementation.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -23,14 +23,13 @@
             --gray-light: #999999;
             --white: #ffffff;
             --off-white: #f5f5f5;
-            --accent: #e0e0e0;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--black);
             color: var(--white);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
@@ -46,32 +45,25 @@
             z-index: 1000;
             background: linear-gradient(to bottom, rgba(10, 10, 10, 0.98), rgba(10, 10, 10, 0.85), transparent);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.75rem;
+        .nav-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
             letter-spacing: 2px;
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 400;
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover {
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-
-        .logo span {
             color: var(--gray-light);
-            font-weight: 300;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-name:hover {
+            color: var(--white);
         }
 
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 2.5rem;
             list-style: none;
         }
 
@@ -79,30 +71,14 @@
             color: var(--gray-light);
             text-decoration: none;
             font-weight: 400;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
             text-transform: uppercase;
-            position: relative;
             transition: color 0.3s ease;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--white);
-            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
             color: var(--white);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
         }
 
         /* Hero Section */
@@ -123,8 +99,8 @@
             width: 100%;
             height: 100%;
             background: url('images/hero-bg.jpg') center/cover no-repeat;
-            filter: grayscale(100%) contrast(1.2);
-            opacity: 0.4;
+            filter: grayscale(100%) contrast(1.1);
+            opacity: 0.25;
         }
 
         .hero-overlay {
@@ -135,70 +111,52 @@
             height: 100%;
             background: linear-gradient(
                 to bottom,
-                rgba(10, 10, 10, 0.7) 0%,
-                rgba(10, 10, 10, 0.85) 50%,
+                rgba(10, 10, 10, 0.6) 0%,
+                rgba(10, 10, 10, 0.8) 50%,
                 rgba(10, 10, 10, 0.95) 100%
             );
-        }
-
-        .hero-grain {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-            opacity: 0.03;
-            pointer-events: none;
         }
 
         .hero-content {
             position: relative;
             z-index: 10;
             text-align: center;
-            max-width: 1000px;
+            max-width: 900px;
             padding: 2rem;
         }
 
         .hero h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 6rem;
+            font-size: 5rem;
             font-weight: 400;
-            letter-spacing: 8px;
-            margin-bottom: 2rem;
-            line-height: 1;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+            letter-spacing: 6px;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
         }
 
-        .hero h1 .line {
-            display: block;
-        }
-
-        .hero h1 .line:nth-child(2) {
+        .hero-tagline {
+            font-size: 1rem;
+            font-weight: 300;
             color: var(--gray-light);
-            font-size: 4rem;
-            letter-spacing: 12px;
-            margin-top: 0.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
         }
 
         .hero-divider {
-            width: 80px;
+            width: 60px;
             height: 1px;
-            background: var(--white);
-            margin: 2rem auto;
+            background: var(--gray-mid);
+            margin: 0 auto 2.5rem;
         }
 
-        .hero-subtitle {
-            font-size: 1.125rem;
+        .hero-intro {
+            font-size: 1.1rem;
             font-weight: 300;
             color: var(--gray-light);
-            letter-spacing: 1px;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.9;
         }
 
         .hero-buttons {
@@ -209,493 +167,272 @@
         }
 
         .btn {
-            padding: 1rem 2.5rem;
-            border: 1px solid var(--white);
+            padding: 0.9rem 2rem;
+            border: 1px solid var(--gray-mid);
             background: transparent;
             color: var(--white);
-            font-weight: 500;
-            font-size: 0.875rem;
+            font-weight: 400;
+            font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             text-decoration: none;
             transition: all 0.3s ease;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--white);
-            transition: left 0.3s ease;
-            z-index: -1;
         }
 
         .btn:hover {
+            border-color: var(--white);
+            background: var(--white);
             color: var(--black);
-        }
-
-        .btn:hover::before {
-            left: 0;
         }
 
         .btn-primary {
             background: var(--white);
+            border-color: var(--white);
             color: var(--black);
         }
 
-        .btn-primary::before {
-            background: var(--black);
-            left: 0;
-        }
-
         .btn-primary:hover {
+            background: transparent;
             color: var(--white);
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-        }
-
-        .scroll-indicator span {
-            display: block;
-            width: 1px;
-            height: 60px;
-            background: var(--white);
-            opacity: 0.3;
-            animation: scroll 2s infinite;
-        }
-
-        @keyframes scroll {
-            0% {
-                height: 0;
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.3;
-            }
-            100% {
-                height: 60px;
-                opacity: 0;
-            }
         }
 
         /* Sections */
         section {
-            padding: 8rem 3rem;
+            padding: 6rem 3rem;
             position: relative;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .section-header {
-            text-align: center;
-            margin-bottom: 5rem;
+            margin-bottom: 4rem;
         }
 
         .section-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--gray-mid);
-            margin-bottom: 1rem;
-            font-weight: 500;
+            margin-bottom: 0.75rem;
         }
 
         .section-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 4rem;
-            letter-spacing: 4px;
-            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
             font-weight: 400;
-            line-height: 1;
-        }
-
-        .section-subtitle {
-            color: var(--gray-light);
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 300;
-            line-height: 1.8;
         }
 
         /* About Section */
         .about-section {
             background: var(--noir-black);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
+            grid-template-columns: 280px 1fr;
+            gap: 4rem;
+            align-items: start;
         }
 
         .about-image {
             position: relative;
-            overflow: hidden;
         }
 
         .about-image img {
-            width: 100%;
-            height: 500px;
+            width: 280px;
+            height: 280px;
             object-fit: cover;
-            filter: grayscale(100%) contrast(1.1);
-            opacity: 0.7;
-        }
-
-        .about-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            pointer-events: none;
-        }
-
-        .about-content h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
-            letter-spacing: 3px;
-            margin-bottom: 2rem;
-            font-weight: 400;
+            filter: grayscale(100%);
+            border-radius: 4px;
         }
 
         .about-content p {
             color: var(--gray-light);
             margin-bottom: 1.5rem;
             font-weight: 300;
-            line-height: 1.8;
+            font-size: 1rem;
         }
 
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
+        .about-content p:last-child {
+            margin-bottom: 0;
         }
 
-        .stat {
-            text-align: center;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-number {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            letter-spacing: 2px;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--gray-mid);
-        }
-
-        /* Services Section */
-        .services-section {
+        /* Expertise Section */
+        .expertise-section {
             background: var(--black);
         }
 
-        .services-grid {
+        .expertise-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 3rem;
         }
 
-        .service-card {
+        .expertise-card {
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             background: var(--noir-black);
-            padding: 3rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.02);
-            transition: left 0.5s ease;
-        }
-
-        .service-card:hover::before {
-            left: 0;
-        }
-
-        .service-card:hover {
-            border-color: var(--white);
-        }
-
-        .service-number {
+        .expertise-card h3 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            color: var(--gray-mid);
-            margin-bottom: 1.5rem;
-        }
-
-        .service-card h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
+            font-size: 1.4rem;
             letter-spacing: 2px;
             margin-bottom: 1.5rem;
             font-weight: 400;
+            color: var(--white);
         }
 
-        .service-card p {
+        .expertise-list {
+            list-style: none;
+        }
+
+        .expertise-list li {
+            padding: 0.5rem 0;
             color: var(--gray-light);
             font-weight: 300;
-            line-height: 1.8;
-            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .service-link {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 0.875rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: gap 0.3s ease;
-        }
-
-        .service-link:hover {
-            gap: 1rem;
-        }
-
-        .service-link::after {
-            content: '→';
-            font-size: 1.25rem;
+        .expertise-list li:last-child {
+            border-bottom: none;
         }
 
         /* Experience Section */
         .experience-section {
             background: var(--noir-black);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .timeline {
             max-width: 800px;
-            margin: 0 auto;
         }
 
         .timeline-item {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 2rem;
             padding: 2rem 0;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            padding-left: 3rem;
-            position: relative;
-            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -5px;
-            top: 2rem;
-            width: 9px;
-            height: 9px;
-            background: var(--white);
-            border-radius: 50%;
+        .timeline-item:last-child {
+            border-bottom: none;
         }
 
         .timeline-year {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-            color: var(--gray-light);
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+            letter-spacing: 1px;
         }
 
-        .timeline-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        .timeline-content h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
         }
 
         .timeline-company {
             color: var(--gray-mid);
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
         }
 
         .timeline-description {
             color: var(--gray-light);
             font-weight: 300;
-            line-height: 1.8;
+            font-size: 0.95rem;
         }
 
-        /* Skills Section */
-        .skills-section {
+        /* Sample Work Section */
+        .work-section {
             background: var(--black);
         }
 
-        .skills-grid {
+        .work-card {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
         }
 
-        .skill-category h3 {
+        .work-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .work-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1);
+            opacity: 0.6;
+        }
+
+        .work-content h3 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             letter-spacing: 2px;
             margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 400;
         }
 
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            padding: 0.75rem 0;
-            color: var(--gray-light);
-            font-weight: 300;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .skill-list li::before {
-            content: '—';
-            position: absolute;
-            left: 0;
-            color: var(--gray-mid);
-        }
-
-        /* Reports Section */
-        .reports-section {
-            background: var(--noir-black);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-        }
-
-        .reports-bg {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: url('images/reports-bg.jpg') center/cover no-repeat;
-            filter: grayscale(100%) contrast(1.2) blur(2px);
-            opacity: 0.15;
-        }
-
-        .reports-content {
-            position: relative;
-            z-index: 10;
-            max-width: 600px;
-        }
-
-        .reports-content h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
-            letter-spacing: 3px;
-            margin-bottom: 2rem;
-        }
-
-        .reports-content p {
+        .work-content p {
             color: var(--gray-light);
             margin-bottom: 2rem;
             font-weight: 300;
-            line-height: 1.8;
         }
 
-        .report-tags {
+        .work-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
         }
 
-        .report-tag {
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .work-tag {
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: var(--gray-light);
-            padding: 0.5rem 1.25rem;
-            font-size: 0.75rem;
+            padding: 0.4rem 1rem;
+            font-size: 0.7rem;
             letter-spacing: 1px;
             text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .report-tag:hover {
-            border-color: var(--white);
-            color: var(--white);
         }
 
         /* Contact Section */
         .contact-section {
-            background: var(--black);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--noir-black);
         }
 
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 4rem;
-            max-width: 1000px;
-            margin: 0 auto;
+            gap: 2rem;
         }
 
         .contact-item {
             text-align: center;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: border-color 0.3s ease;
-        }
-
-        .contact-item:hover {
-            border-color: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
         }
 
         .contact-item h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.25rem;
+            font-size: 0.7rem;
             letter-spacing: 2px;
-            margin-bottom: 1rem;
-            color: var(--gray-light);
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            color: var(--gray-mid);
         }
 
         .contact-item p,
         .contact-item a {
             color: var(--white);
             text-decoration: none;
-            font-size: 1.125rem;
-            transition: color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 300;
         }
 
         .contact-item a:hover {
@@ -704,38 +441,45 @@
 
         /* Footer */
         footer {
-            background: var(--noir-black);
-            padding: 3rem;
+            background: var(--black);
+            padding: 2rem 3rem;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         footer p {
             color: var(--gray-mid);
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             letter-spacing: 1px;
         }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .about-grid,
-            .skills-grid {
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image img {
+                margin: 0 auto 2rem;
+            }
+
+            .expertise-grid {
                 grid-template-columns: 1fr;
             }
 
-            .services-grid {
+            .work-card {
                 grid-template-columns: 1fr;
             }
 
             .contact-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
         }
 
         @media (max-width: 768px) {
             nav {
-                padding: 1.5rem;
+                padding: 1rem 1.5rem;
             }
 
             .nav-links {
@@ -743,39 +487,32 @@
             }
 
             .hero h1 {
-                font-size: 3.5rem;
+                font-size: 3rem;
                 letter-spacing: 4px;
             }
 
-            .hero h1 .line:nth-child(2) {
-                font-size: 2.5rem;
-                letter-spacing: 6px;
+            .hero-tagline {
+                font-size: 0.85rem;
+                letter-spacing: 2px;
             }
 
             section {
                 padding: 4rem 1.5rem;
             }
 
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .about-stats {
-                grid-template-columns: 1fr;
-            }
-
             .timeline-item {
-                padding-left: 2rem;
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
             }
         }
     </style>
 </head>
 <body>
     <nav>
-        <a href="/" class="logo">THE SHIP'S <span>AGENT</span></a>
+        <a href="/" class="nav-name">William S. Davis III</a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
+            <li><a href="#expertise">Expertise</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -784,23 +521,18 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
-        <div class="hero-grain"></div>
         <div class="hero-content">
-            <h1>
-                <span class="line">MARITIME</span>
-                <span class="line">INTELLIGENCE</span>
-            </h1>
+            <h1>William S. Davis III</h1>
+            <p class="hero-tagline">Maritime Operations Executive</p>
             <div class="hero-divider"></div>
-            <p class="hero-subtitle">
-                Professional market research, trade analysis, and strategic consulting for the global shipping industry.
+            <p class="hero-intro">
+                Thirty years of experience across port and terminal operations, supply chain strategy,
+                and enterprise systems. From cargo planning to econometric modeling to technology implementation.
             </p>
             <div class="hero-buttons">
                 <a href="#contact" class="btn btn-primary">Get in Touch</a>
-                <a href="#services" class="btn">Explore Services</a>
+                <a href="/cv/" class="btn">View Resume</a>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <span></span>
         </div>
     </section>
 
@@ -808,83 +540,81 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-image">
-                    <img src="images/about.jpg" alt="Maritime operations">
+                    <!-- PLACEHOLDER: Professional headshot -->
+                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/Haddock-in-Red-Rackham%27s-Treasure.jpg" alt="William S. Davis III">
                 </div>
                 <div class="about-content">
-                    <h3>WILLIAM DAVIS</h3>
-                    <p>
-                        Maritime intelligence specialist with deep expertise in trade data analysis,
-                        port operations research, and supply chain optimization. Combining technical
-                        proficiency with industry knowledge to deliver actionable insights.
-                    </p>
-                    <p>
-                        Specialized in transforming complex shipping data into strategic business
-                        intelligence for clients across the maritime sector.
-                    </p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">10+</span>
-                            <span class="stat-label">Years Experience</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Reports Delivered</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">Client Satisfaction</span>
-                        </div>
+                    <div class="section-header">
+                        <div class="section-label">Background</div>
+                        <h2 class="section-title">ABOUT</h2>
                     </div>
+                    <p>
+                        Over three decades in maritime logistics, I've worked across nearly every aspect of
+                        port operations and supply chain management. From the deck plates coordinating vessel
+                        arrivals to the executive suite managing multi-location operations and P&L responsibility.
+                    </p>
+                    <p>
+                        Most recently served as Vice President and Head of Agency at T. Parker Host,
+                        overseeing ship agency operations across the US Atlantic and Gulf Coasts. Prior experience
+                        includes terminal development consulting, market entry strategy, and M&A integration
+                        for maritime service companies.
+                    </p>
+                    <p>
+                        Current focus includes port econometric modeling, geospatial analysis, and applying
+                        modern data systems to traditional maritime operations. Available for employment
+                        opportunities or consulting engagements.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="services" class="services-section">
+    <section id="expertise" class="expertise-section">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">What We Offer</div>
-                <h2 class="section-title">SERVICES</h2>
-                <p class="section-subtitle">
-                    Comprehensive maritime solutions backed by deep industry expertise and data-driven insights.
-                </p>
+                <div class="section-label">Core Competencies</div>
+                <h2 class="section-title">EXPERTISE</h2>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-number">01</div>
-                    <h3>MARKET INTELLIGENCE</h3>
-                    <p>
-                        In-depth analysis of commodity flows, port operations, and competitive landscapes
-                        across global shipping markets. Strategic insights for informed decision-making.
-                    </p>
-                    <a href="#contact" class="service-link">Learn More</a>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h3>PORT & TERMINAL OPERATIONS</h3>
+                    <ul class="expertise-list">
+                        <li>Cargo and Labor Planning</li>
+                        <li>Bulk Dry and Tank Terminal Operations</li>
+                        <li>Break Bulk and Liner Cargo Operations</li>
+                        <li>Vessel Husbandry and Ship Agency</li>
+                        <li>Stevedoring Coordination</li>
+                    </ul>
                 </div>
-                <div class="service-card">
-                    <div class="service-number">02</div>
-                    <h3>TRADE DATA ANALYSIS</h3>
-                    <p>
-                        Custom reports on import/export patterns, vessel movements, and supply chain
-                        optimization opportunities using advanced data analytics.
-                    </p>
-                    <a href="#contact" class="service-link">Learn More</a>
+                <div class="expertise-card">
+                    <h3>MARKET INTELLIGENCE & ANALYTICS</h3>
+                    <ul class="expertise-list">
+                        <li>Port & Terminal Econometric Modeling</li>
+                        <li>Commodity Market Analytics</li>
+                        <li>Supply Chain Modeling</li>
+                        <li>Geospatial Analysis</li>
+                        <li>Trade Flow Research</li>
+                    </ul>
                 </div>
-                <div class="service-card">
-                    <div class="service-number">03</div>
-                    <h3>PORT & TERMINAL STUDIES</h3>
-                    <p>
-                        Detailed assessments of port infrastructure, capacity analysis, and terminal
-                        operations benchmarking with geospatial mapping.
-                    </p>
-                    <a href="#contact" class="service-link">Learn More</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-number">04</div>
+                <div class="expertise-card">
                     <h3>STRATEGIC CONSULTING</h3>
-                    <p>
-                        Expert guidance on market entry strategies, logistics optimization, and
-                        maritime business development initiatives.
-                    </p>
-                    <a href="#contact" class="service-link">Learn More</a>
+                    <ul class="expertise-list">
+                        <li>Port Site Due Diligence Studies</li>
+                        <li>Market Entry Consultancy</li>
+                        <li>Expert Witness - US Port & Cargo Operations</li>
+                        <li>Customs Compliance and Applications</li>
+                        <li>M&A Due Diligence</li>
+                    </ul>
+                </div>
+                <div class="expertise-card">
+                    <h3>SYSTEMS & TECHNOLOGY</h3>
+                    <ul class="expertise-list">
+                        <li>ERP and CRM Implementation</li>
+                        <li>AI Analytics and Systems Design</li>
+                        <li>Maritime Data Transformations</li>
+                        <li>Process Automation</li>
+                        <li>Business Intelligence Platforms</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -898,101 +628,88 @@
             </div>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-year">2020 - PRESENT</div>
-                    <h3 class="timeline-title">Maritime Intelligence Consultant</h3>
-                    <div class="timeline-company">Independent Practice</div>
-                    <p class="timeline-description">
-                        Delivering comprehensive market research and strategic analysis for shipping
-                        companies, terminal operators, and logistics providers. Specializing in
-                        trade data analysis and port infrastructure studies.
-                    </p>
+                    <div class="timeline-year">2018 - 2025</div>
+                    <div class="timeline-content">
+                        <h3>Vice President & Head of Agency</h3>
+                        <div class="timeline-company">T. Parker Host, Inc. | Norfolk, VA</div>
+                        <p class="timeline-description">
+                            Executive leadership of ship agency operations across 15 US ports from New York to Brownsville.
+                            Full P&L responsibility, enterprise systems implementation, and operational strategy.
+                        </p>
+                    </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-year">2015 - 2020</div>
-                    <h3 class="timeline-title">Senior Market Analyst</h3>
-                    <div class="timeline-company">Global Shipping Research</div>
-                    <p class="timeline-description">
-                        Led research initiatives on commodity flows, vessel tracking, and port
-                        performance metrics. Developed data-driven methodologies for competitive
-                        intelligence gathering.
-                    </p>
+                    <div class="timeline-year">2016 - 2018</div>
+                    <div class="timeline-content">
+                        <h3>Director of Business Development</h3>
+                        <div class="timeline-company">T. Parker Host, Inc. | Norfolk, VA</div>
+                        <p class="timeline-description">
+                            Terminal development consulting including Tradepoint Atlantic redevelopment.
+                            Market analysis, supply chain modeling, and strategic partnerships with commodity traders.
+                        </p>
+                    </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-year">2012 - 2015</div>
-                    <h3 class="timeline-title">Maritime Data Specialist</h3>
-                    <div class="timeline-company">International Trade Analytics</div>
-                    <p class="timeline-description">
-                        Analyzed import/export patterns and vessel movements to identify market
-                        trends and business opportunities for clients in the maritime sector.
-                    </p>
+                    <div class="timeline-year">2006 - 2016</div>
+                    <div class="timeline-content">
+                        <h3>Regional Manager - West Gulf & South Atlantic</h3>
+                        <div class="timeline-company">T. Parker Host, Inc.</div>
+                        <p class="timeline-description">
+                            Established nine new port offices across the Gulf and South Atlantic.
+                            Led acquisition integrations and built regional operations infrastructure.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1999 - 2006</div>
+                    <div class="timeline-content">
+                        <h3>Operations Manager</h3>
+                        <div class="timeline-company">Wilhelmsen Ships Agency | New Orleans, LA</div>
+                        <p class="timeline-description">
+                            Mississippi River operations management for a global maritime services provider.
+                            Vessel coordination, cargo logistics, and regulatory compliance.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1995 - 1999</div>
+                    <div class="timeline-content">
+                        <h3>Operations Associate</h3>
+                        <div class="timeline-company">T. Parker Host, Inc. | Baltimore & Norfolk, VA</div>
+                        <p class="timeline-description">
+                            Foundation in vessel operations, coal forwarding logistics, and port coordination.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="skills-section">
+    <section class="work-section">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">Core Competencies</div>
-                <h2 class="section-title">EXPERTISE</h2>
+                <div class="section-label">Sample Work</div>
+                <h2 class="section-title">RECENT PROJECT</h2>
             </div>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>TECHNICAL SKILLS</h3>
-                    <ul class="skill-list">
-                        <li>Data Analysis & Visualization</li>
-                        <li>GIS & Geospatial Mapping</li>
-                        <li>Python & SQL</li>
-                        <li>Statistical Modeling</li>
-                        <li>Business Intelligence Tools</li>
-                    </ul>
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="images/reports-bg.jpg" alt="Florida Cement Market Analysis">
                 </div>
-                <div class="skill-category">
-                    <h3>INDUSTRY KNOWLEDGE</h3>
-                    <ul class="skill-list">
-                        <li>Port Operations</li>
-                        <li>Vessel Tracking Systems</li>
-                        <li>Trade Finance</li>
-                        <li>Supply Chain Management</li>
-                        <li>Maritime Regulations</li>
-                    </ul>
+                <div class="work-content">
+                    <h3>FLORIDA CEMENT MARKET ANALYSIS</h3>
+                    <p>
+                        Comprehensive market intelligence study covering supply infrastructure,
+                        import patterns, and customer segmentation for the Tampa Bay region.
+                        Includes geospatial mapping, trade flow analysis, and strategic recommendations.
+                    </p>
+                    <div class="work-tags">
+                        <span class="work-tag">Market Research</span>
+                        <span class="work-tag">Geospatial</span>
+                        <span class="work-tag">Trade Analysis</span>
+                        <span class="work-tag">Infrastructure</span>
+                    </div>
+                    <a href="/reports/cement/" class="btn">View Report</a>
                 </div>
-                <div class="skill-category">
-                    <h3>RESEARCH METHODS</h3>
-                    <ul class="skill-list">
-                        <li>Market Intelligence</li>
-                        <li>Competitive Analysis</li>
-                        <li>Trend Forecasting</li>
-                        <li>Risk Assessment</li>
-                        <li>Strategic Planning</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="reports-section">
-        <div class="reports-bg"></div>
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Latest Work</div>
-                <h2 class="section-title">FEATURED RESEARCH</h2>
-            </div>
-            <div class="reports-content">
-                <h3>FLORIDA CEMENT MARKET ANALYSIS</h3>
-                <p>
-                    Comprehensive market intelligence covering supply infrastructure, import trends,
-                    customer segmentation, and growth opportunities in the Tampa Bay region.
-                    Detailed geospatial analysis with actionable business insights.
-                </p>
-                <div class="report-tags">
-                    <span class="report-tag">Market Intelligence</span>
-                    <span class="report-tag">Infrastructure Maps</span>
-                    <span class="report-tag">Trade Flow Analysis</span>
-                    <span class="report-tag">Customer Mapping</span>
-                    <span class="report-tag">Executive Summary</span>
-                </div>
-                <a href="/reports/cement/" class="btn btn-primary">View Full Report</a>
             </div>
         </div>
     </section>
@@ -1000,31 +717,28 @@
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">Let's Connect</div>
+                <div class="section-label">Get in Touch</div>
                 <h2 class="section-title">CONTACT</h2>
-                <p class="section-subtitle">
-                    Ready to discuss your maritime research needs? Reach out for a consultation.
-                </p>
             </div>
             <div class="contact-grid">
                 <div class="contact-item">
-                    <h3>EMAIL</h3>
+                    <h3>Email</h3>
                     <p><a href="mailto:theshipsagent@pm.me">theshipsagent@pm.me</a></p>
                 </div>
                 <div class="contact-item">
-                    <h3>LINKEDIN</h3>
-                    <p><a href="https://linkedin.com/in/williamdavis" target="_blank">William Davis</a></p>
+                    <h3>LinkedIn</h3>
+                    <p><a href="https://www.linkedin.com/in/williamsdavis" target="_blank">williamsdavis</a></p>
                 </div>
                 <div class="contact-item">
-                    <h3>LOCATION</h3>
-                    <p>United States</p>
+                    <h3>Location</h3>
+                    <p>Chesapeake, Virginia</p>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 THE SHIP'S AGENT. ALL RIGHTS RESERVED.</p>
+        <p>William S. Davis III</p>
     </footer>
 </body>
 </html>
