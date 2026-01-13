@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ship's Agent | Coming Soon</title>
-    <meta name="description" content="A new agent for a new era. Coming soon.">
+    <title>The Ship's Agent | Maritime Analytics & Research</title>
+    <meta name="description" content="A new agent for a new era. Maritime analytics, ship agency market intelligence, and port data research.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -17,7 +17,7 @@
             background: #0a0a0a;
             color: #ffffff;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .bg-image {
@@ -49,12 +49,15 @@
             flex-direction: column;
         }
 
-        /* Header */
+        /* Header with Navigation */
         header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            padding: 2rem 3rem;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
         }
 
         .brand {
@@ -62,91 +65,199 @@
         }
 
         .brand-url {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 500;
             letter-spacing: 1px;
             color: #ffffff;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
 
         .brand-tagline {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 300;
-            color: rgba(255,255,255,0.6);
+            color: rgba(100,255,100,0.7);
             letter-spacing: 1px;
             font-style: italic;
         }
 
-        .test-link {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.4);
-            text-decoration: none;
-            letter-spacing: 1px;
-            transition: color 0.3s;
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
 
-        .test-link:hover {
+        .nav-link {
+            font-size: 0.9rem;
             color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-link.highlight {
+            border: 1px solid rgba(100,255,100,0.5);
+            color: rgba(100,255,100,0.9);
+        }
+
+        .nav-link.highlight:hover {
+            background: rgba(100,255,100,0.1);
+            border-color: rgba(100,255,100,0.8);
         }
 
         /* Main Content */
         main {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 4rem 3rem;
         }
 
-        .center-content {
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 1px;
+        }
+
+        /* Projects Grid */
+        .projects-section {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
             text-align: center;
         }
 
-        .inquiries {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin-bottom: 1.5rem;
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .linkedin-link {
+        .project-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(100,255,100,0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: rgba(100,255,100,0.9);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-stats {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .project-link {
             display: inline-block;
-            padding: 0.8rem 2rem;
-            border: 1px solid rgba(255,255,255,0.3);
-            color: #ffffff;
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            border: 1px solid rgba(100,255,100,0.5);
+            color: rgba(100,255,100,0.9);
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 400;
             letter-spacing: 1px;
+            border-radius: 4px;
             transition: all 0.3s ease;
         }
 
-        .linkedin-link:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.6);
+        .project-link:hover {
+            background: rgba(100,255,100,0.1);
+            border-color: rgba(100,255,100,0.8);
         }
 
         /* Footer */
         footer {
             padding: 2rem 3rem;
             text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3);
         }
 
         footer p {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.3);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
             letter-spacing: 1px;
+        }
+
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
         }
 
         @media (max-width: 768px) {
             header {
+                flex-direction: column;
+                gap: 1rem;
                 padding: 1.5rem;
             }
-            .brand-url {
-                font-size: 0.95rem;
+            .nav-menu {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
             }
-            .inquiries {
-                font-size: 1.2rem;
+            .nav-link {
+                width: 100%;
+                text-align: center;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -158,24 +269,127 @@
     <div class="container">
         <header>
             <div class="brand">
-                <div class="brand-url">www.shipsagent.com</div>
+                <div class="brand-url">www.theshipsagent.xyz</div>
                 <div class="brand-tagline">a new agent for a new era</div>
             </div>
-            <div style="display: flex; gap: 1.5rem;">
-                <!-- Navigation links removed - contact only -->
-            </div>
+            <nav class="nav-menu">
+                <a href="cv/" class="nav-link">Bio / CV</a>
+                <a href="ship_agency_market/" class="nav-link">Projects</a>
+                <a href="data/" class="nav-link">Data Models</a>
+                <a href="reports/" class="nav-link">Reports</a>
+                <a href="mailto:contact@theshipsagent.com" class="nav-link highlight">Contact</a>
+            </nav>
         </header>
 
         <main>
-            <div class="center-content">
-                <p class="inquiries">inquiries?</p>
-                <a href="mailto:contact@theshipsagent.com" class="linkedin-link">Contact</a>
-            </div>
+            <section class="hero-section">
+                <h1 class="hero-title">Maritime Analytics & Research</h1>
+                <p class="hero-subtitle">Data-driven insights for the maritime industry</p>
+            </section>
+
+            <section class="projects-section">
+                <h2 class="section-title">Featured Projects</h2>
+
+                <div class="projects-grid">
+                    <!-- Ship Agency Market Intelligence -->
+                    <div class="project-card" onclick="window.location.href='ship_agency_market/'">
+                        <h3 class="project-title">Ship Agency Market Intelligence</h3>
+                        <p class="project-description">
+                            Comprehensive market analysis of the U.S. ship agency industry. Revenue modeling, competitive profiling, and technology assessment across 650+ agencies.
+                        </p>
+                        <div class="project-stats">
+                            <span>$129M Market</span>
+                            <span>35 Port Groups</span>
+                            <span>65K Port Calls</span>
+                        </div>
+                        <a href="ship_agency_market/" class="project-link">View Analysis →</a>
+                    </div>
+
+                    <!-- Ship Agency Financial Model -->
+                    <div class="project-card" onclick="window.location.href='ship_agency_model/'">
+                        <h3 class="project-title">Ship Agency Financial Model</h3>
+                        <p class="project-description">
+                            Interactive financial model for ship agency operations. Revenue forecasting, staffing optimization, and P&L projections with dynamic scenario planning.
+                        </p>
+                        <div class="project-stats">
+                            <span>Excel-Based</span>
+                            <span>Scenario Planning</span>
+                            <span>Staffing Model</span>
+                        </div>
+                        <a href="ship_agency_model/" class="project-link">Explore Model →</a>
+                    </div>
+
+                    <!-- Port Data Analytics -->
+                    <div class="project-card">
+                        <h3 class="project-title">Port Data Analytics</h3>
+                        <p class="project-description">
+                            USACE entrance/clearance data enrichment with vessel characteristics, port harmonization, and agency fee modeling. GIS mapping and visualization.
+                        </p>
+                        <div class="project-stats">
+                            <span>90K Records</span>
+                            <span>1,100+ Ports</span>
+                            <span>Python/GIS</span>
+                        </div>
+                        <a href="#" class="project-link">Coming Soon →</a>
+                    </div>
+
+                    <!-- Tampa Cement Terminal -->
+                    <div class="project-card">
+                        <h3 class="project-title">Tampa Cement Terminal Analysis</h3>
+                        <p class="project-description">
+                            Deep dive into Tampa Bay cement import operations. Vessel tracking, cargo flows, environmental compliance, and competitive intelligence.
+                        </p>
+                        <div class="project-stats">
+                            <span>Multi-Year Data</span>
+                            <span>EPA Compliance</span>
+                            <span>Market Share</span>
+                        </div>
+                        <a href="#" class="project-link">Coming Soon →</a>
+                    </div>
+
+                    <!-- Genealogy Research -->
+                    <div class="project-card">
+                        <h3 class="project-title">Colonial Genealogy Research</h3>
+                        <p class="project-description">
+                            Historical research on early Virginia settlers (Davis, Brantley, Hotten families). OCR/transcription of 17th-century records using GPT-4 Vision.
+                        </p>
+                        <div class="project-stats">
+                            <span>1600s Records</span>
+                            <span>AI Transcription</span>
+                            <span>Archive.org</span>
+                        </div>
+                        <a href="#" class="project-link">View Research →</a>
+                    </div>
+
+                    <!-- Panjiva Manifest Data -->
+                    <div class="project-card">
+                        <h3 class="project-title">U.S. Import/Export Manifests</h3>
+                        <p class="project-description">
+                            Processing 262K Panjiva manifest line items into consolidated port calls. Cargo classification, HS code analysis, vessel/port enrichment.
+                        </p>
+                        <div class="project-stats">
+                            <span>24K Port Calls</span>
+                            <span>IMO Matching</span>
+                            <span>Cargo Analysis</span>
+                        </div>
+                        <a href="#" class="project-link">Explore Data →</a>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer>
-            <p>coming soon</p>
+            <p>© 2026 The Ship's Agent | Maritime Analytics & Research</p>
         </footer>
     </div>
+
+    <script>
+        // Prevent card click when clicking on link
+        document.querySelectorAll('.project-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
+    </script>
 </body>
 </html>
