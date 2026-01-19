@@ -531,75 +531,99 @@
         let currentVideoIndex = 0;
         let isTransitioning = false;
 
-        // Preload all videos and set playback rates for balanced speed
+        // Playback rates for each video
+        const playbackRates = [0.75, 0.9, 1.0, 0.85, 0.9, 0.85, 1.0];
+
+        // Preload all videos and set playback rates
         videos.forEach((video, index) => {
+            video.playbackRate = playbackRates[index];
             video.load();
-            // Set playback rates to balance speeds
-            if (index === 0) video.playbackRate = 0.75; // midstream - slow it down
-            if (index === 1) video.playbackRate = 0.9;  // stock1
-            if (index === 2) video.playbackRate = 1.0;  // coal_dta
-            if (index === 3) video.playbackRate = 0.85; // bulk_disch
-            if (index === 4) video.playbackRate = 0.9;  // moran
-            if (index === 5) video.playbackRate = 0.85; // train_curve
-            if (index === 6) video.playbackRate = 1.0;  // portdome
+
+            // Add error handler
+            video.addEventListener('error', (e) => {
+                console.error(`Video ${index} error:`, e);
+            });
+
+            // Add ended event as fallback
+            video.addEventListener('ended', () => {
+                if (index === currentVideoIndex && !isTransitioning) {
+                    console.log(`Video ${index} ended naturally, switching...`);
+                    switchToNextVideo();
+                }
+            });
         });
 
-        // Start first video
-        videos[0].play();
+        // Start first video with error handling
+        videos[0].play().catch(err => {
+            console.error('Error playing first video:', err);
+        });
 
         // Switch to next video with smooth crossfade
         function switchToNextVideo() {
-            if (isTransitioning) return;
+            if (isTransitioning) {
+                console.log('Already transitioning, skipping...');
+                return;
+            }
             isTransitioning = true;
 
             const currentVideo = videos[currentVideoIndex];
             const nextIndex = (currentVideoIndex + 1) % videos.length;
             const nextVideo = videos[nextIndex];
 
-            console.log('Switching from video', currentVideoIndex, 'to', nextIndex);
+            console.log(`Switching from video ${currentVideoIndex} to ${nextIndex}`);
 
-            // Start next video playing underneath with correct playback rate
+            // Prepare next video
             nextVideo.currentTime = 0;
-            // Ensure playback rate is set before playing
-            if (nextIndex === 0) nextVideo.playbackRate = 0.75; // midstream
-            if (nextIndex === 1) nextVideo.playbackRate = 0.9;  // stock1
-            if (nextIndex === 2) nextVideo.playbackRate = 1.0;  // coal_dta
-            if (nextIndex === 3) nextVideo.playbackRate = 0.85; // bulk_disch
-            if (nextIndex === 4) nextVideo.playbackRate = 0.9;  // moran
-            if (nextIndex === 5) nextVideo.playbackRate = 0.85; // train_curve
-            if (nextIndex === 6) nextVideo.playbackRate = 1.0;  // portdome
-            nextVideo.play().then(() => {
-                // Begin crossfade after play starts
-                setTimeout(() => {
-                    nextVideo.classList.add('active');
-                    currentVideo.classList.remove('active');
-                }, 50);
+            nextVideo.playbackRate = playbackRates[nextIndex];
 
-                // Clean up after transition completes
-                setTimeout(() => {
-                    currentVideo.pause();
-                    currentVideo.currentTime = 0;
-                    currentVideoIndex = nextIndex;
+            // Start playing next video
+            const playPromise = nextVideo.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log(`Video ${nextIndex} playing successfully`);
+
+                    // Begin crossfade after play starts
+                    setTimeout(() => {
+                        nextVideo.classList.add('active');
+                        currentVideo.classList.remove('active');
+                    }, 50);
+
+                    // Clean up after transition completes
+                    setTimeout(() => {
+                        currentVideo.pause();
+                        currentVideo.currentTime = 0;
+                        currentVideoIndex = nextIndex;
+                        isTransitioning = false;
+                        console.log(`Transition complete, now on video ${currentVideoIndex}`);
+                    }, 2600);
+                }).catch(err => {
+                    console.error(`Error playing video ${nextIndex}:`, err);
+                    // Reset state on error
                     isTransitioning = false;
-                    console.log('Transition complete, now on video', currentVideoIndex);
-                }, 2600);
-            }).catch(err => {
-                console.error('Error playing next video:', err);
-                isTransitioning = false;
-            });
+
+                    // Try to continue to next video after a delay
+                    setTimeout(() => {
+                        if (!isTransitioning) {
+                            currentVideoIndex = nextIndex;
+                            switchToNextVideo();
+                        }
+                    }, 1000);
+                });
+            }
         }
 
-        // Check video progress every 100ms
+        // Check video progress every 200ms
         setInterval(() => {
             const currentVideo = videos[currentVideoIndex];
-            if (!isTransitioning && currentVideo.duration) {
+            if (!isTransitioning && currentVideo && currentVideo.duration && !currentVideo.paused) {
                 const timeRemaining = currentVideo.duration - currentVideo.currentTime;
                 // Start transition 2.5 seconds before end
                 if (timeRemaining <= 2.5 && timeRemaining > 0) {
                     switchToNextVideo();
                 }
             }
-        }, 100);
+        }, 200);
 
         // Open modal
         contactLink.addEventListener('click', (e) => {
