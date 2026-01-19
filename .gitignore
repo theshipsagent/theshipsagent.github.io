@@ -12,6 +12,8 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+.claude/
+.playwright-mcp/
 
 # Node modules (if using npm)
 node_modules/
@@ -23,3 +25,16 @@ build/
 # Logs
 *.log
 npm-debug.log*
+
+# Video working files
+videos/test_*.mp4
+videos/test_*.jpg
+videos/concat_*.txt
+videos/trimmed/
+videos/background_loop.mp4
+videos/background_loop_optimized.mp4
+videos/artistic_3s_loop.mp4
+videos/test_*.html
+
+# Working/draft files
+fix_edge_dns.bat
