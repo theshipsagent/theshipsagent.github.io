@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Reports | The Ship's Agent</title>
+    <meta name="description" content="Professional maritime market research reports and industry analysis.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --navy: #1a365d;
+            --navy-dark: #0f172a;
+            --gold: #d69e2e;
+            --gold-light: #ecc94b;
+            --white: #f8fafc;
+            --gray: #94a3b8;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--navy-dark);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        nav {
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(214, 158, 46, 0.2);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+        .logo span { color: var(--gold); }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        h1 span { color: var(--gold); }
+        .subtitle {
+            color: var(--gray);
+            margin-bottom: 3rem;
+        }
+        .report-category {
+            background: rgba(26, 54, 93, 0.5);
+            border: 1px solid rgba(214, 158, 46, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s;
+        }
+        .report-category:hover {
+            border-color: var(--gold);
+        }
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .category-header h2 {
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+        .report-count {
+            background: rgba(214, 158, 46, 0.15);
+            color: var(--gold);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+        .category-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--gold);
+            color: var(--navy-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(214, 158, 46, 0.2);
+        }
+        footer p {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">The Ship's <span>Agent</span></a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/reports/">Reports</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Research <span>Reports</span></h1>
+        <p class="subtitle">Professional market research and industry analysis for the maritime sector.</p>
+
+        <div class="report-category" style="border-color: var(--gold);">
+            <div class="category-header">
+                <h2>USTR Section 301 Maritime Fees</h2>
+                <span class="report-count" style="background: var(--gold); color: var(--navy-dark);">NEW</span>
+            </div>
+            <p class="category-description">
+                <strong>A Ship Owner's Guide to Administrative Remedies.</strong> Practical guidance on challenging USTR port fees,
+                seeking refunds for payments made October-November 2025, and navigating CBP headquarters rulings.
+                Covers the refund process under 19 CFR § 4.24, protest procedures, and the path to judicial review
+                in the Court of International Trade. Fees suspended until November 2026—owners have 11 months to act.
+            </p>
+            <a href="/reports/ustr/" class="btn">Read Analysis</a>
+        </div>
+
+        <div class="report-category">
+            <div class="category-header">
+                <h2>Cement Market Analysis</h2>
+                <span class="report-count">11 Reports</span>
+            </div>
+            <p class="category-description">
+                Comprehensive market intelligence covering the U.S. cement industry with a focus on the Florida/Tampa Bay region.
+                Includes supply infrastructure mapping, import/export trade flows, customer segmentation, and competitive analysis
+                for gray and white cement markets.
+            </p>
+            <a href="/reports/cement/" class="btn">View Cement Reports</a>
+        </div>
+
+        <!-- Future report categories can be added here -->
+        <!--
+        <div class="report-category">
+            <div class="category-header">
+                <h2>Ship Agency Market</h2>
+                <span class="report-count">Coming Soon</span>
+            </div>
+            <p class="category-description">
+                Analysis of the U.S. ship agency market including competitive landscape and market positioning.
+            </p>
+        </div>
+        -->
+    </div>
+
+    <footer>
+        <p><a href="/">&larr; Back to Home</a> &nbsp;|&nbsp; &copy; 2025 The Ship's Agent</p>
+    </footer>
+</body>
+</html>
