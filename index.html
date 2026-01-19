@@ -411,7 +411,7 @@
     <div class="glass-overlay"></div>
 
     <div class="bg-container">
-        <video class="bg-video active" id="video1" muted playsinline>
+        <video class="bg-video active" id="video1" autoplay muted playsinline>
             <source src="videos/shorts/midstream_5s.mp4" type="video/mp4">
         </video>
         <video class="bg-video" id="video2" muted playsinline>
@@ -533,11 +533,12 @@
 
         // Playback rates for each video
         const playbackRates = [0.75, 0.9, 1.0, 0.85, 0.9, 0.85, 1.0];
+        let hasStarted = false;
 
         // Preload all videos and set playback rates
         videos.forEach((video, index) => {
             video.playbackRate = playbackRates[index];
-            video.load();
+            video.loop = false; // Disable loop since we handle transitions
 
             // Add error handler
             video.addEventListener('error', (e) => {
@@ -551,12 +552,43 @@
                     switchToNextVideo();
                 }
             });
+
+            // Add canplay event to ensure video is ready
+            video.addEventListener('canplay', () => {
+                if (index === 0 && !hasStarted) {
+                    console.log('First video ready to play');
+                }
+            });
         });
 
-        // Start first video with error handling
-        videos[0].play().catch(err => {
-            console.error('Error playing first video:', err);
-        });
+        // Initialize video playback
+        function initializeVideos() {
+            if (hasStarted) return;
+            hasStarted = true;
+
+            console.log('Initializing video playback...');
+            videos[0].play().then(() => {
+                console.log('First video playing successfully');
+            }).catch(err => {
+                console.error('Error playing first video:', err);
+                // Show a play button or message if autoplay is blocked
+                console.log('Click anywhere to start videos');
+            });
+        }
+
+        // Try to start automatically
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeVideos);
+        } else {
+            initializeVideos();
+        }
+
+        // Fallback: start on first user interaction
+        document.body.addEventListener('click', () => {
+            if (!hasStarted) {
+                initializeVideos();
+            }
+        }, { once: true });
 
         // Switch to next video with smooth crossfade
         function switchToNextVideo() {
