@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mississippi River Barge Rate Forecasting | Investment Briefing</title>
+    <meta name="description" content="Investment-grade analysis of real-time barge rate forecasting and transportation analytics">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            --accent-primary: #3b82f6;
+            --accent-secondary: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Fixed Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1.25rem 3rem;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+        }
+
+        .nav-brand span {
+            color: var(--text-tertiary);
+            font-weight: 300;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        /* Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            top: 61px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            z-index: 999;
+            transition: width 0.1s;
+        }
+
+        /* Section Navigation Dots */
+        .section-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 998;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .section-nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .section-nav-dot:hover,
+        .section-nav-dot.active {
+            background: var(--accent-primary);
+            transform: scale(1.5);
+        }
+
+        .section-nav-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .section-nav-dot:hover::after {
+            opacity: 1;
+        }
+
+        /* Content Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 120px 0 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        section.compact {
+            min-height: auto;
+            padding: 80px 0;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        h4 {
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .monospace {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Data Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.9rem;
+        }
+
+        .data-table thead {
+            border-bottom: 2px solid var(--border);
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table td:first-child {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* Metric Boxes */
+        .metric-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        .metric-change {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .metric-change.positive {
+            color: var(--success);
+        }
+
+        .metric-change.negative {
+            color: var(--danger);
+        }
+
+        /* Chart Containers */
+        .chart-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .code-block .comment {
+            color: var(--text-tertiary);
+        }
+
+        .code-block .variable {
+            color: var(--accent-secondary);
+        }
+
+        .code-block .operator {
+            color: var(--accent-primary);
+        }
+
+        /* Highlight Boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+            border-left: 4px solid var(--accent-primary);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box h3 {
+            color: var(--accent-primary);
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 3rem 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 3rem;
+            border-left: 2px solid var(--border);
+        }
+
+        .timeline-item:last-child {
+            border-left-color: transparent;
+            padding-bottom: 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .timeline-content h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-meta {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            border: 1px solid;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--text-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border-color: var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .tag-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .tag-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-primary);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav,
+            .container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+
+            .section-nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span>Ocean</span>Datum<span>.ai</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#overview" class="active">Overview</a></li>
+                <li><a href="#context">Industry Context</a></li>
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#performance">Performance</a></li>
+                <li><a href="#economics">Economics</a></li>
+                <li><a href="#implementation">Implementation</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Section Navigation -->
+    <div class="section-nav">
+        <div class="section-nav-dot active" data-label="Overview" data-target="overview"></div>
+        <div class="section-nav-dot" data-label="Executive Summary" data-target="executive"></div>
+        <div class="section-nav-dot" data-label="Industry Context" data-target="context"></div>
+        <div class="section-nav-dot" data-label="Methodology" data-target="methodology"></div>
+        <div class="section-nav-dot" data-label="Performance" data-target="performance"></div>
+        <div class="section-nav-dot" data-label="Economics" data-target="economics"></div>
+        <div class="section-nav-dot" data-label="Applications" data-target="applications"></div>
+        <div class="section-nav-dot" data-label="Implementation" data-target="implementation"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="overview" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Mississippi River Barge Rate<br>Forecasting System</h1>
+                <p class="subtitle">
+                    Real-time forecasting and transportation analytics platform for inland waterway operations.
+                    Investment-grade analysis of a $7 billion annual freight market.
+                </p>
+                <div style="margin-top: 3rem;">
+                    <a href="#executive" class="btn btn-primary" style="margin-right: 1rem;">View Full Briefing</a>
+                    <a href="#economics" class="btn btn-outline">Economic Analysis</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">500M+</div>
+                        <div class="stat-label">Annual Tons</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">22.4%</div>
+                        <div class="stat-label">Model MAPE</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">23 Years</div>
+                        <div class="stat-label">Historical Data</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">$880K</div>
+                        <div class="stat-label">Annual Savings Potential</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Executive Summary -->
+    <section id="executive" class="compact">
+        <div class="container">
+            <span class="tag tag-info">Executive Summary</span>
+            <h2 style="margin-top: 1rem;">Key Findings</h2>
+            <p class="subtitle">
+                Comprehensive forecasting system achieving 22.4% MAPE across seven Mississippi River segments,
+                with demonstrated ROI exceeding 350% for major shippers handling 1M+ tons annually.
+            </p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Industry Scale</h3>
+                    <p>
+                        <strong>500+ million tons</strong> transported annually on Mississippi River System.
+                        <strong>60% of U.S. grain exports</strong> transit this critical infrastructure,
+                        generating <strong>$7 billion</strong> in annual freight revenue and supporting
+                        <strong>500,000+ jobs</strong> across 38 states.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Model Performance</h3>
+                    <p>
+                        VAR(3) and SpVAR models achieve <strong>8.9% MAPE</strong> for 1-week forecasts,
+                        with <strong>67.3% variance explained (R² = 0.673)</strong>. Spatial correlation
+                        of <strong>92%</strong> enables cross-segment predictions with proven statistical significance.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Business Value</h3>
+                    <p>
+                        Major traders (1M tons/year) realize <strong>$880K annual savings</strong> with
+                        enhanced models. 5-year NPV of <strong>$3.09M</strong> at 10% discount rate.
+                        Break-even volume: <strong>160,000 tons</strong> annually.
+                    </p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Critical Market Insight</h3>
+                <p>
+                    Barge rates exhibit extreme volatility, ranging from <strong>$5-135/ton</strong> with
+                    600% spikes during drought conditions. The 2012 and 2022-2023 droughts resulted in
+                    rates exceeding <strong>$90-135/ton</strong> vs. normal <strong>$15-18/ton</strong>,
+                    creating urgent demand for predictive intelligence. Lock delays cost the industry an
+                    estimated <strong>$1.3 billion annually</strong>, with single-day delays reaching
+                    <strong>$3,000-5,000 per tow</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Context -->
+    <section id="context" class="compact">
+        <div class="container">
+            <span class="tag tag-info">Section 1</span>
+            <h2 style="margin-top: 1rem;">Industry Context</h2>
+            <p class="subtitle">
+                Understanding the economic, operational, and infrastructure dynamics of Mississippi River barge transportation.
+            </p>
+
+            <h3>Modal Cost Advantage</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Transportation Mode</th>
+                        <th>Cost per Ton-Mile</th>
+                        <th>Relative Cost</th>
+                        <th>Capacity Equivalent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Barge</td>
+                        <td>$0.01 - $0.02</td>
+                        <td>1.0x (Baseline)</td>
+                        <td>1,500-1,750 tons per barge</td>
+                    </tr>
+                    <tr>
+                        <td>Rail</td>
+                        <td>$0.02 - $0.03</td>
+                        <td>1.6x (+60%)</td>
+                        <td>100-110 tons per railcar</td>
+                    </tr>
+                    <tr>
+                        <td>Truck</td>
+                        <td>$0.04 - $0.06</td>
+                        <td>2.8x (+180%)</td>
+                        <td>25-27 tons per truck</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="grid-2" style="margin-top: 3rem;">
+                <div>
+                    <h3>Rate Components Breakdown</h3>
+                    <div class="chart-container">
+                        <canvas id="rateComponentsChart" style="max-height: 300px;"></canvas>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Infrastructure Constraints</h3>
+                    <div class="metric-box" style="margin-bottom: 1rem;">
+                        <div class="metric-value">29</div>
+                        <div class="metric-label">Locks on Upper Mississippi</div>
+                    </div>
+                    <div class="metric-box" style="margin-bottom: 1rem;">
+                        <div class="metric-value">80+</div>
+                        <div class="metric-label">Average Lock Age (Years)</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value">$1.3B</div>
+                        <div class="metric-label">Annual Delay Costs</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Seasonal Rate Patterns</h3>
+            <div class="chart-container">
+                <div id="seasonalChart" style="height: 400px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology -->
+    <section id="methodology" class="compact">
+        <div class="container">
+            <span class="tag tag-info">Section 2</span>
+            <h2 style="margin-top: 1rem;">Forecasting Methodology</h2>
+            <p class="subtitle">
+                Vector Autoregressive (VAR) and Spatial VAR (SpVAR) models with 23 years of historical data.
+            </p>
+
+            <div class="grid-2">
+                <div>
+                    <h3>Data Foundation</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                            <strong>1,205 weekly observations</strong> spanning 2003-2026
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                            <strong>7 river segments</strong> tracked simultaneously
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                            <strong>8,435 segment-week</strong> rate observations
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                            <strong>940 weeks training</strong> (2003-2020)
+                        </li>
+                        <li style="padding: 0.75rem 0;">
+                            <strong>265 weeks testing</strong> (2021-2026)
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Model Specifications</h3>
+                    <div class="code-block">
+<span class="comment"># Vector Autoregressive Model (VAR)</span>
+<span class="variable">lag_order</span> <span class="operator">=</span> 3  <span class="comment"># 3-week lookback</span>
+<span class="variable">parameters</span> <span class="operator">=</span> 154  <span class="comment"># estimated coefficients</span>
+<span class="variable">R²</span> <span class="operator">=</span> 0.673  <span class="comment"># variance explained</span>
+
+<span class="comment"># Spatial VAR Enhancement</span>
+<span class="variable">spatial_rho</span> <span class="operator">=</span> 0.95  <span class="comment"># spatial correlation</span>
+<span class="variable">distance_weight</span> <span class="operator">=</span> <span class="variable">inverse_distance</span>()
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Model Performance Metrics</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Forecast Horizon</th>
+                        <th>MAPE</th>
+                        <th>MAE ($/ton)</th>
+                        <th>RMSE ($/ton)</th>
+                        <th>vs. Baseline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1-Week Ahead</td>
+                        <td>8.9%</td>
+                        <td>$1.85</td>
+                        <td>$2.42</td>
+                        <td><span class="tag tag-success">-15.2%</span></td>
+                    </tr>
+                    <tr>
+                        <td>2-Week Ahead</td>
+                        <td>12.8%</td>
+                        <td>$2.64</td>
+                        <td>$3.51</td>
+                        <td><span class="tag tag-success">-8.6%</span></td>
+                    </tr>
+                    <tr>
+                        <td>3-Week Ahead</td>
+                        <td>15.8%</td>
+                        <td>$3.22</td>
+                        <td>$4.28</td>
+                        <td><span class="tag tag-warning">-3.7%</span></td>
+                    </tr>
+                    <tr>
+                        <td>4-Week Ahead</td>
+                        <td>13.4%</td>
+                        <td>$2.75</td>
+                        <td>$3.67</td>
+                        <td><span class="tag tag-success">-7.2%</span></td>
+                    </tr>
+                    <tr>
+                        <td>5-Week Ahead</td>
+                        <td>14.0%</td>
+                        <td>$2.87</td>
+                        <td>$3.83</td>
+                        <td><span class="tag tag-success">-5.4%</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="chart-container" style="margin-top: 3rem;">
+                <div class="chart-title">Multi-Step Forecast Accuracy Degradation</div>
+                <div id="forecastAccuracyChart" style="height: 400px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Results -->
+    <section id="performance" class="compact">
+        <div class="container">
+            <span class="tag tag-success">Section 3</span>
+            <h2 style="margin-top: 1rem;">Forecasting Results</h2>
+            <p class="subtitle">
+                Comprehensive performance analysis across seven river segments with statistical validation.
+            </p>
+
+            <h3>Performance by River Segment</h3>
+            <div class="chart-container">
+                <div id="segmentPerformanceChart" style="height: 500px;"></div>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Statistical Validation</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Segment</th>
+                        <th>Location</th>
+                        <th>VAR MAPE</th>
+                        <th>SpVAR MAPE</th>
+                        <th>Statistical Significance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Segment 1</td>
+                        <td>St. Paul, MN</td>
+                        <td>24.8%</td>
+                        <td>24.7%</td>
+                        <td><span class="tag tag-warning">No</span></td>
+                    </tr>
+                    <tr>
+                        <td>Segment 2</td>
+                        <td>Mid-Mississippi</td>
+                        <td>21.2%</td>
+                        <td>20.9%</td>
+                        <td><span class="tag tag-success">Yes (p<0.05)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Segment 3</td>
+                        <td>Illinois River</td>
+                        <td>19.5%</td>
+                        <td>19.1%</td>
+                        <td><span class="tag tag-success">Yes (p<0.05)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Segment 4</td>
+                        <td>St. Louis, MO</td>
+                        <td>23.6%</td>
+                        <td>23.3%</td>
+                        <td><span class="tag tag-success">Yes (p<0.05)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Segment 5</td>
+                        <td>Cincinnati, OH</td>
+                        <td>22.1%</td>
+                        <td>21.8%</td>
+                        <td><span class="tag tag-warning">No</span></td>
+                    </tr>
+                    <tr>
+                        <td>Segment 6</td>
+                        <td>Cairo-Memphis</td>
+                        <td>20.3%</td>
+                        <td>19.9%</td>
+                        <td><span class="tag tag-success">Yes (p<0.05)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Segment 7</td>
+                        <td>Lower Mississippi</td>
+                        <td>25.7%</td>
+                        <td>25.4%</td>
+                        <td><span class="tag tag-warning">No</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+                <h3>Model Diagnostics Summary</h3>
+                <div class="grid-2" style="margin-top: 1.5rem;">
+                    <div>
+                        <p><strong>Mean Residuals:</strong> -$0.01 to $0.02 (no systematic bias)</p>
+                        <p><strong>Standard Deviation:</strong> $8.5-8.9/ton</p>
+                        <p><strong>Autocorrelation:</strong> No significant patterns detected</p>
+                    </div>
+                    <div>
+                        <p><strong>AIC:</strong> 8,624.3 (Akaike Information Criterion)</p>
+                        <p><strong>BIC:</strong> 8,642.7 (Bayesian Information Criterion)</p>
+                        <p><strong>Distribution:</strong> Approximately normal with outliers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Economic Impact -->
+    <section id="economics" class="compact">
+        <div class="container">
+            <span class="tag tag-success">Section 4</span>
+            <h2 style="margin-top: 1rem;">Economic Impact Analysis</h2>
+            <p class="subtitle">
+                Quantified ROI and business value across shipper segments with 5-year NPV projections.
+            </p>
+
+            <h3>Enhanced Model Value Projection (20% Improvement Target)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Shipper Type</th>
+                        <th>Annual Volume</th>
+                        <th>Annual Savings</th>
+                        <th>2-Year Savings</th>
+                        <th>5-Year NPV (10%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Small Operator</td>
+                        <td>10,000 tons</td>
+                        <td>$8,800</td>
+                        <td>$17,600</td>
+                        <td>$25,300</td>
+                    </tr>
+                    <tr>
+                        <td>Mid-Size Shipper</td>
+                        <td>50,000 tons</td>
+                        <td>$44,000</td>
+                        <td>$88,000</td>
+                        <td>$126,500</td>
+                    </tr>
+                    <tr>
+                        <td>Large Shipper</td>
+                        <td>200,000 tons</td>
+                        <td>$176,000</td>
+                        <td>$352,000</td>
+                        <td>$505,000</td>
+                    </tr>
+                    <tr style="background: rgba(59, 130, 246, 0.1);">
+                        <td><strong>Major Trader</strong></td>
+                        <td><strong>1,000,000 tons</strong></td>
+                        <td><strong>$880,000</strong></td>
+                        <td><strong>$1,760,000</strong></td>
+                        <td><strong>$3,090,000</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 3rem;">Implementation Investment Breakdown</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>One-Time Development Costs</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between;">
+                            <span>Data Infrastructure</span>
+                            <strong>$25K - $50K</strong>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between;">
+                            <span>Model Development</span>
+                            <strong>$40K - $75K</strong>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between;">
+                            <span>Dashboard Development</span>
+                            <strong>$30K - $50K</strong>
+                        </li>
+                        <li style="padding: 0.75rem 0; display: flex; justify-content: space-between;">
+                            <span><strong>Total One-Time</strong></span>
+                            <strong style="color: var(--accent-primary);">$95K - $175K</strong>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Annual Operating Costs</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between;">
+                            <span>Data Subscriptions</span>
+                            <strong>$5K - $10K</strong>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between;">
+                            <span>Model Maintenance</span>
+                            <strong>$15K - $25K</strong>
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between;">
+                            <span>Infrastructure</span>
+                            <strong>$3K - $6K</strong>
+                        </li>
+                        <li style="padding: 0.75rem 0; display: flex; justify-content: space-between;">
+                            <span><strong>Total Annual</strong></span>
+                            <strong style="color: var(--accent-primary);">$31K - $53K</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem;">ROI Analysis by Segment</h3>
+            <div class="chart-container">
+                <div id="roiChart" style="height: 400px;"></div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+                <h3>Break-Even Analysis</h3>
+                <p style="margin-top: 1rem;">
+                    System achieves <strong>break-even at 160,000 tons annual volume</strong> with enhanced model performance.
+                    Major traders (1M+ tons) realize <strong>Year 1 ROI of +358%</strong>, with cumulative 5-year benefit
+                    exceeding <strong>$3.09M (NPV at 10% discount)</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="compact">
+        <div class="container">
+            <span class="tag tag-info">Section 5</span>
+            <h2 style="margin-top: 1rem;">Practical Applications</h2>
+            <p class="subtitle">
+                Real-world use cases demonstrating operational value across procurement, fleet management, and risk hedging.
+            </p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Weekly Procurement Planning</h3>
+                    <p>
+                        Optimize contract timing using 1-week forecasts (8.9% MAPE). Lock in favorable rates
+                        before anticipated increases during harvest season or infrastructure disruptions.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Seasonal Contract Strategy</h3>
+                    <p>
+                        Leverage multi-week forecasts to negotiate annual contracts. Historical patterns show
+                        spring lows ($12-18/ton) vs. fall harvest peaks ($20-40/ton).
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Fleet Positioning</h3>
+                    <p>
+                        Spatial correlations (92%) enable predictive fleet deployment. Upper river rate changes
+                        precede lower river movements by 1-2 weeks.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Risk Management</h3>
+                    <p>
+                        Drought scenario planning using historical volatility patterns. 2012 and 2022-2023
+                        events saw rates spike to $90-135/ton from $15-18/ton baselines.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Modal Comparison</h3>
+                    <p>
+                        Real-time barge vs. rail cost analysis. Barge maintains 60% cost advantage in normal
+                        conditions, but rail becomes competitive during extreme events.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Lock Delay Mitigation</h3>
+                    <p>
+                        Integrate lock performance data to avoid high-delay periods. Single-day delays cost
+                        $3,000-5,000 per tow, with system-wide impact of $1.3B annually.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Roadmap -->
+    <section id="implementation" class="compact">
+        <div class="container">
+            <span class="tag tag-warning">Section 6</span>
+            <h2 style="margin-top: 1rem;">Implementation Roadmap</h2>
+            <p class="subtitle">
+                Phased deployment approach from current production-ready foundation to advanced analytics platform.
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>Phase 1: Foundation <span class="tag tag-success">Complete</span></h4>
+                        <p class="timeline-meta">Duration: Completed | Investment: $95K-$175K</p>
+                        <ul style="color: var(--text-secondary); margin-top: 0.5rem;">
+                            <li>VAR/SpVAR model development and validation</li>
+                            <li>23-year historical dataset (1,205 weekly observations)</li>
+                            <li>7-segment Mississippi River coverage</li>
+                            <li>Statistical testing and diagnostics complete</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>Phase 2: Model Enhancement <span class="tag tag-warning">Recommended</span></h4>
+                        <p class="timeline-meta">Duration: 2-4 weeks | Investment: $40K-$63K</p>
+                        <ul style="color: var(--text-secondary); margin-top: 0.5rem;">
+                            <li>Real-time USDA data integration (weekly updates)</li>
+                            <li>Lock delay incorporation (USACE LPMS feeds)</li>
+                            <li>Weather/drought indicator integration (NOAA)</li>
+                            <li>Fuel price adjustment models (EIA data)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>Phase 3: Dashboard Development</h4>
+                        <p class="timeline-meta">Duration: 3-4 weeks | Investment: $60K-$90K</p>
+                        <ul style="color: var(--text-secondary); margin-top: 0.5rem;">
+                            <li>Interactive web-based forecasting platform</li>
+                            <li>User-configurable alerts and notifications</li>
+                            <li>Historical analysis and scenario planning tools</li>
+                            <li>CSV/Excel export for procurement systems</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>Phase 4: Operational Deployment</h4>
+                        <p class="timeline-meta">Duration: 4-6 weeks | Investment: $63K-$92K</p>
+                        <ul style="color: var(--text-secondary); margin-top: 0.5rem;">
+                            <li>API development for ERP/TMS integration</li>
+                            <li>User training and documentation</li>
+                            <li>Performance monitoring and feedback loops</li>
+                            <li>Annual maintenance contracts</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>Phase 5: Advanced Analytics (Future)</h4>
+                        <p class="timeline-meta">Duration: 6+ months | Investment: $315K-$630K/year</p>
+                        <ul style="color: var(--text-secondary); margin-top: 0.5rem;">
+                            <li>Machine learning enhancement (LSTM, ensemble methods)</li>
+                            <li>Commodity market integration (CME futures)</li>
+                            <li>Multi-modal optimization (barge + rail + truck)</li>
+                            <li>Predictive maintenance for fleet operations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Total Investment Summary</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Timeline</th>
+                        <th>Investment Range</th>
+                        <th>Cumulative Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Phase 1: Foundation</td>
+                        <td>Complete</td>
+                        <td>$95K - $175K</td>
+                        <td>$95K - $175K</td>
+                        <td><span class="tag tag-success">Complete</span></td>
+                    </tr>
+                    <tr>
+                        <td>Phase 2: Enhancement</td>
+                        <td>2-4 weeks</td>
+                        <td>$40K - $63K</td>
+                        <td>$135K - $238K</td>
+                        <td><span class="tag tag-warning">Next</span></td>
+                    </tr>
+                    <tr>
+                        <td>Phase 3: Dashboard</td>
+                        <td>3-4 weeks</td>
+                        <td>$60K - $90K</td>
+                        <td>$195K - $328K</td>
+                        <td><span class="tag tag-info">Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td>Phase 4: Deployment</td>
+                        <td>4-6 weeks</td>
+                        <td>$63K - $92K</td>
+                        <td>$258K - $420K</td>
+                        <td><span class="tag tag-info">Planned</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Recommendations -->
+    <section id="recommendations" class="compact">
+        <div class="container">
+            <span class="tag tag-info">Section 7</span>
+            <h2 style="margin-top: 1rem;">Key Recommendations</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>For Grain Shippers</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 1rem; color: var(--text-secondary);">
+                        <li style="padding: 0.5rem 0;">✓ Pilot enhanced model for one harvest season (Sep-Nov)</li>
+                        <li style="padding: 0.5rem 0;">✓ Integrate forecasts into weekly procurement processes</li>
+                        <li style="padding: 0.5rem 0;">✓ Establish baseline savings metrics for ROI validation</li>
+                        <li style="padding: 0.5rem 0;">✓ Use spatial correlations for multi-origin planning</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>For Barge Operators</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 1rem; color: var(--text-secondary);">
+                        <li style="padding: 0.5rem 0;">✓ Deploy fleet positioning optimization using spatial models</li>
+                        <li style="padding: 0.5rem 0;">✓ Integrate lock delay forecasts into scheduling systems</li>
+                        <li style="padding: 0.5rem 0;">✓ Leverage rate forecasts for contract negotiation timing</li>
+                        <li style="padding: 0.5rem 0;">✓ Develop drought scenario playbooks based on historical patterns</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Technology Development Priorities</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 1rem; color: var(--text-secondary);">
+                        <li style="padding: 0.5rem 0;">1. Real-time data integration (USDA, USACE, NOAA, EIA)</li>
+                        <li style="padding: 0.5rem 0;">2. Interactive forecasting dashboard with scenario planning</li>
+                        <li style="padding: 0.5rem 0;">3. API development for ERP/TMS system integration</li>
+                        <li style="padding: 0.5rem 0;">4. Machine learning enhancement (20% improvement target)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Strategic Considerations</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 1rem; color: var(--text-secondary);">
+                        <li style="padding: 0.5rem 0;">• System economically viable at 160K+ tons annual volume</li>
+                        <li style="padding: 0.5rem 0;">• Major traders (1M tons) achieve 358% Year 1 ROI</li>
+                        <li style="padding: 0.5rem 0;">• Break-even requires enhanced model (20% improvement)</li>
+                        <li style="padding: 0.5rem 0;">• Infrastructure age (80+ years) increases delay risk</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="compact">
+        <div class="container" style="text-align: center;">
+            <h2>Next Steps</h2>
+            <p class="subtitle" style="max-width: 700px; margin: 1.5rem auto 3rem;">
+                For investment inquiries, technical documentation, or partnership opportunities,
+                contact our team for a comprehensive briefing.
+            </p>
+            <div>
+                <a href="mailto:invest@oceandatum.ai" class="btn btn-primary" style="margin-right: 1rem;">
+                    Schedule Investor Meeting
+                </a>
+                <a href="#" class="btn btn-outline" onclick="window.print(); return false;">
+                    Download PDF Report
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2026 OceanDatum Technologies, Inc. | Confidential Investment Materials<br>
+                    Mississippi River Barge Rate Forecasting System | Industry Briefing Report
+                </div>
+                <div class="footer-text" style="text-align: right;">
+                    Contact: invest@oceandatum.ai<br>
+                    Report Date: February 2026
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Section Navigation
+        const sections = document.querySelectorAll('section[id]');
+        const navDots = document.querySelectorAll('.section-nav-dot');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('data-target') === current) {
+                    dot.classList.add('active');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const target = dot.getAttribute('data-target');
+                document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Chart: Rate Components (Placeholder - replace with actual data)
+        // Note: Would need Chart.js library for this
+
+        // Plotly Charts
+
+        // Seasonal Pattern Chart
+        const seasonalData = [{
+            x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            y: [14, 13, 12, 13, 15, 18, 22, 25, 32, 38, 35, 20],
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'Average Rate',
+            line: { color: '#3b82f6', width: 3 },
+            marker: { size: 8 }
+        }, {
+            x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            y: [8, 8, 7, 8, 10, 12, 15, 18, 20, 25, 22, 15],
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Low Range',
+            line: { color: '#10b981', width: 1, dash: 'dot' },
+            fill: 'tonexty',
+            fillcolor: 'rgba(59, 130, 246, 0.1)'
+        }, {
+            x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            y: [22, 20, 18, 20, 22, 28, 32, 35, 50, 60, 55, 30],
+            type: 'scatter',
+            mode: 'lines',
+            name: 'High Range',
+            line: { color: '#ef4444', width: 1, dash: 'dot' }
+        }];
+
+        const seasonalLayout = {
+            paper_bgcolor: '#111111',
+            plot_bgcolor: '#111111',
+            font: { color: 'rgba(255,255,255,0.7)', family: 'Inter' },
+            xaxis: {
+                gridcolor: 'rgba(255,255,255,0.1)',
+                title: 'Month'
+            },
+            yaxis: {
+                gridcolor: 'rgba(255,255,255,0.1)',
+                title: 'Rate ($/ton)'
+            },
+            margin: { t: 20, r: 20, b: 50, l: 60 },
+            showlegend: true,
+            legend: { x: 0.02, y: 0.98 }
+        };
+
+        Plotly.newPlot('seasonalChart', seasonalData, seasonalLayout, {responsive: true, displayModeBar: false});
+
+        // Forecast Accuracy Chart
+        const accuracyData = [{
+            x: ['1-Week', '2-Week', '3-Week', '4-Week', '5-Week'],
+            y: [8.9, 12.8, 15.8, 13.4, 14.0],
+            type: 'bar',
+            name: 'VAR Model',
+            marker: { color: '#3b82f6' }
+        }, {
+            x: ['1-Week', '2-Week', '3-Week', '4-Week', '5-Week'],
+            y: [10.5, 14.0, 16.4, 14.4, 14.8],
+            type: 'bar',
+            name: 'Naïve Baseline',
+            marker: { color: 'rgba(255,255,255,0.2)' }
+        }];
+
+        const accuracyLayout = {
+            paper_bgcolor: '#111111',
+            plot_bgcolor: '#111111',
+            font: { color: 'rgba(255,255,255,0.7)', family: 'Inter' },
+            xaxis: {
+                gridcolor: 'rgba(255,255,255,0.1)',
+                title: 'Forecast Horizon'
+            },
+            yaxis: {
+                gridcolor: 'rgba(255,255,255,0.1)',
+                title: 'MAPE (%)',
+                range: [0, 20]
+            },
+            margin: { t: 20, r: 20, b: 60, l: 60 },
+            showlegend: true,
+            legend: { x: 0.02, y: 0.98 },
+            barmode: 'group'
+        };
+
+        Plotly.newPlot('forecastAccuracyChart', accuracyData, accuracyLayout, {responsive: true, displayModeBar: false});
+
+        // Segment Performance Chart
+        const segmentData = [{
+            x: ['Seg 1<br>St. Paul', 'Seg 2<br>Mid-Miss', 'Seg 3<br>Illinois', 'Seg 4<br>St. Louis', 'Seg 5<br>Cincinnati', 'Seg 6<br>Cairo', 'Seg 7<br>Lower'],
+            y: [24.8, 21.2, 19.5, 23.6, 22.1, 20.3, 25.7],
+            type: 'bar',
+            name: 'VAR MAPE',
+            marker: { color: '#3b82f6' }
+        }, {
+            x: ['Seg 1<br>St. Paul', 'Seg 2<br>Mid-Miss', 'Seg 3<br>Illinois', 'Seg 4<br>St. Louis', 'Seg 5<br>Cincinnati', 'Seg 6<br>Cairo', 'Seg 7<br>Lower'],
+            y: [24.7, 20.9, 19.1, 23.3, 21.8, 19.9, 25.4],
+            type: 'bar',
+            name: 'SpVAR MAPE',
+            marker: { color: '#06b6d4' }
+        }];
+
+        const segmentLayout = {
+            paper_bgcolor: '#111111',
+            plot_bgcolor: '#111111',
+            font: { color: 'rgba(255,255,255,0.7)', family: 'Inter' },
+            xaxis: {
+                gridcolor: 'rgba(255,255,255,0.1)',
+                title: 'River Segment'
+            },
+            yaxis: {
+                gridcolor: 'rgba(255,255,255,0.1)',
+                title: 'MAPE (%)',
+                range: [0, 30]
+            },
+            margin: { t: 20, r: 20, b: 80, l: 60 },
+            showlegend: true,
+            legend: { x: 0.02, y: 0.98 },
+            barmode: 'group'
+        };
+
+        Plotly.newPlot('segmentPerformanceChart', segmentData, segmentLayout, {responsive: true, displayModeBar: false});
+
+        // ROI Chart
+        const roiData = [{
+            x: ['Small<br>10K tons', 'Mid-Size<br>50K tons', 'Large<br>200K tons', 'Major<br>1M tons'],
+            y: [-96, -76, 1, 358],
+            type: 'bar',
+            marker: {
+                color: [-96, -76, 1, 358],
+                colorscale: [
+                    [0, '#ef4444'],
+                    [0.5, '#f59e0b'],
+                    [1, '#10b981']
+                ],
+                showscale: false
+            }
+        }];
+
+        const roiLayout = {
+            paper_bgcolor: '#111111',
+            plot_bgcolor: '#111111',
+            font: { color: 'rgba(255,255,255,0.7)', family: 'Inter' },
+            xaxis: {
+                gridcolor: 'rgba(255,255,255,0.1)',
+                title: 'Shipper Type'
+            },
+            yaxis: {
+                gridcolor: 'rgba(255,255,255,0.1)',
+                title: 'Year 1 ROI (%)',
+                zeroline: true,
+                zerolinecolor: 'rgba(255,255,255,0.3)'
+            },
+            margin: { t: 20, r: 20, b: 80, l: 60 },
+            showlegend: false,
+            annotations: [{
+                x: 'Major<br>1M tons',
+                y: 358,
+                text: '+358%',
+                showarrow: true,
+                arrowhead: 2,
+                ax: 0,
+                ay: -40,
+                font: { color: '#10b981', size: 14, weight: 'bold' }
+            }]
+        };
+
+        Plotly.newPlot('roiChart', roiData, roiLayout, {responsive: true, displayModeBar: false});
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .chart-container, .highlight-box').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Nav Test</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #1a1a2e;
+            color: white;
+            padding: 20px;
+        }
+        .instructions {
+            background: #64ffb4;
+            color: black;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .instructions h1 {
+            margin-top: 0;
+        }
+        .tab-nav {
+            display: flex;
+            background: rgba(0,0,0,0.4);
+            border: 2px solid #64ffb4;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-button {
+            flex: 1 0 auto;
+            min-width: 120px;
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button.active {
+            border-bottom-color: #64ffb4;
+            background: rgba(100,255,180,0.1);
+        }
+        @media (max-width: 768px) {
+            .tab-nav {
+                scroll-snap-type: x mandatory;
+            }
+            .tab-button {
+                min-width: 100px;
+                scroll-snap-align: start;
+                padding: 12px 15px;
+            }
+        }
+        .info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #64ffb4;
+        }
+        .viewport-size {
+            background: #000;
+            color: #64ffb4;
+            padding: 10px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <h1>🧪 Mobile Navigation Test</h1>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Resize this browser window to be narrow (like a phone)</li>
+            <li>Watch the tabs below - they should scroll left/right</li>
+            <li>All tab text should be fully visible (not cut off)</li>
+        </ol>
+    </div>
+
+    <div class="viewport-size">
+        Window Width: <span id="width">???</span>px
+        <br>
+        <span id="status" style="font-size: 14px;">Resize window to test mobile view</span>
+    </div>
+
+    <div class="info">
+        <h2>Test: Tab Navigation (from CV.HTML)</h2>
+        <p>These are the actual tabs from your CV page. Try scrolling left/right:</p>
+    </div>
+
+    <div class="tab-nav">
+        <button class="tab-button active">CV</button>
+        <button class="tab-button">Biography</button>
+        <button class="tab-button">Bibliography</button>
+    </div>
+
+    <div class="info" style="margin-top: 30px;">
+        <h3>✅ Success Criteria:</h3>
+        <ul>
+            <li>All 3 tab names fully visible (not "Bio..." or "Bibli...")</li>
+            <li>Tabs scroll left/right when window < 400px wide</li>
+            <li>Horizontal scrollbar appears when needed</li>
+        </ul>
+
+        <h3>❌ Problem Signs:</h3>
+        <ul>
+            <li>Text cut off: "CV", "Bio...", "Bibli..."</li>
+            <li>No scrollbar when window is narrow</li>
+            <li>Cannot access all tabs</li>
+        </ul>
+    </div>
+
+    <div class="info">
+        <h3>📸 Take a Screenshot</h3>
+        <p>Resize window to about 375px wide (check "Window Width" above)</p>
+        <p>Take a screenshot and describe what you see in the tabs</p>
+    </div>
+
+    <script>
+        function updateSize() {
+            const width = window.innerWidth;
+            document.getElementById('width').textContent = width;
+
+            let status = '';
+            if (width > 768) {
+                status = '🖥️ Desktop View - Tabs should fit side-by-side';
+            } else if (width > 400) {
+                status = '📱 Tablet View - Tabs might scroll';
+            } else {
+                status = '📱 Mobile View - Tabs should scroll horizontally';
+            }
+            document.getElementById('status').textContent = status;
+        }
+
+        updateSize();
+        window.addEventListener('resize', updateSize);
+
+        // Add click handler
+        document.querySelectorAll('.tab-button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Nav Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .solution {
+            margin: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid #64ffb4;
+            border-radius: 8px;
+        }
+
+        .solution h2 {
+            color: #64ffb4;
+            margin-bottom: 15px;
+        }
+
+        /* SOLUTION 1: Horizontal Scroll */
+        .navbar-scroll {
+            display: flex;
+            background: rgba(0,0,0,0.4);
+            padding: 10px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            gap: 10px;
+            scrollbar-width: thin;
+        }
+
+        .navbar-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .navbar-scroll::-webkit-scrollbar-thumb {
+            background: #64ffb4;
+            border-radius: 2px;
+        }
+
+        .navbar-scroll .nav-item {
+            flex-shrink: 0;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        /* SOLUTION 2: Smaller Icons/Text */
+        .navbar-compact {
+            display: flex;
+            background: rgba(0,0,0,0.4);
+            padding: 8px;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar-compact .nav-item {
+            padding: 6px 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .navbar-compact .social-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* SOLUTION 3: Hamburger Menu */
+        .navbar-hamburger {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            position: relative;
+        }
+
+        .hamburger-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.95);
+            border: 1px solid rgba(100,255,180,0.3);
+            z-index: 1000;
+        }
+
+        .hamburger-menu.active {
+            display: block;
+        }
+
+        .hamburger-menu a {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hamburger-menu a:hover {
+            background: rgba(100,255,180,0.1);
+        }
+
+        /* SOLUTION 4: Two-Row Layout */
+        .navbar-tworow {
+            background: rgba(0,0,0,0.4);
+            padding: 10px;
+        }
+
+        .navbar-tworow .row1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .navbar-tworow .row2 {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .navbar-tworow .nav-item {
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .status-bar {
+            background: #64ffb4;
+            color: black;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar">
+        Resize browser to mobile width (< 400px) to test each solution
+    </div>
+
+    <div class="solution">
+        <h2>SOLUTION 1: Horizontal Scroll (Like CV tabs)</h2>
+        <p>Navigation scrolls left/right. Keeps everything on one line.</p>
+        <div class="navbar-scroll">
+            <div class="nav-item">🌐</div>
+            <div class="nav-item">💼</div>
+            <div class="nav-item">📸</div>
+            <div class="nav-item">About ▼</div>
+            <div class="nav-item">Projects ▼</div>
+            <div class="nav-item">Contact</div>
+            <div class="nav-item">Login</div>
+        </div>
+        <p style="margin-top: 10px; font-size: 12px;">
+            ✅ Pros: Simple, consistent with CV tabs<br>
+            ❌ Cons: User must scroll to see all items
+        </p>
+    </div>
+
+    <div class="solution">
+        <h2>SOLUTION 2: Compact/Smaller (Fit everything)</h2>
+        <p>Smaller text and icons, wraps to 2 lines if needed.</p>
+        <div class="navbar-compact">
+            <div class="nav-item">🌐</div>
+            <div class="nav-item">💼</div>
+            <div class="nav-item">📸</div>
+            <div class="nav-item">About ▼</div>
+            <div class="nav-item">Projects ▼</div>
+            <div class="nav-item">Contact</div>
+            <div class="nav-item">Login</div>
+        </div>
+        <p style="margin-top: 10px; font-size: 12px;">
+            ✅ Pros: Everything visible at once<br>
+            ❌ Cons: Smaller tap targets, may be hard to read
+        </p>
+    </div>
+
+    <div class="solution">
+        <h2>SOLUTION 3: Hamburger Menu (Mobile Standard)</h2>
+        <p>Classic mobile menu - click ☰ to open menu.</p>
+        <div class="navbar-hamburger">
+            <button class="hamburger-button" onclick="toggleHamburger()">☰</button>
+            <span style="margin-left: 15px;">oceandatum.ai</span>
+            <div class="hamburger-menu" id="hamburgerMenu">
+                <a href="#">About</a>
+                <a href="#" style="padding-left: 30px;">→ CV/Bio</a>
+                <a href="#">Projects</a>
+                <a href="#" style="padding-left: 30px;">→ Tampa Cement</a>
+                <a href="#">Contact</a>
+                <a href="#">Login</a>
+            </div>
+        </div>
+        <p style="margin-top: 10px; font-size: 12px;">
+            ✅ Pros: Standard mobile pattern, clean, expandable<br>
+            ❌ Cons: Requires extra click, hides navigation
+        </p>
+    </div>
+
+    <div class="solution">
+        <h2>SOLUTION 4: Two-Row Layout</h2>
+        <p>Split into 2 rows - branding on top, nav on bottom.</p>
+        <div class="navbar-tworow">
+            <div class="row1">
+                <span>oceandatum.ai</span>
+                <div style="display: flex; gap: 5px;">
+                    <span>🌐</span>
+                    <span>💼</span>
+                    <span>📸</span>
+                </div>
+            </div>
+            <div class="row2">
+                <div class="nav-item">About ▼</div>
+                <div class="nav-item">Projects ▼</div>
+                <div class="nav-item">Contact</div>
+                <div class="nav-item">Login</div>
+            </div>
+        </div>
+        <p style="margin-top: 10px; font-size: 12px;">
+            ✅ Pros: All visible, organized, no scrolling<br>
+            ❌ Cons: Takes more vertical space
+        </p>
+    </div>
+
+    <div class="solution">
+        <h2>MY RECOMMENDATION: Hamburger Menu (Solution 3)</h2>
+        <p><strong>Why:</strong></p>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>Industry standard for mobile</li>
+            <li>Clean, professional appearance</li>
+            <li>Dropdowns work naturally in the menu</li>
+            <li>Scales to any number of items</li>
+            <li>Large touch targets</li>
+        </ul>
+        <p style="margin-top: 15px;"><strong>Which do you prefer?</strong></p>
+    </div>
+
+    <script>
+        function toggleHamburger() {
+            document.getElementById('hamburgerMenu').classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('hamburgerMenu');
+            const button = document.querySelector('.hamburger-button');
+            if (!menu.contains(e.target) && !button.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

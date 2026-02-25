@@ -1,0 +1,42 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Supabase
+.supabase
+
+# Large video files (except essential ones)
+videos/
+_user_notes/
+login_bg.mp4
+container-timelapse.html
+video-demo.html
+# Keep login_bg_opt.mp4 and login_poster.jpg (essential for landing page)
+_drafts/
+_archive_react_app/

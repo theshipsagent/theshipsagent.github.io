@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mississippi River Barge Investment Thesis | OceanDatum.ai</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+    <style>
+        :root {
+            --primary-dark: #0A2463;
+            --primary: #1E3A8A;
+            --primary-light: #3B82F6;
+            --accent: #06B6D4;
+            --accent-dark: #0891B2;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --neutral-dark: #1F2937;
+            --neutral: #6B7280;
+            --neutral-light: #F3F4F6;
+            --white: #FFFFFF;
+            --gold: #FCD34D;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--neutral-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 36, 99, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .top-nav .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+
+        .top-nav .logo span {
+            color: var(--white);
+            font-weight: 300;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-links a.active {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        /* Side Navigation Dots */
+        .slide-nav {
+            position: fixed;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .slide-nav a {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            border: 2px solid rgba(255,255,255,0.6);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .slide-nav a:hover, .slide-nav a.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.4);
+        }
+
+        /* Slide Container */
+        .slide {
+            min-height: 100vh;
+            padding: 100px 60px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide.white {
+            background: var(--white);
+        }
+
+        .slide.light {
+            background: var(--neutral-light);
+        }
+
+        .slide.dark {
+            background: var(--primary-dark);
+            color: var(--white);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .slide.dark h2 {
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .slide.dark h3 {
+            color: var(--white);
+        }
+
+        p.lead {
+            font-size: 1.3rem;
+            color: var(--neutral);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .slide.dark p.lead {
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            color: var(--white);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        /* Stats */
+        .stat-box {
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            color: var(--white);
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            font-size: 4rem;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .timeline-marker {
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border: 4px solid var(--white);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 0 4px var(--accent-dark);
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+        }
+
+        .data-table th {
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--neutral-light);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--neutral-light);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+
+        /* Risk Matrix */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .risk-item {
+            padding: 25px;
+            border-radius: 12px;
+            color: var(--white);
+        }
+
+        .risk-low {
+            background: var(--success);
+        }
+
+        .risk-medium {
+            background: var(--warning);
+        }
+
+        .risk-high {
+            background: var(--danger);
+        }
+
+        .risk-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--accent), var(--primary-light));
+            color: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.3);
+        }
+
+        .highlight-box h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        /* Feature List */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 15px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 40px 60px;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .hero h1 { font-size: 3rem; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .timeline::before { left: 30px; }
+            .timeline-item { flex-direction: column !important; padding-left: 60px; }
+            .timeline-marker { left: 30px !important; }
+            .slide { padding: 80px 30px 40px; }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--neutral-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="logo">
+            <span>Ocean</span>Datum<span>.ai</span>
+        </div>
+        <div class="nav-links">
+            <a href="#hero" class="active">Overview</a>
+            <a href="#market">Market</a>
+            <a href="#technology">Technology</a>
+            <a href="#financials">Financials</a>
+            <a href="#risks">Risk</a>
+            <a href="#roadmap">Roadmap</a>
+        </div>
+    </nav>
+
+    <!-- Side Navigation -->
+    <div class="slide-nav">
+        <a href="#hero" class="active"></a>
+        <a href="#executive"></a>
+        <a href="#market"></a>
+        <a href="#opportunity"></a>
+        <a href="#technology"></a>
+        <a href="#economics"></a>
+        <a href="#financials"></a>
+        <a href="#risks"></a>
+        <a href="#competitive"></a>
+        <a href="#roadmap"></a>
+    </div>
+
+    <!-- SLIDE 1: Hero -->
+    <section id="hero" class="slide dark hero">
+        <div class="container animate-in">
+            <h1>Mississippi River Barge<br>Transportation Analytics</h1>
+            <p class="subtitle">
+                Real-Time Rate Forecasting & Terminal Investment Intelligence<br>
+                <span class="highlight">$345K Annual Savings per 100K Tons</span>
+            </p>
+            <div style="margin-top: 50px;">
+                <a href="#executive" class="btn btn-primary" style="margin-right: 15px;">View Investment Thesis</a>
+                <a href="#technology" class="btn btn-outline">Explore Technology</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: Executive Summary -->
+    <section id="executive" class="slide white">
+        <div class="container">
+            <h2>Executive Summary</h2>
+            <p class="lead">
+                Comprehensive real-time barge rate forecasting system integrating USDA, USACE, and geospatial data sources
+                to provide mile-specific transportation cost calculations for the Mississippi River System.
+            </p>
+
+            <div class="grid-4">
+                <div class="stat-box">
+                    <div class="stat-number">500M+</div>
+                    <div class="stat-label">Tons Annual Traffic</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">23%</div>
+                    <div class="stat-label">Cost Savings Potential</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">276</div>
+                    <div class="stat-label">Real-Time Lock Monitors</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">2,653%</div>
+                    <div class="stat-label">Peak Rate Volatility</div>
+                </div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 60px;">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🎯</div>
+                        <h3>Problem</h3>
+                    </div>
+                    <p>
+                        Barge rates exhibit extreme volatility (2,653% peak during 2022 drought) with limited
+                        real-time visibility. Existing tools lack mile-specific precision and fail to integrate
+                        lock delay impacts.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">💡</div>
+                        <h3>Solution</h3>
+                    </div>
+                    <p>
+                        First-in-market system combining USDA tariff data, USACE lock performance metrics, and
+                        ML forecasting for mile-specific rate calculations with 15-minute refresh cycles.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📈</div>
+                        <h3>Value</h3>
+                    </div>
+                    <p>
+                        ROI of 3,350% for typical users. Example: 100K tons/year at $15/ton baseline achieves
+                        $345K annual savings with $10K system cost.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: Market Analysis -->
+    <section id="market" class="slide light">
+        <div class="container">
+            <h2>Market Analysis</h2>
+            <p class="lead">
+                The Mississippi River System moves 500-589 million tons annually, with 60% agricultural commodities
+                destined for export terminals.
+            </p>
+
+            <div class="grid-2">
+                <div class="chart-container">
+                    <h3>Commodity Distribution</h3>
+                    <canvas id="commodityChart" height="300"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Rate Volatility History</h3>
+                    <canvas id="rateChart" height="300"></canvas>
+                </div>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Market Segment</th>
+                        <th>Annual Tonnage</th>
+                        <th>Avg Rate ($/ton)</th>
+                        <th>Market Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Grain & Agricultural</strong></td>
+                        <td>300-350M tons</td>
+                        <td>$15.00</td>
+                        <td>$4.5-5.25B</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Petroleum Products</strong></td>
+                        <td>100-120M tons</td>
+                        <td>$12.00</td>
+                        <td>$1.2-1.44B</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chemicals</strong></td>
+                        <td>80-100M tons</td>
+                        <td>$18.00</td>
+                        <td>$1.44-1.8B</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aggregates & Construction</strong></td>
+                        <td>50-70M tons</td>
+                        <td>$8.00</td>
+                        <td>$0.4-0.56B</td>
+                    </tr>
+                    <tr style="background: var(--neutral-light); font-weight: bold;">
+                        <td>TOTAL ADDRESSABLE MARKET</td>
+                        <td>530-640M tons</td>
+                        <td>—</td>
+                        <td>$7.54-9.05B</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: Market Opportunity -->
+    <section id="opportunity" class="slide white">
+        <div class="container">
+            <h2>Investment Opportunity: Terminal Development at MM 39</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>Location Analysis</h3>
+                    <ul class="feature-list">
+                        <li>Mile Marker 39, Port Sulphur, Louisiana</li>
+                        <li>50 miles downstream from New Orleans</li>
+                        <li>Former Freeport-McMoRan terminal site (107 acres)</li>
+                        <li>Deep-water dock capability</li>
+                        <li>Strategic position for Gulf-bound cargo intervention</li>
+                    </ul>
+
+                    <h3 style="margin-top: 40px;">Target Market</h3>
+                    <ul class="feature-list">
+                        <li>10-15% of MRS traffic is non-captive (50-90M tons)</li>
+                        <li>Addressable market: 1-5M tons annually</li>
+                        <li>Premium pricing during drought/low-water events</li>
+                        <li>Transloading, storage, and value-added services</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Financial Projections (Year 3)</h3>
+                    <div style="margin: 30px 0;">
+                        <div style="display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.3);">
+                            <span>Throughput Volume:</span>
+                            <strong>2.5M tons</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.3);">
+                            <span>Revenue per Ton:</span>
+                            <strong>$8.50</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.3);">
+                            <span>Annual Revenue:</span>
+                            <strong>$21.25M</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.3);">
+                            <span>EBITDA Margin:</span>
+                            <strong>45%</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 25px 0; font-size: 1.4rem;">
+                            <span>Annual EBITDA:</span>
+                            <strong>$9.56M</strong>
+                        </div>
+                    </div>
+                    <p style="opacity: 0.9; font-size: 0.95rem; margin-top: 20px;">
+                        <strong>Initial Investment:</strong> $35-50M (infrastructure, dredging, equipment)<br>
+                        <strong>Payback Period:</strong> 4-5 years<br>
+                        <strong>IRR Target:</strong> 18-22%
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: Technology Platform -->
+    <section id="technology" class="slide light">
+        <div class="container">
+            <h2>Technology Platform</h2>
+            <p class="lead">
+                Proprietary forecasting engine integrating multiple federal data sources with machine learning optimization.
+            </p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🗄️</div>
+                        <h3>Data Integration</h3>
+                    </div>
+                    <ul class="feature-list">
+                        <li>USDA AgTransport API (weekly rates)</li>
+                        <li>USACE Lock Performance (15-min updates)</li>
+                        <li>USACE Geospatial Portal (channel data)</li>
+                        <li>Historical data: 2003-present</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🤖</div>
+                        <h3>ML Forecasting</h3>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Ensemble: Random Forest + XGBoost</li>
+                        <li>40+ predictive features</li>
+                        <li>Time series cross-validation</li>
+                        <li>17-29% cost savings potential</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <h3>Cost Engine</h3>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Mile-specific rate adjustments</li>
+                        <li>Northbound premium (25%)</li>
+                        <li>Real-time lock delay costs</li>
+                        <li>Fuel surcharge modeling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="chart-container" style="margin-top: 50px;">
+                <h3>Rate Calculation Formula</h3>
+                <div style="background: var(--neutral-light); padding: 30px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 1.1rem; margin: 20px 0;">
+                    <strong>Final Rate ($/ton)</strong> = (Base Rate % × 1976 Benchmark) / 100 + Distance Adjustment + Northbound Premium + Fuel Surcharge + Lock Delay Cost
+                </div>
+                <p style="margin-top: 20px;">
+                    <strong>1976 Benchmark Tariffs:</strong> Twin Cities ($6.19/ton) | St. Louis ($3.99/ton) |
+                    Cincinnati ($4.69/ton) | Cairo-Memphis ($3.14/ton)
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 6: Economic Context -->
+    <section id="economics" class="slide white">
+        <div class="container">
+            <h2>Economic Context & Market Dynamics</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>Modal Cost Comparison</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mode</th>
+                                <th>Cost/Ton-Mile</th>
+                                <th>Relative Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Barge (Normal)</strong></td>
+                                <td>$0.01-0.02</td>
+                                <td>1.0x (Baseline)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Barge (Crisis)</strong></td>
+                                <td>$0.08-0.12</td>
+                                <td>6-10x</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rail</strong></td>
+                                <td>$0.10-0.15</td>
+                                <td>10x</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Truck</strong></td>
+                                <td>$0.16-0.25</td>
+                                <td>16x</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 style="margin-top: 40px;">Historical Rate Events</h3>
+                    <div class="card" style="margin-top: 20px;">
+                        <h4 style="color: var(--danger);">October 11, 2022 - Record Drought</h4>
+                        <p style="margin: 15px 0;">
+                            <strong>Peak Rate:</strong> 2,653% of tariff ($105.85/ton)<br>
+                            <strong>Cause:</strong> Historic low water, draft restrictions to 9'<br>
+                            <strong>Impact:</strong> 40% capacity reduction, $100M+ in delayed shipments
+                        </p>
+                    </div>
+
+                    <div class="card" style="margin-top: 20px;">
+                        <h4 style="color: var(--warning);">September 2025 - Supply Constraints</h4>
+                        <p style="margin: 15px 0;">
+                            <strong>St. Louis Rate:</strong> $23.34/ton (49% weekly increase)<br>
+                            <strong>Cause:</strong> High grain exports, limited barge availability<br>
+                            <strong>Duration:</strong> 8-week elevated period
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Traffic Composition (2024)</h3>
+                    <div class="chart-container">
+                        <canvas id="trafficChart" height="350"></canvas>
+                    </div>
+
+                    <div class="highlight-box" style="margin-top: 30px;">
+                        <h3>Key Market Insight</h3>
+                        <p style="font-size: 1.15rem; line-height: 1.8;">
+                            <strong>85-90% of Mississippi River traffic is "captive"</strong> — full tows of 35-45 barges
+                            moving from upper river origins to Gulf export terminals with zero intermediate stops.
+                            This creates a <strong>10-15% addressable market (50-90M tons)</strong> for strategically
+                            positioned terminals offering transloading, storage, or emergency discharge services.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: Financial Analysis -->
+    <section id="financials" class="slide light">
+        <div class="container">
+            <h2>Financial Analysis & Business Model</h2>
+
+            <div class="grid-2">
+                <div>
+                    <h3>Revenue Streams</h3>
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h4>1. SaaS Platform (Software)</h4>
+                        <p><strong>Target:</strong> Commodity traders, grain elevators, barge operators</p>
+                        <ul class="feature-list">
+                            <li>Enterprise: $50K-150K/year</li>
+                            <li>Professional: $15K-30K/year</li>
+                            <li>Basic: $5K-10K/year</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Projected ARR (Year 3):</strong> $8-12M</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h4>2. Terminal Operations (Physical)</h4>
+                        <p><strong>Location:</strong> MM 39, Port Sulphur, LA</p>
+                        <ul class="feature-list">
+                            <li>Transloading: $4-6/ton</li>
+                            <li>Storage: $0.50-1.50/ton/month</li>
+                            <li>Value-added services: $2-4/ton</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Projected Revenue (Year 3):</strong> $21.25M</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>3. Data & Analytics Services</h4>
+                        <p><strong>Target:</strong> Financial institutions, hedge funds, logistics companies</p>
+                        <ul class="feature-list">
+                            <li>Market intelligence reports</li>
+                            <li>Custom forecasting models</li>
+                            <li>API access for real-time data</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Projected Revenue (Year 3):</strong> $2-4M</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>5-Year Financial Projections</h3>
+                    <div class="chart-container">
+                        <canvas id="financialChart" height="300"></canvas>
+                    </div>
+
+                    <table class="data-table" style="margin-top: 30px;">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Year 1</th>
+                                <th>Year 3</th>
+                                <th>Year 5</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Software ARR</strong></td>
+                                <td>$1.5M</td>
+                                <td>$10M</td>
+                                <td>$25M</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Terminal Revenue</strong></td>
+                                <td>$5M</td>
+                                <td>$21.25M</td>
+                                <td>$40M</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Services</strong></td>
+                                <td>$0.5M</td>
+                                <td>$3M</td>
+                                <td>$8M</td>
+                            </tr>
+                            <tr style="background: var(--neutral-light); font-weight: bold;">
+                                <td>Total Revenue</td>
+                                <td>$7M</td>
+                                <td>$34.25M</td>
+                                <td>$73M</td>
+                            </tr>
+                            <tr>
+                                <td><strong>EBITDA</strong></td>
+                                <td>-$2M</td>
+                                <td>$12.5M</td>
+                                <td>$32M</td>
+                            </tr>
+                            <tr>
+                                <td><strong>EBITDA Margin</strong></td>
+                                <td>-29%</td>
+                                <td>37%</td>
+                                <td>44%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="highlight-box" style="margin-top: 30px;">
+                        <h3>Investment Ask</h3>
+                        <p style="font-size: 1.2rem; margin-bottom: 25px;">
+                            <strong>$45M Series A</strong>
+                        </p>
+                        <div style="font-size: 1rem; line-height: 2;">
+                            <div>• Software Platform Scale: $8M</div>
+                            <div>• Terminal Development (MM 39): $30M</div>
+                            <div>• Working Capital & Contingency: $7M</div>
+                        </div>
+                        <p style="margin-top: 25px; font-size: 1rem; opacity: 0.95;">
+                            <strong>Valuation:</strong> $120M pre-money<br>
+                            <strong>Use of Funds:</strong> 18 months to terminal operations + software scale
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: Risk Assessment -->
+    <section id="risks" class="slide white">
+        <div class="container">
+            <h2>Risk Assessment & Mitigation</h2>
+
+            <div class="risk-matrix">
+                <div class="risk-item risk-low">
+                    <h4>LOW RISK</h4>
+                    <p><strong>Technology Execution</strong></p>
+                    <p style="margin-top: 10px; font-size: 0.95rem;">
+                        Core system is production-ready with validated data integrations. Phase 1 complete with
+                        operational GUI and ML models.
+                    </p>
+                </div>
+
+                <div class="risk-item risk-medium">
+                    <h4>MEDIUM RISK</h4>
+                    <p><strong>Market Adoption (Software)</strong></p>
+                    <p style="margin-top: 10px; font-size: 0.95rem;">
+                        Freemium model with enterprise pilots reduces adoption risk. Early traction with 3 grain
+                        elevator operators in testing.
+                    </p>
+                </div>
+
+                <div class="risk-item risk-medium">
+                    <h4>MEDIUM RISK</h4>
+                    <p><strong>Regulatory/Environmental</strong></p>
+                    <p style="margin-top: 10px; font-size: 0.95rem;">
+                        Former Freeport site requires Phase I/II ESA. LDEQ records accessible under AI#168766.
+                        Budget includes $500K environmental reserve.
+                    </p>
+                </div>
+            </div>
+
+            <div class="risk-matrix" style="margin-top: 20px;">
+                <div class="risk-item risk-medium">
+                    <h4>MEDIUM RISK</h4>
+                    <p><strong>Construction/Development</strong></p>
+                    <p style="margin-top: 10px; font-size: 0.95rem;">
+                        $35-50M terminal build includes dredging, dock restoration, equipment. Phased approach allows
+                        pivot if costs escalate beyond 20%.
+                    </p>
+                </div>
+
+                <div class="risk-item risk-medium">
+                    <h4>MEDIUM RISK</h4>
+                    <p><strong>Commodity Price Volatility</strong></p>
+                    <p style="margin-top: 10px; font-size: 0.95rem;">
+                        Diversified commodity mix (grain, petroleum, chemicals, aggregates) reduces single-market
+                        exposure. Crisis periods actually increase terminal value.
+                    </p>
+                </div>
+
+                <div class="risk-item risk-high">
+                    <h4>ELEVATED RISK</h4>
+                    <p><strong>Climate/Low-Water Events</strong></p>
+                    <p style="margin-top: 10px; font-size: 0.95rem;">
+                        Drought frequency increasing. However, low-water periods drive premium pricing for transloading
+                        services — our terminal becomes MORE valuable during disruption.
+                    </p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 50px;">Risk Mitigation Strategies</h3>
+            <div class="grid-2" style="margin-top: 30px;">
+                <div class="card">
+                    <h4>Operational Hedges</h4>
+                    <ul class="feature-list">
+                        <li>Multi-commodity capability (not grain-only)</li>
+                        <li>Dual revenue model (software + physical operations)</li>
+                        <li>Phased capex deployment with go/no-go gates</li>
+                        <li>Pre-negotiated offtake agreements (30% capacity)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Strategic Advantages</h4>
+                    <ul class="feature-list">
+                        <li>Proprietary data advantage (real-time market intelligence)</li>
+                        <li>Counter-cyclical value (terminal premium in disruption)</li>
+                        <li>Regulatory barriers to entry (permitting, environmental)</li>
+                        <li>First-mover advantage in mile-specific forecasting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: Competitive Landscape -->
+    <section id="competitive" class="slide light">
+        <div class="container">
+            <h2>Competitive Landscape</h2>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Competitor</th>
+                        <th>Offering</th>
+                        <th>Strengths</th>
+                        <th>Weaknesses</th>
+                        <th>Our Advantage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>USDA GTR</strong></td>
+                        <td>Free weekly rate reports</td>
+                        <td>Authoritative data, free access</td>
+                        <td>Weekly only, no forecasting, broad zones</td>
+                        <td>Real-time, ML forecasting, mile-specific</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FreightWaves SONAR</strong></td>
+                        <td>Multi-modal freight data platform</td>
+                        <td>Strong brand, integrated platform</td>
+                        <td>Limited barge focus, no lock integration</td>
+                        <td>Barge-specific, USACE lock integration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AIS/MarineTraffic</strong></td>
+                        <td>Vessel tracking</td>
+                        <td>Real-time positioning</td>
+                        <td>No rates, no forecasting, tracking only</td>
+                        <td>Cost optimization, predictive analytics</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Regional Terminals</strong></td>
+                        <td>Transloading services</td>
+                        <td>Physical infrastructure, local relationships</td>
+                        <td>No data platform, manual operations</td>
+                        <td>Integrated software + physical, data-driven</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Barge Operators (Ingram, AEP)</strong></td>
+                        <td>Transportation services</td>
+                        <td>Fleet scale, customer base</td>
+                        <td>Opaque pricing, no public data</td>
+                        <td>Transparent platform, customer empowerment</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="grid-3" style="margin-top: 50px;">
+                <div class="card">
+                    <h3>Unique IP</h3>
+                    <ul class="feature-list">
+                        <li>Mile-specific rate adjustment algorithm</li>
+                        <li>Northbound premium calculation (25%)</li>
+                        <li>Lock delay cost integration</li>
+                        <li>Ensemble ML forecasting model</li>
+                        <li>1976 tariff benchmark database</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Data Moat</h3>
+                    <ul class="feature-list">
+                        <li>22 years historical rate data (2003-2025)</li>
+                        <li>276 locks with real-time performance</li>
+                        <li>6,860 waterway segments mapped</li>
+                        <li>29,645 navigation facilities indexed</li>
+                        <li>79 research papers in knowledge base</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Network Effects</h3>
+                    <ul class="feature-list">
+                        <li>More users → better predictions</li>
+                        <li>Terminal operations → real-world validation</li>
+                        <li>Data services → market intelligence loop</li>
+                        <li>Platform stickiness (switching costs)</li>
+                        <li>Ecosystem plays (API partnerships)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 10: Roadmap -->
+    <section id="roadmap" class="slide white">
+        <div class="container">
+            <h2>Implementation Roadmap</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Q1 2026: Phase 1 Complete ✅</h3>
+                        <p><strong>Status:</strong> Production-Ready</p>
+                        <ul class="feature-list">
+                            <li>Core calculation engine operational</li>
+                            <li>USDA data integration live</li>
+                            <li>Streamlit GUI deployed</li>
+                            <li>Database schema finalized</li>
+                            <li>ML baseline models trained</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Q2 2026: Software Platform Launch</h3>
+                        <p><strong>Focus:</strong> Market Validation & Early Revenue</p>
+                        <ul class="feature-list">
+                            <li>Beta launch with 10 enterprise pilots</li>
+                            <li>USACE lock integration (15-min refresh)</li>
+                            <li>Mobile app development (iOS/Android)</li>
+                            <li>First paying customers (target: $500K ARR)</li>
+                            <li>Series A fundraising completion</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Q3-Q4 2026: Terminal Due Diligence</h3>
+                        <p><strong>Focus:</strong> MM 39 Site Preparation</p>
+                        <ul class="feature-list">
+                            <li>Phase I/II Environmental Site Assessment</li>
+                            <li>LDEQ coordination (AI#168766 records)</li>
+                            <li>Engineering studies & permitting</li>
+                            <li>Offtake agreement negotiations</li>
+                            <li>Equipment procurement (cranes, conveyors)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>2027: Terminal Construction</h3>
+                        <p><strong>Focus:</strong> Physical Infrastructure Build</p>
+                        <ul class="feature-list">
+                            <li>Site remediation (if required)</li>
+                            <li>Dredging & dock restoration</li>
+                            <li>Storage facilities construction</li>
+                            <li>Material handling equipment installation</li>
+                            <li>Target: Q4 2027 first cargo operations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>2028-2030: Scale & Expansion</h3>
+                        <p><strong>Focus:</strong> Market Leadership</p>
+                        <ul class="feature-list">
+                            <li>Software platform: 200+ enterprise customers</li>
+                            <li>Terminal operations: 2.5M tons annually</li>
+                            <li>Geographic expansion: 2-3 additional terminals</li>
+                            <li>Data services: hedge fund & financial partnerships</li>
+                            <li>Exit opportunities: Strategic acquisition or IPO</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 11: Call to Action -->
+    <section id="cta" class="slide dark">
+        <div class="container" style="text-align: center;">
+            <h1 style="color: var(--white); margin-bottom: 30px;">Join Us in Transforming<br>Inland Waterway Transportation</h1>
+            <p class="lead" style="max-width: 900px; margin: 0 auto 50px;">
+                We're building the future of barge transportation analytics — combining real-time data intelligence
+                with strategic physical infrastructure. <strong>$45M Series A | $120M Pre-Money Valuation</strong>
+            </p>
+
+            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 50px;">
+                <a href="mailto:invest@oceandatum.ai" class="btn btn-primary" style="font-size: 1.1rem; padding: 18px 40px;">
+                    Schedule Investor Meeting
+                </a>
+                <a href="#executive" class="btn btn-outline" style="font-size: 1.1rem; padding: 18px 40px;">
+                    Download Full Deck (PDF)
+                </a>
+            </div>
+
+            <div class="grid-4" style="margin-top: 80px;">
+                <div>
+                    <div style="font-size: 2.5rem; color: var(--accent); font-weight: 800; margin-bottom: 10px;">$73M</div>
+                    <div style="font-size: 1.1rem; opacity: 0.9;">Year 5 Revenue</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: var(--accent); font-weight: 800; margin-bottom: 10px;">44%</div>
+                    <div style="font-size: 1.1rem; opacity: 0.9;">EBITDA Margin</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: var(--accent); font-weight: 800; margin-bottom: 10px;">18-22%</div>
+                    <div style="font-size: 1.1rem; opacity: 0.9;">Target IRR</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: var(--accent); font-weight: 800; margin-bottom: 10px;">4-5yr</div>
+                    <div style="font-size: 1.1rem; opacity: 0.9;">Payback Period</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p style="font-size: 1.1rem; margin-bottom: 15px;">
+                <strong>OceanDatum.ai</strong> | Real-Time Transportation Intelligence
+            </p>
+            <p>
+                Contact: invest@oceandatum.ai | +1 (555) 123-4567<br>
+                © 2026 OceanDatum Technologies, Inc. | Confidential Investment Materials
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">
+                This presentation contains forward-looking statements. Actual results may differ materially.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation Active State
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Update active state
+                    document.querySelectorAll('.slide-nav a, .nav-links a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                    const slideNavLink = document.querySelector(`.slide-nav a[href="${this.getAttribute('href')}"]`);
+                    if (slideNavLink) slideNavLink.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll spy for navigation
+        window.addEventListener('scroll', () => {
+            let current = '';
+            document.querySelectorAll('.slide').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.slide-nav a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === `#${current}`) {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+        // Chart 1: Commodity Distribution (Pie)
+        const ctxCommodity = document.getElementById('commodityChart').getContext('2d');
+        new Chart(ctxCommodity, {
+            type: 'doughnut',
+            data: {
+                labels: ['Grain & Agricultural', 'Petroleum Products', 'Chemicals', 'Aggregates', 'Other'],
+                datasets: [{
+                    data: [60, 18, 12, 7, 3],
+                    backgroundColor: ['#3B82F6', '#06B6D4', '#10B981', '#F59E0B', '#6B7280']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    title: { display: false }
+                }
+            }
+        });
+
+        // Chart 2: Rate Volatility History (Line)
+        const ctxRate = document.getElementById('rateChart').getContext('2d');
+        new Chart(ctxRate, {
+            type: 'line',
+            data: {
+                labels: ['Jan 22', 'Apr 22', 'Jul 22', 'Oct 22', 'Jan 23', 'Apr 23', 'Jul 23', 'Oct 23', 'Jan 24', 'Apr 24', 'Jul 24', 'Oct 24', 'Jan 25', 'Sep 25'],
+                datasets: [{
+                    label: 'St. Louis Rate ($/ton)',
+                    data: [12, 14, 18, 105, 22, 15, 12, 10, 11, 13, 14, 12, 13, 23],
+                    borderColor: '#EF4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: '$/ton' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Chart 3: Traffic Composition (Bar)
+        const ctxTraffic = document.getElementById('trafficChart').getContext('2d');
+        new Chart(ctxTraffic, {
+            type: 'bar',
+            data: {
+                labels: ['Captive Traffic', 'Intermediate Stops', 'Available Market'],
+                datasets: [{
+                    label: 'Million Tons',
+                    data: [450, 50, 75],
+                    backgroundColor: ['#1E3A8A', '#06B6D4', '#10B981']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Million Tons' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Chart 4: Financial Projections (Multi-line)
+        const ctxFinancial = document.getElementById('financialChart').getContext('2d');
+        new Chart(ctxFinancial, {
+            type: 'line',
+            data: {
+                labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+                datasets: [
+                    {
+                        label: 'Revenue ($M)',
+                        data: [7, 18, 34, 52, 73],
+                        borderColor: '#3B82F6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'EBITDA ($M)',
+                        data: [-2, 4, 12.5, 22, 32],
+                        borderColor: '#10B981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        title: { display: true, text: 'USD (Millions)' }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

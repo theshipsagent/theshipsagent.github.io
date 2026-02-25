@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a2e;
+            color: white;
+            padding: 20px;
+        }
+
+        .test-info {
+            background: #64ffb4;
+            color: black;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            border: 2px solid #64ffb4;
+        }
+
+        .navbar-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .navbar-link:hover {
+            background: rgba(100,255,180,0.2);
+        }
+
+        /* Dropdown container */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(0,0,0,0.95);
+            min-width: 180px;
+            border-radius: 8px;
+            border: 1px solid rgba(100,255,180,0.3);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            z-index: 1001;
+            margin-top: 10px;
+        }
+
+        /* Show dropdown on hover (desktop) */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Show dropdown when active class is added (mobile) */
+        .dropdown.active .dropdown-content {
+            display: block !important;
+        }
+
+        .dropdown-content a {
+            color: rgba(255,255,255,0.8);
+            padding: 12px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(100,255,180,0.1);
+            color: #64ffb4;
+        }
+
+        .status {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #64ffb4;
+            font-family: monospace;
+        }
+
+        .log {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .dropdown-content {
+                position: fixed;
+                right: 20px;
+                left: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h1>🔧 Dropdown Test Page</h1>
+        <p><strong>Testing:</strong> Mobile dropdown functionality</p>
+        <p><strong>Instructions:</strong> Click "About" or "Projects" - dropdown should appear</p>
+    </div>
+
+    <div class="navbar">
+        <span style="margin-right: auto;">oceandatum.ai</span>
+
+        <div class="dropdown" id="dropdown1">
+            <a class="navbar-link" id="aboutLink">About ▼</a>
+            <div class="dropdown-content">
+                <a href="#cv">CV/Bio</a>
+                <a href="#test">Test Link</a>
+            </div>
+        </div>
+
+        <div class="dropdown" id="dropdown2">
+            <a class="navbar-link" id="projectsLink">Projects ▼</a>
+            <div class="dropdown-content">
+                <a href="#tampa">Tampa Cement Terminal</a>
+                <a href="#other">Other Projects</a>
+            </div>
+        </div>
+
+        <a class="navbar-link" href="#contact">Contact</a>
+        <a class="navbar-link" href="#login">Login</a>
+    </div>
+
+    <div class="status">
+        <h3>Status:</h3>
+        <div id="status">Ready...</div>
+    </div>
+
+    <div class="log" id="log">
+        <strong>Event Log:</strong><br>
+    </div>
+
+    <div class="test-info" style="margin-top: 30px; background: rgba(255,255,255,0.1);">
+        <h2>Expected Behavior:</h2>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li><strong>Desktop:</strong> Hover over "About" or "Projects" → dropdown appears</li>
+            <li><strong>Mobile/Touch:</strong> Tap "About" or "Projects" → dropdown appears</li>
+            <li><strong>Close:</strong> Tap anywhere outside → dropdown closes</li>
+            <li><strong>Switch:</strong> Tap other dropdown → first closes, second opens</li>
+        </ul>
+    </div>
+
+    <script>
+        const log = document.getElementById('log');
+        const status = document.getElementById('status');
+
+        function addLog(message) {
+            const time = new Date().toLocaleTimeString();
+            log.innerHTML += `[${time}] ${message}<br>`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        addLog('Page loaded, initializing dropdowns...');
+
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            addLog('DOM ready, setting up event listeners...');
+
+            const dropdowns = document.querySelectorAll('.dropdown');
+            addLog(`Found ${dropdowns.length} dropdowns`);
+
+            dropdowns.forEach((dropdown, index) => {
+                const link = dropdown.querySelector('.navbar-link');
+                addLog(`Setting up dropdown ${index + 1}: ${link.textContent}`);
+
+                // Click handler for dropdown toggle
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    addLog(`Clicked: ${link.textContent}`);
+
+                    const wasActive = dropdown.classList.contains('active');
+
+                    // Close all other dropdowns
+                    dropdowns.forEach(d => {
+                        if (d !== dropdown) {
+                            d.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle current dropdown
+                    if (wasActive) {
+                        dropdown.classList.remove('active');
+                        addLog(`Closed: ${link.textContent}`);
+                        status.textContent = 'Dropdown closed';
+                    } else {
+                        dropdown.classList.add('active');
+                        addLog(`Opened: ${link.textContent}`);
+                        status.textContent = `Dropdown "${link.textContent}" is open`;
+                    }
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    const openDropdowns = document.querySelectorAll('.dropdown.active');
+                    if (openDropdowns.length > 0) {
+                        addLog('Clicked outside, closing all dropdowns');
+                        dropdowns.forEach(dropdown => {
+                            dropdown.classList.remove('active');
+                        });
+                        status.textContent = 'All dropdowns closed';
+                    }
+                }
+            });
+
+            addLog('Setup complete! Try clicking the dropdowns.');
+            status.textContent = 'Ready - Click "About" or "Projects"';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliography Preview - WILLIAM S. DAVIS III</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f3460 100%);
+            color: rgba(255,255,255,0.9);
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.03);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Bibliography styles */
+        .bib-controls {
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .bib-controls button {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(100, 255, 180, 0.3);
+            color: rgba(255,255,255,0.9);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bib-controls button:hover {
+            background: rgba(100, 255, 180, 0.15);
+            border-color: rgba(100, 255, 180, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .bib-toc {
+            background: rgba(255,255,255,0.05);
+            border-left: 3px solid rgba(100, 255, 180, 0.5);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .bib-toc h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #64ffb4;
+        }
+
+        .bib-toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .bib-toc li {
+            margin: 0.5rem 0;
+        }
+
+        .bib-toc a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: block;
+            padding: 0.3rem 0;
+        }
+
+        .bib-toc a:hover {
+            color: #64ffb4;
+            padding-left: 0.5rem;
+        }
+
+        .bib-section {
+            margin: 2rem 0;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .bib-section-header {
+            background: rgba(255,255,255,0.08);
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .bib-section-header:hover {
+            background: rgba(100, 255, 180, 0.1);
+        }
+
+        .bib-section-header.active {
+            background: rgba(100, 255, 180, 0.15);
+            border-bottom: 1px solid rgba(100, 255, 180, 0.3);
+        }
+
+        .bib-section-header h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .bib-section-header .entry-count {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+            margin-left: 0.5rem;
+        }
+
+        .expand-icon {
+            font-size: 1.2rem;
+            color: #64ffb4;
+            transition: transform 0.3s ease;
+        }
+
+        .bib-section-header.active .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .bib-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .bib-section-content.active {
+            max-height: 10000px;
+            padding: 1.5rem;
+        }
+
+        .bib-entry {
+            margin-bottom: 1.2rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .bib-entry::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #64ffb4;
+            font-size: 1.2rem;
+        }
+
+        .bib-title {
+            font-style: italic;
+            color: rgba(255,255,255,0.95);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.4;
+        }
+
+        .bib-meta {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WILLIAM S. DAVIS III</h1>
+        <div class="subtitle">Professional Bibliography - Preview</div>
+
+        <p>Throughout my career, continuous learning has been central to professional development. Over 30 years, I've built a comprehensive professional library of 824 works spanning ship agency, chartering, maritime law, port operations, supply chain management, and commodity markets.</p>
+
+        <p>This collection represents systematic study across the full spectrum of maritime commerce, from foundational texts to specialized regional expertise. The bibliography demonstrates both breadth of knowledge and depth of focus in key operational areas.</p>
+
+        <div class="bib-controls">
+            <button onclick="expandAllSections()">Expand All</button>
+            <button onclick="collapseAllSections()">Collapse All</button>
+        </div>
+
+        <nav class="bib-toc">
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#bib-keytexts">I. FOUNDATIONAL REFERENCES (51)</a></li>
+                <li><a href="#bib-shipping">II. MARITIME SHIPPING & OPERATIONS (267)</a></li>
+                <li><a href="#bib-shipping-chartering">II-B. Chartering & Charter Parties (64)</a></li>
+                <li><a href="#bib-cargo">III. CARGO & COMMODITY HANDLING (76)</a></li>
+                <li><a href="#bib-cargo-steel">III-A. Steel & Metals (41)</a></li>
+                <li><a href="#bib-cargo-grain">III-C. Grain & Agricultural (9)</a></li>
+                <li><a href="#bib-cargo-cement">III-D. Cement & Bulk Materials (6)</a></li>
+                <li><a href="#bib-logistics">IV. LOGISTICS & SUPPLY CHAIN (56)</a></li>
+                <li><a href="#bib-logistics-supplychain">IV-A. Supply Chain Management (38)</a></li>
+                <li><a href="#bib-logistics-ports">IV-B. Port Operations (36)</a></li>
+                <li><a href="#bib-logistics-rail">IV-C. Rail Transport (28)</a></li>
+                <li><a href="#bib-logistics-barge">IV-D. Barge & Inland Waterways (6)</a></li>
+                <li><a href="#bib-econometrics">V. TRANSPORT ECONOMICS & ANALYTICS (71)</a></li>
+                <li><a href="#bib-missriver">VI. REGIONAL SPECIALIZATION: MISSISSIPPI RIVER (58)</a></li>
+                <li><a href="#bib-customs">VIII. CUSTOMS & REGULATORY (17)</a></li>
+            </ul>
+        </nav>
+
+        <div id="bib-keytexts" class="bib-section">
+            <div class="bib-section-header" onclick="toggleSection(this)">
+                <h3>I. FOUNDATIONAL REFERENCES <span class="entry-count">(51 works)</span></h3>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="bib-section-content">
+                <div class="bib-entry">
+                    <div class="bib-title">Summerskill: Laytime</div>
+                    <div class="bib-meta">Michael Brynmôr Summerskill (1982) Sweet & Maxwell, 3rd ed.</div>
+                </div>
+                <div class="bib-entry">
+                    <div class="bib-title">Voyage Charters</div>
+                    <div class="bib-meta">Julian Cooke (2014) Informa Law from Routledge, 4th ed.</div>
+                </div>
+                <div class="bib-entry">
+                    <div class="bib-title">Bills of Lading</div>
+                    <div class="bib-meta">Richard Aikens, Richard Lord, Michael D. Bools (2016) Informa Law from Routledge, 2nd ed.</div>
+                </div>
+                <p style="margin-top: 1rem; font-style: italic; color: rgba(255,255,255,0.6);">
+                    ... and 48 more foundational works. Click "Expand All" to see the complete bibliography.
+                </p>
+            </div>
+        </div>
+
+        <p style="margin-top: 3rem; padding: 1rem; background: rgba(100, 255, 180, 0.1); border-left: 3px solid #64ffb4; border-radius: 4px;">
+            <strong>Note:</strong> This is a preview showing the bibliography structure. The actual cv.html file now contains all 824 works organized into sections. Open cv.html in a browser to see the complete bibliography with all entries and interactive features.
+        </p>
+    </div>
+
+    <script>
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
+        function expandAllSections() {
+            const headers = document.querySelectorAll('.bib-section-header');
+            const contents = document.querySelectorAll('.bib-section-content');
+            headers.forEach(header => header.classList.add('active'));
+            contents.forEach(content => content.classList.add('active'));
+        }
+
+        function collapseAllSections() {
+            const headers = document.querySelectorAll('.bib-section-header');
+            const contents = document.querySelectorAll('.bib-section-content');
+            headers.forEach(header => header.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+        }
+    </script>
+</body>
+</html>
