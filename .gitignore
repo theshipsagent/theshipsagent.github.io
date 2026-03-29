@@ -1,4 +1,4 @@
-# Environment variables (NEVER commit credentials!)
+# Environment variables
 .env
 .env.local
 .env.*.local
@@ -7,7 +7,7 @@
 .DS_Store
 Thumbs.db
 
-# IDE
+# IDE / Tools
 .idea/
 .vscode/
 *.swp
@@ -15,7 +15,7 @@ Thumbs.db
 .claude/
 .playwright-mcp/
 
-# Node modules (if using npm)
+# Node modules
 node_modules/
 
 # Build outputs
@@ -26,15 +26,32 @@ build/
 *.log
 npm-debug.log*
 
-# Video working files
-videos/test_*.mp4
-videos/test_*.jpg
-videos/concat_*.txt
-videos/trimmed/
-videos/background_loop.mp4
-videos/background_loop_optimized.mp4
-videos/artistic_3s_loop.mp4
-videos/test_*.html
+# ============================================
+# Working directories (local only, not deployed)
+# ============================================
+_user_notes/
+_media/
+_archive/
+03_resume/
+04_website_builds/
+oceandatum.ai/
+placeholder-sites/
+theshipsagent-xyz/
+user_convo/
+user_convo_website/
 
-# Working/draft files
+# Session management (local only)
+SESSION_STATE.md
+SESSION_ARCHIVE/
+REBUILD_HANDOFF.md
+
+# Logos / branding source files
+datum_logo_linkedin_300x300.png
+datum_logo_source.svg
+logo_full_v2.png
+logo_square_v2.png
+wsd_logo_linkedin_300x300.png
+
+# Misc working files
 fix_edge_dns.bat
+*.bak
