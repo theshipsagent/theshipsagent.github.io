@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code — Live Demo</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0f1a;
+    --card: #141926;
+    --border: #1e2740;
+    --text: #e2e8f0;
+    --muted: #8892a8;
+    --accent: #c084fc;
+    --accent2: #38bdf8;
+    --accent3: #34d399;
+    --glow: rgba(192, 132, 252, 0.15);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background grid */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(192,132,252,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(192,132,252,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(60px,60px); }
+  }
+
+  .container { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding: 60px 24px; }
+
+  /* Header */
+  .hero { text-align: center; margin-bottom: 64px; }
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--accent);
+    background: rgba(192,132,252,0.08);
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #c084fc, #38bdf8, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex; justify-content: center; gap: 48px;
+    margin-bottom: 64px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 32px; font-weight: 700; color: var(--accent2);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* Demo cards */
+  .demos { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .demo-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .demo-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .demo-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .demo-card:hover::before { opacity: 1; }
+
+  .demo-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    font-size: 15px; font-weight: 700;
+    margin-bottom: 16px;
+    position: relative; z-index: 1;
+  }
+  .demo-card:nth-child(1) .demo-num { background: rgba(192,132,252,0.15); color: #c084fc; }
+  .demo-card:nth-child(2) .demo-num { background: rgba(56,189,248,0.15); color: #38bdf8; }
+  .demo-card:nth-child(3) .demo-num { background: rgba(52,211,153,0.15); color: #34d399; }
+  .demo-card:nth-child(4) .demo-num { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .demo-card:nth-child(5) .demo-num { background: rgba(251,113,133,0.15); color: #fb7185; }
+
+  .demo-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; position: relative; z-index: 1; }
+  .demo-card p { font-size: 14px; color: var(--muted); line-height: 1.6; position: relative; z-index: 1; }
+  .demo-tag {
+    display: inline-block; margin-top: 16px; padding: 4px 10px;
+    border-radius: 6px; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    position: relative; z-index: 1;
+  }
+  .demo-card:nth-child(1) .demo-tag { background: rgba(192,132,252,0.12); color: #c084fc; }
+  .demo-card:nth-child(2) .demo-tag { background: rgba(56,189,248,0.12); color: #38bdf8; }
+  .demo-card:nth-child(3) .demo-tag { background: rgba(52,211,153,0.12); color: #34d399; }
+  .demo-card:nth-child(4) .demo-tag { background: rgba(251,191,36,0.12); color: #fbbf24; }
+  .demo-card:nth-child(5) .demo-tag { background: rgba(251,113,133,0.12); color: #fb7185; }
+
+  /* Full-width card for #5 */
+  .demo-card.full-width { grid-column: 1 / -1; }
+
+  /* Arrow icon */
+  .arrow {
+    position: absolute; top: 32px; right: 32px;
+    font-size: 20px; color: var(--muted);
+    transition: all 0.3s;
+  }
+  .demo-card:hover .arrow { color: var(--accent); transform: translate(4px, -4px); }
+
+  /* Footer */
+  .footer {
+    text-align: center; margin-top: 64px; padding-top: 32px;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 13px;
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  /* Floating orbs */
+  .orb {
+    position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.12;
+    pointer-events: none; z-index: 0;
+  }
+  .orb-1 { width: 400px; height: 400px; background: #c084fc; top: -100px; right: -100px; }
+  .orb-2 { width: 300px; height: 300px; background: #38bdf8; bottom: -50px; left: -50px; }
+  .orb-3 { width: 250px; height: 250px; background: #34d399; top: 50%; left: 60%; }
+
+  @media (max-width: 640px) {
+    .demos { grid-template-columns: 1fr; }
+    .demo-card.full-width { grid-column: 1; }
+    .hero h1 { font-size: 32px; }
+    .stats-bar { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="bg-grid"></div>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-badge">LIVE DEMONSTRATION</div>
+    <h1>Claude Code<br>Capabilities Demo</h1>
+    <p>Everything on this page was built by Claude Code in a single session — from interactive dashboards to full-stack apps to data pipelines. Click any demo to explore.</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num" data-target="5">0</div>
+      <div class="stat-label">Live Demos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-target="4">0</div>
+      <div class="stat-label">Parallel Agents</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-target="0" id="loc-count">~3000</div>
+      <div class="stat-label">Lines of Code</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-target="0" id="time-stat">1</div>
+      <div class="stat-label">Session</div>
+    </div>
+  </div>
+
+  <div class="demos">
+    <a class="demo-card" href="demo1_maritime_dashboard.html">
+      <span class="arrow">&#8599;</span>
+      <div class="demo-num">01</div>
+      <h3>Maritime Intelligence Dashboard</h3>
+      <p>Interactive global shipping dashboard with animated world map, live vessel tracking, commodity prices, and traffic charts. Pure HTML/CSS/JS — zero dependencies.</p>
+      <span class="demo-tag">Web Fetch + Visualization</span>
+    </a>
+
+    <a class="demo-card" href="demo2_task_app.html">
+      <span class="arrow">&#8599;</span>
+      <div class="demo-num">02</div>
+      <h3>Kanban Task Manager</h3>
+      <p>Full drag-and-drop Kanban board with local storage persistence, dark/light mode, priority filtering, and confetti celebrations. A complete app in one file.</p>
+      <span class="demo-tag">Full-Stack App Generation</span>
+    </a>
+
+    <a class="demo-card" href="demo3_multi_agent.html">
+      <span class="arrow">&#8599;</span>
+      <div class="demo-num">03</div>
+      <h3>Multi-Agent Research</h3>
+      <p>Three AI agents launched in parallel to research different topics simultaneously, then results synthesized into a unified briefing. Shows orchestration power.</p>
+      <span class="demo-tag">Agent Orchestration</span>
+    </a>
+
+    <a class="demo-card" href="demo4_report.html">
+      <span class="arrow">&#8599;</span>
+      <div class="demo-num">04</div>
+      <h3>Data Analysis Pipeline</h3>
+      <p>Generated 500-row maritime dataset, analyzed with Python + DuckDB, and produced a professional HTML report with charts — all automated end-to-end.</p>
+      <span class="demo-tag">Data Science Workflow</span>
+    </a>
+
+    <a class="demo-card full-width" href="demo5_codebase_xray.html">
+      <span class="arrow">&#8599;</span>
+      <div class="demo-num">05</div>
+      <h3>Codebase X-Ray</h3>
+      <p>Deep architectural analysis of a real production Python codebase — entry points, data flow, module dependencies, and tech stack breakdown. Shows how Claude Code understands existing projects.</p>
+      <span class="demo-tag">Codebase Understanding</span>
+    </a>
+  </div>
+
+  <div class="footer">
+    Built with <a href="https://claude.ai/code">Claude Code</a> by Anthropic &mdash; Opus 4.6 &mdash; March 2026
+  </div>
+</div>
+
+<script>
+  // Count-up animation for stat numbers
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    if (!target) return;
+    let current = 0;
+    const step = Math.max(1, Math.floor(target / 30));
+    const interval = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(interval); }
+      el.textContent = current;
+    }, 40);
+  });
+
+  // Mouse-follow glow on cards
+  document.querySelectorAll('.demo-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+    });
+  });
+</script>
+
+</body>
+</html>
