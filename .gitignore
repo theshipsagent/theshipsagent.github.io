@@ -40,10 +40,15 @@ theshipsagent-xyz/
 user_convo/
 user_convo_website/
 
-# Session management (local only)
+# Session management / local-only notes (not deployed)
 SESSION_STATE.md
 SESSION_ARCHIVE/
 REBUILD_HANDOFF.md
+CLAUDE.md
+HANDOFF.md
+memory/
+user_convo
+user_convo_theshipsagent/
 
 # Logos / branding source files
 datum_logo_linkedin_300x300.png
