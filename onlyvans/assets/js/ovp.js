@@ -33,6 +33,18 @@
     if (e.key === 'Escape') closeMenu();
   });
 
+  // --- Hero crossfade: drone video <-> van photo ---------------------------
+  // The video loops underneath; we fade the still photo in and out on top so
+  // the hero alternates "aerial beach" and "the van" every few seconds.
+  var heroStill = document.querySelector('.hero-media .hero-still');
+  if (heroStill) {
+    var showingStill = false;
+    setInterval(function () {
+      showingStill = !showingStill;
+      heroStill.classList.toggle('show', showingStill);
+    }, 6000);
+  }
+
   // --- Mock "Book" / "Add to cart" buttons ---------------------------------
   // These are demo placeholders: in the real site each opens the embedded
   // FareHarbor/Stripe/Printful widget. Here they just explain that.
