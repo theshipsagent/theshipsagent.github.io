@@ -22,7 +22,9 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-> **Note:** photos load from Unsplash, so viewing needs an internet connection.
+> **Self-contained:** all photos are bundled locally in `assets/img/`, so the demo works
+> offline. (The two webfonts load from Google Fonts when online and fall back to system fonts
+> otherwise — cosmetic only.)
 
 ## Pages
 
@@ -38,7 +40,7 @@ python3 -m http.server 8000
 | Real in this mockup | Placeholder (wired up later) |
 |---|---|
 | The full look, layout, fonts, colors, responsiveness | Tour names, descriptions & **pricing** (need Claas's real list) |
-| Mobile nav (hamburger at 768px), hover effects | **Photos** — Unsplash stand-ins for Claas's real Instagram shots |
+| Mobile nav (hamburger at 768px), hover effects | **Photos** — local stock stand-ins for Claas's real Instagram shots |
 | Page structure & navigation between pages | **Booking calendar** → FareHarbor / Rezdy / Bokun widget |
 | | **Payments / deposit** → Stripe / PayPal / Yappy |
 | | **Instagram feed** → live `@onlyvanspanama` embed |
