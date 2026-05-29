@@ -1,0 +1,13 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Local notes / scratch
+_archive/
+*.local
+
+# Claude Code local tooling (not part of the handover deliverable)
+.claude/

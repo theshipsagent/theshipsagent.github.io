@@ -1,0 +1,215 @@
+/* ============================================================================
+   OnlyVans Panama — shared design system (ovp.css)
+   ONE stylesheet linked by every page. Edit here once; all pages update.
+   (Deliberately avoiding oceandatum's "navbar duplicated across 83 files" trap.)
+   ========================================================================== */
+
+/* ---- Design tokens --------------------------------------------------------
+   Change the brand here. Everything downstream reads these variables. */
+:root {
+  --ocean-deep: #062b45;   /* darkest blue — text on light, dark sections */
+  --ocean:      #0a4d6e;   /* mid ocean blue */
+  --ocean-teal: #00b4a6;   /* bright teal accent */
+  --sunset:     #ff6b35;   /* primary CTA — sunset orange/coral */
+  --sun:        #ffb347;   /* warm highlight */
+  --jungle:     #1f8a4c;   /* jungle green accent */
+  --sand:       #fff8f0;   /* light section background */
+  --sand-deep:  #ffeede;   /* warmer sand for alternating bands */
+  --ink:        #15202b;   /* body text */
+  --ink-soft:   #4a5a66;   /* secondary text */
+  --white:      #ffffff;
+
+  --shadow-sm: 0 4px 14px rgba(6, 43, 69, 0.10);
+  --shadow-md: 0 14px 40px rgba(6, 43, 69, 0.16);
+  --radius:    18px;
+  --radius-sm: 12px;
+  --maxw:      1180px;
+
+  --font-display: 'Bricolage Grotesque', 'Outfit', sans-serif;
+  --font-body:    'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--sand);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.05; letter-spacing: -0.02em; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---- Sample / honesty ribbon ---------------------------------------------
+   Makes clear to Claas that copy + photos are placeholders, not final. */
+.sample-ribbon {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1200;
+  background: repeating-linear-gradient(45deg, var(--ink) 0 14px, #20303d 14px 28px);
+  color: #fff;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  text-align: center; padding: 5px 12px;
+}
+.sample-ribbon b { color: var(--sun); }
+body { padding-top: 28px; } /* room for the fixed ribbon */
+
+/* ---- Navbar (glassmorphism, transferred from oceandatum) ----------------- */
+.navbar {
+  position: sticky; top: 28px; z-index: 1100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.7rem 1.5rem;
+  background: rgba(6, 43, 69, 0.72);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.navbar-brand {
+  font-family: var(--font-display);
+  font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: -0.01em;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.navbar-brand .pin { color: var(--sunset); }
+.navbar-links { display: flex; align-items: center; gap: 1.6rem; }
+.navbar-links a {
+  color: rgba(255, 255, 255, 0.85); font-weight: 500; font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+.navbar-links a:hover, .navbar-links a.active { color: var(--sun); }
+
+/* Hamburger — hidden on desktop, shown < 768px */
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 6px; }
+.hamburger span { width: 26px; height: 3px; background: #fff; border-radius: 3px; transition: 0.25s; }
+
+#mobileMenu {
+  display: none;
+  position: fixed; top: 0; right: 0; bottom: 0; width: 78%; max-width: 320px;
+  z-index: 1300;
+  background: var(--ocean-deep);
+  padding: 5rem 1.8rem 2rem; flex-direction: column; gap: 0.4rem;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
+  transform: translateX(100%); transition: transform 0.3s ease;
+}
+#mobileMenu.open { display: flex; transform: translateX(0); }
+#mobileMenu a { color: #fff; font-size: 1.15rem; font-weight: 600; padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+#mobileMenu a:hover { color: var(--sun); }
+#mobileMenu .close { position: absolute; top: 1.2rem; right: 1.4rem; font-size: 1.8rem; color: #fff; background: none; border: 0; cursor: pointer; }
+.menu-backdrop { display: none; position: fixed; inset: 0; z-index: 1250; background: rgba(0,0,0,0.5); }
+.menu-backdrop.open { display: block; }
+
+/* ---- Buttons -------------------------------------------------------------- */
+.btn {
+  display: inline-block; font-family: var(--font-body); font-weight: 700;
+  font-size: 1rem; padding: 0.85rem 1.8rem; border-radius: 999px;
+  border: 0; cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease;
+  text-align: center;
+}
+.btn-primary { background: var(--sunset); color: #fff; box-shadow: 0 8px 22px rgba(255, 107, 53, 0.4); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255, 107, 53, 0.5); }
+.btn-ghost { background: rgba(255,255,255,0.15); color: #fff; border: 1.5px solid rgba(255,255,255,0.6); }
+.btn-ghost:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+.btn-teal { background: var(--ocean-teal); color: #fff; }
+.btn-teal:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0,180,166,0.4); }
+
+/* ---- Hero (full-bleed photo + dark gradient overlay) --------------------- */
+.hero {
+  position: relative; min-height: 88vh;
+  display: flex; align-items: center;
+  color: #fff; overflow: hidden;
+  margin-top: -28px; padding-top: 28px; /* slide under sticky bar cleanly */
+}
+.hero-media { position: absolute; inset: 0; z-index: 0; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; }
+.hero-media::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(105deg, rgba(6,43,69,0.86) 0%, rgba(6,43,69,0.45) 45%, rgba(255,107,53,0.25) 100%);
+}
+.hero-inner { position: relative; z-index: 1; max-width: 720px; padding: 2rem 0; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 800; }
+.hero h1 .accent { color: var(--sun); }
+.hero p.lead { font-size: clamp(1.05rem, 2.4vw, 1.4rem); margin: 1.2rem 0 2rem; max-width: 560px; color: rgba(255,255,255,0.92); }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.video-note { margin-top: 1.6rem; font-size: 0.8rem; color: rgba(255,255,255,0.6); letter-spacing: 0.03em; }
+
+/* ---- Sections ------------------------------------------------------------- */
+section { padding: 4.5rem 0; }
+.section-band { background: var(--sand-deep); }
+.section-dark { background: var(--ocean-deep); color: #fff; }
+.section-head { max-width: 640px; margin-bottom: 2.6rem; }
+.eyebrow { color: var(--sunset); font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.82rem; }
+.section-dark .eyebrow { color: var(--sun); }
+.section-head h2 { font-size: clamp(2rem, 4.5vw, 3rem); margin: 0.5rem 0 0.8rem; }
+.section-head p { color: var(--ink-soft); font-size: 1.1rem; }
+.section-dark .section-head p { color: rgba(255,255,255,0.75); }
+
+/* ---- Card grid ------------------------------------------------------------ */
+.grid { display: grid; gap: 1.6rem; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+.card {
+  background: #fff; border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-sm); transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex; flex-direction: column;
+}
+.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.card-img { aspect-ratio: 4 / 3; overflow: hidden; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.card:hover .card-img img { transform: scale(1.06); }
+.card-body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.card-body h3 { font-size: 1.4rem; margin-bottom: 0.4rem; color: var(--ocean-deep); }
+.card-body p { color: var(--ink-soft); font-size: 0.96rem; flex: 1; }
+.card-meta { display: flex; align-items: center; justify-content: space-between; margin: 1rem 0 1.1rem; }
+.price { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--sunset); }
+.price span { font-size: 0.78rem; font-weight: 500; color: var(--ink-soft); }
+.duration { font-size: 0.85rem; color: var(--ink-soft); background: var(--sand-deep); padding: 0.3rem 0.7rem; border-radius: 999px; }
+
+/* ---- Frosted-glass placeholder (the "service seam" boxes) ---------------- */
+.seam {
+  border: 2px dashed rgba(0, 180, 166, 0.55);
+  background: rgba(0, 180, 166, 0.06);
+  border-radius: var(--radius); padding: 2.2rem; text-align: center;
+}
+.seam .seam-tag { display: inline-block; background: var(--ocean-teal); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 999px; margin-bottom: 1rem; }
+.seam h3 { color: var(--ocean-deep); font-size: 1.4rem; margin-bottom: 0.5rem; }
+.seam p { color: var(--ink-soft); max-width: 520px; margin: 0 auto; }
+
+/* ---- Instagram strip ------------------------------------------------------ */
+.ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.ig-grid img { aspect-ratio: 1; object-fit: cover; width: 100%; filter: saturate(1.05); }
+
+/* ---- Reviews -------------------------------------------------------------- */
+.review { background: #fff; border-radius: var(--radius); padding: 1.6rem 1.7rem; box-shadow: var(--shadow-sm); }
+.review .stars { color: var(--sun); letter-spacing: 2px; margin-bottom: 0.6rem; }
+.review p { font-size: 1.02rem; color: var(--ink); }
+.review .who { margin-top: 0.9rem; font-weight: 700; color: var(--ocean-deep); }
+.review .who span { display: block; font-weight: 500; font-size: 0.85rem; color: var(--ink-soft); }
+
+/* ---- Footer --------------------------------------------------------------- */
+.footer { background: var(--ocean-deep); color: rgba(255,255,255,0.8); padding: 3rem 0 2rem; }
+.footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
+.footer h4 { font-family: var(--font-display); color: #fff; margin-bottom: 0.8rem; font-size: 1.05rem; }
+.footer a { color: rgba(255,255,255,0.8); display: block; padding: 0.2rem 0; transition: color 0.2s; }
+.footer a:hover { color: var(--sun); }
+.footer-brand { max-width: 280px; }
+.footer-brand .navbar-brand { margin-bottom: 0.8rem; }
+.footer-note { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 1.4rem; font-size: 0.85rem; color: rgba(255,255,255,0.55); }
+.footer-note b { color: rgba(255,255,255,0.8); }
+
+/* ---- Responsive: the 768px hamburger switch (oceandatum's breakpoint) ---- */
+@media (max-width: 768px) {
+  .navbar-links { display: none; }
+  .hamburger { display: flex; }
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .ig-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-top { flex-direction: column; }
+  section { padding: 3rem 0; }
+  .hero { min-height: 80vh; }
+}

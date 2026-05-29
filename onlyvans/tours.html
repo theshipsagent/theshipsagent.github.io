@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tours — OnlyVans Panama</title>
+  <meta name="description" content="Van trips across Panama: Bocas del Toro, San Blas, Boquete highlands, Pacific surf coast and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/ovp.css">
+</head>
+<body>
+
+  <div class="sample-ribbon">Sample mockup for Claas — <b>illustrative tours &amp; pricing</b>, pending real trip list</div>
+
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">OnlyVans&nbsp;<span class="pin">Panama</span></a>
+    <div class="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="tours.html" class="active">Tours</a>
+      <a href="book.html">Book</a>
+      <a href="shop.html">Shop</a>
+      <a href="https://instagram.com/onlyvanspanama" target="_blank" rel="noopener">Instagram</a>
+      <a href="book.html" class="btn btn-primary" style="padding:0.55rem 1.3rem;">Book a trip</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <div id="mobileMenu">
+    <button class="close" aria-label="Close menu">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="tours.html">Tours</a>
+    <a href="book.html">Book</a>
+    <a href="shop.html">Shop</a>
+    <a href="https://instagram.com/onlyvanspanama" target="_blank" rel="noopener">Instagram</a>
+  </div>
+
+  <!-- Page header -->
+  <header style="background:var(--ocean-deep); color:#fff; padding:4rem 0 3.2rem;">
+    <div class="wrap">
+      <p class="eyebrow" style="color:var(--sun)">The trips</p>
+      <h1 style="font-size:clamp(2.4rem,6vw,4rem); max-width:740px;">Choose your stretch of Panama</h1>
+      <p style="color:rgba(255,255,255,.8); font-size:1.15rem; max-width:560px; margin-top:.8rem;">Every trip runs small-group, all-in, and flexes with the weather. Tap <b>Book</b> on any trip to check live dates.</p>
+    </div>
+  </header>
+
+  <!-- Tours grid -->
+  <section>
+    <div class="wrap">
+      <div class="grid grid-3">
+
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1583531352515-8884af319dc1?w=700&q=70&auto=format&fit=crop" alt="Caribbean cayes of Bocas del Toro"></div>
+          <div class="card-body">
+            <h3>Bocas del Toro</h3>
+            <p>Caribbean archipelago life — island-hopping, snorkeling and overwater hostels on the turquoise side of Panama.</p>
+            <div class="card-meta"><span class="price">$390 <span>/ from</span></span><span class="duration">4 days</span></div>
+            <a href="book.html" class="btn btn-teal">Book</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=700&q=70&auto=format&fit=crop" alt="Palm-lined San Blas coast"></div>
+          <div class="card-body">
+            <h3>San Blas / Guna Yala</h3>
+            <p>Postcard islands run by the Guna people — white sand, hammocks and sailing between cayes. A bucket-list run.</p>
+            <div class="card-meta"><span class="price">$520 <span>/ from</span></span><span class="duration">3 days</span></div>
+            <a href="book.html" class="btn btn-teal">Book</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=700&q=70&auto=format&fit=crop" alt="Boquete highland sunrise"></div>
+          <div class="card-body">
+            <h3>Boquete Highlands</h3>
+            <p>Cloud forest, hot springs and the country's best coffee farms in the cool mountain air of Chiriquí.</p>
+            <div class="card-meta"><span class="price">$340 <span>/ from</span></span><span class="duration">3 days</span></div>
+            <a href="book.html" class="btn btn-teal">Book</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=700&q=70&auto=format&fit=crop" alt="Surfer on a Pacific point break"></div>
+          <div class="card-body">
+            <h3>Pacific Surf Coast</h3>
+            <p>Chase point breaks down the Pacific shore with beach camps, sunset fires and boards on the roof.</p>
+            <div class="card-meta"><span class="price">$310 <span>/ from</span></span><span class="duration">3 days</span></div>
+            <a href="book.html" class="btn btn-teal">Book</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=700&q=70&auto=format&fit=crop" alt="Jungle river crossing"></div>
+          <div class="card-body">
+            <h3>Caribbean Jungle Run</h3>
+            <p>Rainforest rivers, waterfalls and indigenous villages on the wild, green Caribbean slope.</p>
+            <div class="card-meta"><span class="price">$420 <span>/ from</span></span><span class="duration">5 days</span></div>
+            <a href="book.html" class="btn btn-teal">Book</a>
+          </div>
+        </article>
+
+        <article class="card" style="background:linear-gradient(135deg,var(--ocean-teal),var(--ocean)); color:#fff;">
+          <div class="card-body" style="justify-content:center; min-height:260px; text-align:center;">
+            <h3 style="color:#fff;">Build your own</h3>
+            <p style="color:rgba(255,255,255,.9);">Got dates and a dream route? Tell us where and we'll map the van around you.</p>
+            <a href="book.html" class="btn btn-ghost" style="margin-top:1rem;">Plan a custom trip</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA strip -->
+  <section class="section-band" style="text-align:center;">
+    <div class="wrap">
+      <h2 style="font-size:clamp(1.8rem,4vw,2.6rem); color:var(--ocean-deep);">See a date that works?</h2>
+      <p style="color:var(--ink-soft); font-size:1.1rem; margin:.8rem auto 1.8rem; max-width:480px;">Check live availability and hold your seat with a deposit.</p>
+      <a href="book.html" class="btn btn-primary">Check availability</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand">OnlyVans&nbsp;<span class="pin">Panama</span></a>
+          <p style="font-size:.92rem;">Small-group van adventures across Panama. Operated by OnlyVans Panama S.A.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="tours.html">Tours</a>
+          <a href="book.html">Book a trip</a>
+          <a href="shop.html">Shop</a>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <a href="https://instagram.com/onlyvanspanama" target="_blank" rel="noopener">Instagram</a>
+          <a href="mailto:hola@onlyvanspanama.com">hola@onlyvanspanama.com</a>
+          <a href="book.html">Plan a custom trip</a>
+        </div>
+      </div>
+      <div class="footer-note">
+        © 2026 OnlyVans Panama S.A. · Demo mockup. <b>Email stays on One.com</b> through any rebuild — only the website moves.
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/ovp.js"></script>
+</body>
+</html>

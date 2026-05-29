@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnlyVans Panama — Van adventures across Panama</title>
+  <meta name="description" content="Small-group van adventures across Panama — beaches, jungle, and highlands. Book your trip with OnlyVans Panama.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/ovp.css">
+</head>
+<body>
+
+  <!-- Honesty ribbon: this is a demo, not the live site -->
+  <div class="sample-ribbon">Sample mockup for Claas — <b>illustrative content &amp; stock photos</b>, not final</div>
+
+  <!-- Navbar (markup repeated per page; styling + behavior are shared) -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">OnlyVans&nbsp;<span class="pin">Panama</span></a>
+    <div class="navbar-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="tours.html">Tours</a>
+      <a href="book.html">Book</a>
+      <a href="shop.html">Shop</a>
+      <a href="https://instagram.com/onlyvanspanama" target="_blank" rel="noopener">Instagram</a>
+      <a href="book.html" class="btn btn-primary" style="padding:0.55rem 1.3rem;">Book a trip</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <div id="mobileMenu">
+    <button class="close" aria-label="Close menu">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="tours.html">Tours</a>
+    <a href="book.html">Book</a>
+    <a href="shop.html">Shop</a>
+    <a href="https://instagram.com/onlyvanspanama" target="_blank" rel="noopener">Instagram</a>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-media">
+      <img src="https://images.unsplash.com/photo-1533873984035-25970ab07461?w=1920&q=70&auto=format&fit=crop" alt="Camper van parked by a tropical beach">
+    </div>
+    <div class="wrap">
+      <div class="hero-inner">
+        <p class="eyebrow" style="color:var(--sun)">Two countries, one van, endless coast</p>
+        <h1>Panama,<br>by <span class="accent">van.</span></h1>
+        <p class="lead">Small-group road trips to the beaches, jungle and highlands most travelers never reach. You bring the curiosity — we bring the van.</p>
+        <div class="hero-actions">
+          <a href="book.html" class="btn btn-primary">Check availability / Book a trip</a>
+          <a href="tours.html" class="btn btn-ghost">See the trips</a>
+        </div>
+        <p class="video-note">▶ A full-screen van + coastline video drops in here in the real build.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Brand story -->
+  <section>
+    <div class="wrap" style="display:grid; grid-template-columns:1.1fr 1fr; gap:3rem; align-items:center;">
+      <div>
+        <p class="eyebrow">The idea</p>
+        <h2 style="font-size:clamp(2rem,4.5vw,3rem); color:var(--ocean-deep); margin:.5rem 0 1rem;">A camper, a map, and no fixed plan</h2>
+        <p style="color:var(--ink-soft); font-size:1.1rem;">OnlyVans Panama started with one converted van and a simple belief: the best of Panama is off the main road. We run relaxed, small-group trips where the route bends to the weather, the surf and the people you meet along the way.</p>
+        <p style="color:var(--ink-soft); font-size:1.1rem; margin-top:1rem;">From the Caribbean cayes of Bocas del Toro to the cloud forests of Boquete, every trip is built around going slow and seeing more.</p>
+      </div>
+      <div style="border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-md);">
+        <img src="https://images.unsplash.com/photo-1496080174650-637e3f22fa03?w=900&q=70&auto=format&fit=crop" alt="Inside a cozy converted camper van">
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured tours -->
+  <section class="section-band">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Featured trips</p>
+        <h2>Where the van is headed</h2>
+        <p>A taste of the route list. Real trips and pricing come from Claas.</p>
+      </div>
+      <div class="grid grid-3">
+
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1583531352515-8884af319dc1?w=700&q=70&auto=format&fit=crop" alt="Caribbean coast"></div>
+          <div class="card-body">
+            <h3>Bocas del Toro</h3>
+            <p>Caribbean cayes, turquoise water and island-hopping by boat and van.</p>
+            <div class="card-meta"><span class="price">$390 <span>/ from</span></span><span class="duration">4 days</span></div>
+            <a href="book.html" class="btn btn-teal">Book</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=700&q=70&auto=format&fit=crop" alt="Highland mountains at sunrise"></div>
+          <div class="card-body">
+            <h3>Boquete Highlands</h3>
+            <p>Cloud forest, coffee farms and cool mountain air in Panama's west.</p>
+            <div class="card-meta"><span class="price">$340 <span>/ from</span></span><span class="duration">3 days</span></div>
+            <a href="book.html" class="btn btn-teal">Book</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=700&q=70&auto=format&fit=crop" alt="Surfers on a Pacific beach"></div>
+          <div class="card-body">
+            <h3>Pacific Surf Coast</h3>
+            <p>Empty point breaks, beach camps and sunset fires down the Pacific shore.</p>
+            <div class="card-meta"><span class="price">$310 <span>/ from</span></span><span class="duration">3 days</span></div>
+            <a href="book.html" class="btn btn-teal">Book</a>
+          </div>
+        </article>
+
+      </div>
+      <div style="text-align:center; margin-top:2.4rem;">
+        <a href="tours.html" class="btn btn-primary">View all trips</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram strip -->
+  <section>
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:1.6rem;">
+        <p class="eyebrow">Straight from the road</p>
+        <h2>@onlyvanspanama</h2>
+        <p>The brand's real voice lives on Instagram. In the live site this is a self-updating feed.</p>
+      </div>
+      <div class="seam" style="padding:0;">
+        <div class="ig-grid">
+          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=300&q=60&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=300&q=60&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=300&q=60&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&q=60&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=300&q=60&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&q=60&auto=format&fit=crop" alt="">
+        </div>
+        <div style="padding:1.1rem;"><span class="seam-tag">Instagram feed embed</span>
+          <p style="margin:0; color:var(--ink-soft); font-size:.92rem;">Live <b>@onlyvanspanama</b> feed (e.g. EmbedSocial / Behold) drops in here — these are stand-in photos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section-dark">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Travelers</p>
+        <h2>Why people ride along</h2>
+        <p>Sample testimonials — real reviews replace these.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>"Best week of our Central America trip. The route changed daily and somehow that made it perfect."</p>
+          <div class="who">Marta &amp; Jon<span>Berlin · Bocas del Toro trip</span></div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>"Felt like traveling with friends who happen to know every hidden beach in the country."</p>
+          <div class="who">Diego R.<span>Mexico City · Pacific Surf Coast</span></div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>"Boquete at sunrise from the van door. I still think about that coffee."</p>
+          <div class="who">Sophie L.<span>Montréal · Boquete Highlands</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section-band" style="text-align:center;">
+    <div class="wrap">
+      <h2 style="font-size:clamp(2rem,5vw,3.2rem); color:var(--ocean-deep);">Ready when you are</h2>
+      <p style="color:var(--ink-soft); font-size:1.15rem; max-width:520px; margin:1rem auto 2rem;">Pick a trip, check the dates, and put down a deposit to lock your seat in the van.</p>
+      <a href="book.html" class="btn btn-primary">Check availability / Book a trip</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand">OnlyVans&nbsp;<span class="pin">Panama</span></a>
+          <p style="font-size:.92rem;">Small-group van adventures across Panama. Operated by OnlyVans Panama S.A.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="tours.html">Tours</a>
+          <a href="book.html">Book a trip</a>
+          <a href="shop.html">Shop</a>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <a href="https://instagram.com/onlyvanspanama" target="_blank" rel="noopener">Instagram</a>
+          <a href="mailto:hola@onlyvanspanama.com">hola@onlyvanspanama.com</a>
+          <a href="book.html">Plan a custom trip</a>
+        </div>
+      </div>
+      <div class="footer-note">
+        © 2026 OnlyVans Panama S.A. · Demo mockup. <b>Email stays on One.com</b> through any rebuild — only the website moves.
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/ovp.js"></script>
+</body>
+</html>
