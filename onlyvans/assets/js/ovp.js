@@ -7,22 +7,18 @@
 (function () {
   'use strict';
 
-  // --- Brand logo (placeholder "close-likeness" mark) ----------------------
-  // Camper-van glyph + wordmark. Defined ONCE here and injected into every
-  // .navbar-brand (nav + footer) so there's a single source of truth. The text
-  // "OnlyVans Panama" stays in the HTML as a fallback if JS is off.
-  // Swap this whole SVG for Claas's real logo once we can read it from IG.
-  var VAN_SVG = '<svg class="brand-van" viewBox="0 0 104 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-    '<path d="M8 46 V22 a6 6 0 0 1 6-6 h44 c4 0 7 1.5 10 4.5 L88 32 a6 6 0 0 1 2 4.3 V46 a3 3 0 0 1-3 3 H11 a3 3 0 0 1-3-3 Z" fill="#fff8f0"/>' +
-    '<path d="M14 16 h44 c4 0 7 1.5 10 4.5 l2 1.9 H14 V18 a2 2 0 0 1 0-2 Z" fill="#ff6b35"/>' +
-    '<rect x="14" y="22" width="17" height="11" rx="2.5" fill="#00b4a6"/>' +
-    '<rect x="35" y="22" width="17" height="11" rx="2.5" fill="#00b4a6"/>' +
-    '<path d="M58 22 h4 c3 0 5 1 7 3 l5 5 h-16 a2 2 0 0 1-2-2 V24 a2 2 0 0 1 2-2 Z" fill="#00b4a6"/>' +
-    '<rect x="8" y="45" width="82" height="4" rx="2" fill="#ffb347"/>' +
-    '<circle cx="30" cy="50" r="9" fill="#15202b"/><circle cx="30" cy="50" r="3.4" fill="#fff8f0"/>' +
-    '<circle cx="72" cy="50" r="9" fill="#15202b"/><circle cx="72" cy="50" r="3.4" fill="#fff8f0"/></svg>';
+  // --- Brand logo (real OnlyVans Panamá wordmark) --------------------------
+  // The real white script wordmark, extracted from Claas's brand sheet. Built
+  // ONCE here with safe DOM methods and injected into every .navbar-brand (nav +
+  // footer) so there's a single source of truth across all pages. The plain text
+  // "OnlyVans Panama" in the HTML is the fallback if JS is off.
   document.querySelectorAll('.navbar-brand').forEach(function (b) {
-    b.insertAdjacentHTML('afterbegin', VAN_SVG);
+    while (b.firstChild) b.removeChild(b.firstChild);
+    var img = document.createElement('img');
+    img.className = 'brand-logo';
+    img.src = 'assets/img/logo-white.png';
+    img.alt = 'OnlyVans Panamá';
+    b.appendChild(img);
   });
 
   // --- Mobile hamburger menu (mirrors oceandatum's proven pattern) ---------
@@ -71,5 +67,59 @@
       e.preventDefault();
       alert(el.getAttribute('data-mock'));
     });
+  });
+
+  // --- Splash slideshow: crossfade through several drone clips -------------
+  // Two stacked <video> layers (#splashA / #splashB). One is visible; we load
+  // the next clip into the hidden layer, fade it in (CSS opacity transition),
+  // then swap. Honors prefers-reduced-motion by staying on the first clip.
+  var splashRoot = document.getElementById('splash');
+  if (splashRoot) {
+    var PLAYLIST = [
+      'assets/video/splash-river.mp4',
+      'assets/video/splash-surf.mp4',
+      'assets/video/splash-waterfall.mp4'
+    ];
+    var layers = [document.getElementById('splashA'), document.getElementById('splashB')];
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (layers[0] && layers[1] && PLAYLIST.length > 1 && !reduceMotion) {
+      var clipIdx = 0;     // playlist index currently shown
+      var activeLayer = 0; // which of the two layers is visible
+      var HOLD_MS = 7000;  // time each clip is shown before crossfading
+
+      setInterval(function () {
+        var nextIdx  = (clipIdx + 1) % PLAYLIST.length;
+        var incoming = layers[activeLayer ^ 1];
+        var outgoing = layers[activeLayer];
+
+        incoming.src = PLAYLIST[nextIdx];
+        incoming.load();
+        var playPromise = incoming.play();
+        if (playPromise && playPromise.catch) playPromise.catch(function () {});
+
+        incoming.classList.add('is-active');   // fade in
+        outgoing.classList.remove('is-active'); // fade out
+
+        activeLayer ^= 1;
+        clipIdx = nextIdx;
+      }, HOLD_MS);
+    }
+  }
+
+  // --- Splash "Enter" → reveal the content below (index page only) ---------
+  // The landing opens as a full-screen drone splash; the Enter button OR the
+  // Enter key smooth-scrolls down to the first content section. Guarded so it
+  // only fires on the splash page and only while still near the top.
+  var splash  = document.getElementById('splash');
+  var content = document.getElementById('content');
+  function enterSite() { if (content) content.scrollIntoView({ behavior: 'smooth' }); }
+  var enterBtn = document.getElementById('enterBtn');
+  if (enterBtn) enterBtn.addEventListener('click', enterSite);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && splash && window.scrollY < window.innerHeight * 0.6) {
+      enterSite();
+    }
   });
 })();

@@ -7,11 +7,14 @@
 /* ---- Design tokens --------------------------------------------------------
    Change the brand here. Everything downstream reads these variables. */
 :root {
-  --ocean-deep: #062b45;   /* darkest blue — text on light, dark sections */
+  --ocean-deep: #062b45;   /* deep navy — dark glass nav, dark sections, text */
   --ocean:      #0a4d6e;   /* mid ocean blue */
-  --ocean-teal: #00b4a6;   /* bright teal accent */
-  --sunset:     #ff6b35;   /* primary CTA — sunset orange/coral */
-  --sun:        #ffb347;   /* warm highlight */
+  --ocean-teal: #00b4a6;   /* bright teal — secondary accent */
+  /* Real OnlyVans Panamá brand: monochrome wordmark + jungle-green accent.
+     --sunset/--sun keep their names (used site-wide) but now carry the green
+     brand so a single edit here recolors every page's CTAs/accents. */
+  --sunset:     #1f9d52;   /* primary CTA — jungle green (was sunset orange) */
+  --sun:        #6fd083;   /* light leaf-green highlight (was warm yellow) */
   --jungle:     #1f8a4c;   /* jungle green accent */
   --sand:       #fff8f0;   /* light section background */
   --sand-deep:  #ffeede;   /* warmer sand for alternating bands */
@@ -77,13 +80,23 @@ body { padding-top: 28px; } /* room for the fixed ribbon */
   display: flex; align-items: center; gap: 0.5rem;
 }
 .navbar-brand .pin { color: var(--sunset); }
-.brand-van { height: 1.7em; width: auto; flex-shrink: 0; }
+/* Real wordmark injected by ovp.js (white version, for the dark glass navbar/footer) */
+.brand-logo { height: 30px; width: auto; display: block; flex-shrink: 0; }
 .navbar-links { display: flex; align-items: center; gap: 1.6rem; }
 .navbar-links a {
   color: rgba(255, 255, 255, 0.85); font-weight: 500; font-size: 0.95rem;
   transition: color 0.2s ease;
 }
 .navbar-links a:hover, .navbar-links a.active { color: var(--sun); }
+
+/* Social icon links (nav + footer) */
+.social-icons { display: inline-flex; align-items: center; gap: 0.7rem; }
+.social-icon { display: inline-flex; color: rgba(255, 255, 255, 0.85); transition: color 0.2s ease, transform 0.2s ease; }
+.social-icon svg { width: 19px; height: 19px; display: block; }
+.social-icon:hover { color: var(--sun); transform: translateY(-1px); }
+.footer-social { display: flex; gap: 0.9rem; margin-bottom: 0.7rem; }
+.footer-social .social-icon { color: rgba(255, 255, 255, 0.8); }
+.footer-social .social-icon svg { width: 22px; height: 22px; }
 
 /* Hamburger — hidden on desktop, shown < 768px */
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 6px; }
@@ -112,8 +125,8 @@ body { padding-top: 28px; } /* room for the fixed ribbon */
   border: 0; cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease;
   text-align: center;
 }
-.btn-primary { background: var(--sunset); color: #fff; box-shadow: 0 8px 22px rgba(255, 107, 53, 0.4); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255, 107, 53, 0.5); }
+.btn-primary { background: var(--sunset); color: #fff; box-shadow: 0 8px 22px rgba(31, 157, 82, 0.4); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(31, 157, 82, 0.55); }
 .btn-ghost { background: rgba(255,255,255,0.15); color: #fff; border: 1.5px solid rgba(255,255,255,0.6); }
 .btn-ghost:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
 .btn-teal { background: var(--ocean-teal); color: #fff; }
@@ -141,6 +154,65 @@ body { padding-top: 28px; } /* room for the fixed ribbon */
 .hero p.lead { font-size: clamp(1.05rem, 2.4vw, 1.4rem); margin: 1.2rem 0 2rem; max-width: 560px; color: rgba(255,255,255,0.92); }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 .video-note { margin-top: 1.6rem; font-size: 0.8rem; color: rgba(255,255,255,0.6); letter-spacing: 0.03em; }
+
+/* ---- Splash: full-screen drone video + glass entry card ------------------
+   The landing opens as a 100vh full-bleed drone loop. A centered frosted card
+   carries the logo + tagline + Enter. Pressing Enter (button or key) scrolls
+   to #content below. */
+.splash {
+  position: relative;
+  height: calc(100svh - 28px);   /* fill the viewport below the sample ribbon */
+  min-height: 540px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  margin-top: -28px; padding-top: 28px; /* slide the video under the sticky navbar */
+}
+.splash-bg { position: absolute; inset: 0; z-index: 0; }
+.splash-video {            /* two stacked layers; ovp.js crossfades opacity */
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity 1.5s ease-in-out;
+}
+.splash-video.is-active { opacity: 1; }
+.splash::after {            /* legibility wash over the footage */
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(6,43,69,0.50) 0%, rgba(6,43,69,0.20) 38%, rgba(6,43,69,0.66) 100%);
+}
+.splash-card {
+  position: relative; z-index: 2; text-align: center;
+  padding: 2rem 2.3rem 1.9rem;
+  width: min(456px, calc(100vw - 2rem));
+  border-radius: 24px;
+  background: rgba(6, 43, 69, 0.15);
+  backdrop-filter: blur(8px) saturate(150%);
+  -webkit-backdrop-filter: blur(8px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+}
+.splash-logo {
+  width: 380px; max-width: 100%; height: auto; margin: 0 auto 1.2rem;
+  filter: drop-shadow(0 3px 16px rgba(0, 0, 0, 0.45));
+}
+.splash-tagline {
+  color: #fff; font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.1rem, 2.6vw, 1.6rem); letter-spacing: 0.01em;
+  margin-bottom: 1.9rem; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+.splash-enter {
+  font-family: var(--font-body); font-weight: 700; font-size: 1.02rem;
+  color: #fff; background: var(--sunset); border: 0; border-radius: 999px;
+  padding: 0.9rem 2.5rem; cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 10px 28px rgba(31, 157, 82, 0.5);
+}
+.splash-enter:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(31, 157, 82, 0.65); }
+.splash-hint {
+  position: absolute; left: 0; right: 0; bottom: 1.5rem; z-index: 2;
+  text-align: center; color: rgba(255, 255, 255, 0.85);
+  font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase;
+  animation: splashBob 2.1s ease-in-out infinite;
+}
+@keyframes splashBob { 0%,100% { transform: translateY(0); opacity: 0.65; } 50% { transform: translateY(6px); opacity: 1; } }
 
 /* ---- Sections ------------------------------------------------------------- */
 section { padding: 4.5rem 0; }
@@ -216,4 +288,5 @@ section { padding: 4.5rem 0; }
   .footer-top { flex-direction: column; }
   section { padding: 3rem 0; }
   .hero { min-height: 80vh; }
+  .splash-card { padding: 2.1rem 1.3rem 1.9rem; }
 }
