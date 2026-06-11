@@ -1,36 +1,82 @@
 /* ============================================================================
-   OnlyVans Panama — shared design system (ovp.css)
+   OnlyVans Panamá — shared design system (ovp.css)
    ONE stylesheet linked by every page. Edit here once; all pages update.
    (Deliberately avoiding oceandatum's "navbar duplicated across 83 files" trap.)
+
+   PHASE 3 BRANDING (2026-06-11) — migrated off the old ocean/green holdover
+   palette to the real media-kit identity: CHARCOAL + CREAM with per-van earthy
+   accents (Kuna=olive, Koa=rust, Karme=orange) and the signature orange rule.
+
+   HOW THE BRANDING IS DECOUPLED (Claas's "just the frame" ask):
+   - Brand core colors live in :root under "Brand core" below.
+   - The legacy names (--ocean-deep, --sunset, --sun, --sand…) are kept ALIVE
+     but now POINT AT the brand core, so every existing rule + inline style in
+     the HTML re-skins with zero markup edits. Rename later if desired.
+   - Re-skin the whole site = change the values in "Brand core". Nothing else.
    ========================================================================== */
 
-/* ---- Design tokens --------------------------------------------------------
-   Change the brand here. Everything downstream reads these variables. */
 :root {
-  --ocean-deep: #062b45;   /* deep navy — dark glass nav, dark sections, text */
-  --ocean:      #0a4d6e;   /* mid ocean blue */
-  --ocean-teal: #00b4a6;   /* bright teal — secondary accent */
-  /* Real OnlyVans Panamá brand: monochrome wordmark + jungle-green accent.
-     --sunset/--sun keep their names (used site-wide) but now carry the green
-     brand so a single edit here recolors every page's CTAs/accents. */
-  --sunset:     #1f9d52;   /* primary CTA — jungle green (was sunset orange) */
-  --sun:        #6fd083;   /* light leaf-green highlight (was warm yellow) */
-  --jungle:     #1f8a4c;   /* jungle green accent */
-  --sand:       #fff8f0;   /* light section background */
-  --sand-deep:  #ffeede;   /* warmer sand for alternating bands */
-  --ink:        #15202b;   /* body text */
-  --ink-soft:   #4a5a66;   /* secondary text */
+  /* ---- Brand core (from the June 2026 media kit) -------------------------- */
+  --char:       #1a1a1a;   /* charcoal — the structural frame (nav/footer/bands) */
+  --char-soft:  #242220;   /* lifted charcoal — panels/gradients on dark        */
+  --char-deep:  #100f0e;   /* deepest charcoal — footer floor                   */
+  --cream:      #efebe0;   /* cream — primary reading surface (paper)           */
+  --cream-warm: #e7dfcf;   /* warmer cream — alternating light band             */
+  --sage:       #dde4d3;   /* support panel (kit)                               */
+  --peach:      #f6e2d2;   /* support panel + light highlight on dark (kit)     */
+
+  /* Per-van "chapter" accents — each van page owns one (see body.van-* below) */
+  --olive:      #51632f;   /* Kuna  — olive/forest green */
+  --rust:       #a8481d;   /* Koa   — rust/sienna        */
+  --orange:     #e2792c;   /* Karme — bright orange + the house signature rule  */
+
+  /* Warm neutrals for text on cream */
+  --ink:        #211e1a;   /* body text — warm near-black */
+  --ink-soft:   #6c655a;   /* secondary text — warm taupe-grey */
+
+  /* ---- Legacy names kept alive — DO NOT repoint markup, repoint these ------
+     These are the variables the existing CSS rules and inline HTML styles read.
+     Each now resolves to a brand-core color so the rebrand cascades everywhere. */
+  --ocean-deep: var(--char);     /* was navy → charcoal: dark surfaces + heading ink */
+  --ocean:      var(--char-soft);
+  --ocean-teal: var(--char);     /* secondary "View van" buttons → charcoal */
+  --sunset:     var(--orange);   /* was green → orange: house accent / primary CTA */
+  --sun:        var(--peach);    /* light highlight on dark (eyebrow, nav hover) */
+  --jungle:     var(--olive);
+  --sand:       var(--cream);    /* page background */
+  --sand-deep:  var(--cream-warm); /* alternating light band */
   --white:      #ffffff;
 
-  --shadow-sm: 0 4px 14px rgba(6, 43, 69, 0.10);
-  --shadow-md: 0 14px 40px rgba(6, 43, 69, 0.16);
-  --radius:    18px;
-  --radius-sm: 12px;
+  /* ---- Semantic / role tokens -------------------------------------------- */
+  --bg:          var(--cream);
+  --surface:     #faf7f0;        /* card paper — lifted a touch off the cream page */
+  --line:        rgba(26, 26, 26, 0.13);   /* hairline borders */
+  --accent:      var(--orange);  /* house accent */
+  --accent-soft: var(--peach);
+  /* Per-van accent — defaults to the house orange; each van body overrides it.
+     EVERYTHING that should change color per van reads this one variable. */
+  --van-accent:  var(--accent);
+
+  /* Shadows — warm/charcoal-tinted (old ones were navy) */
+  --shadow-sm: 0 4px 16px rgba(26, 22, 18, 0.10);
+  --shadow-md: 0 18px 48px rgba(26, 22, 18, 0.20);
+  --radius:    16px;
+  --radius-sm: 11px;
   --maxw:      1180px;
 
   --font-display: 'Bricolage Grotesque', 'Outfit', sans-serif;
   --font-body:    'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
+
+/* ---- Per-van color "chapters" -------------------------------------------
+   Each van page sets <body class="van-kuna|van-koa|van-karme">. Set the ONE
+   --van-accent variable; specs, the request button, the hero rule and hovers
+   all key off it. Kit assignment: Kuna=green, Koa=rust, Karme=orange. */
+/* Class-based (not body-only) so a single card on the landing fleet row can
+   also carry a chapter colour — custom properties inherit to its children. */
+.van-kuna  { --van-accent: var(--olive);  }
+.van-koa   { --van-accent: var(--rust);   }
+.van-karme { --van-accent: var(--orange); }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -39,13 +85,17 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
   color: var(--ink);
-  background: var(--sand);
-  line-height: 1.6;
+  background: var(--cream);
+  line-height: 1.62;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-h1, h2, h3 { font-family: var(--font-display); line-height: 1.05; letter-spacing: -0.02em; }
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 
@@ -56,47 +106,75 @@ img { display: block; max-width: 100%; }
 .sample-ribbon {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 1200;
-  background: repeating-linear-gradient(45deg, var(--ink) 0 14px, #20303d 14px 28px);
+  background: repeating-linear-gradient(45deg, var(--char) 0 14px, var(--char-soft) 14px 28px);
   color: #fff;
   font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
   text-align: center; padding: 5px 12px;
 }
-.sample-ribbon b { color: var(--sun); }
+.sample-ribbon b { color: var(--orange); }
 body { padding-top: 28px; } /* room for the fixed ribbon */
 
-/* ---- Navbar (glassmorphism, transferred from oceandatum) ----------------- */
+/* ---- Navbar (charcoal glass) --------------------------------------------- */
 .navbar {
   position: sticky; top: 28px; z-index: 1100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0.7rem 1.5rem;
-  background: rgba(6, 43, 69, 0.72);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(20, 19, 18, 0.74);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-bottom: 1px solid rgba(239, 235, 224, 0.12);
 }
 .navbar-brand {
   font-family: var(--font-display);
   font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: -0.01em;
   display: flex; align-items: center; gap: 0.5rem;
 }
-.navbar-brand .pin { color: var(--sunset); }
+.navbar-brand .pin { color: var(--orange); }
 /* Real wordmark injected by ovp.js (white version, for the dark glass navbar/footer) */
 .brand-logo { height: 30px; width: auto; display: block; flex-shrink: 0; }
 .navbar-links { display: flex; align-items: center; gap: 1.6rem; }
 .navbar-links a {
-  color: rgba(255, 255, 255, 0.85); font-weight: 500; font-size: 0.95rem;
-  transition: color 0.2s ease;
+  color: rgba(239, 235, 224, 0.84); font-weight: 500; font-size: 0.95rem;
+  letter-spacing: 0.01em; transition: color 0.2s ease;
 }
-.navbar-links a:hover, .navbar-links a.active { color: var(--sun); }
+.navbar-links a:hover, .navbar-links a.active { color: var(--orange); }
+/* the signature thin rule under the active link */
+.navbar-links a.active { position: relative; }
+.navbar-links a.active::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px;
+  background: var(--orange);
+}
 
 /* Social icon links (nav + footer) */
 .social-icons { display: inline-flex; align-items: center; gap: 0.7rem; }
-.social-icon { display: inline-flex; color: rgba(255, 255, 255, 0.85); transition: color 0.2s ease, transform 0.2s ease; }
+.social-icon { display: inline-flex; color: rgba(239, 235, 224, 0.84); transition: color 0.2s ease, transform 0.2s ease; }
 .social-icon svg { width: 19px; height: 19px; display: block; }
-.social-icon:hover { color: var(--sun); transform: translateY(-1px); }
+.social-icon:hover { color: var(--orange); transform: translateY(-1px); }
 .footer-social { display: flex; gap: 0.9rem; margin-bottom: 0.7rem; }
-.footer-social .social-icon { color: rgba(255, 255, 255, 0.8); }
+.footer-social .social-icon { color: rgba(239, 235, 224, 0.78); }
 .footer-social .social-icon svg { width: 22px; height: 22px; }
+
+/* ---- Language toggle (EN · ES · DE) — injected by ovp.js -----------------
+   Discreet text switch; sits in the navbar near the social icons and again in
+   the mobile menu. Active language reads in the house orange. */
+.lang-toggle { display: inline-flex; align-items: center; gap: 0.18rem; }
+.lang-btn {
+  background: none; border: 0; cursor: pointer;
+  font-family: var(--font-body); font-size: 0.74rem; font-weight: 700;
+  letter-spacing: 0.07em; line-height: 1;
+  color: rgba(239, 235, 224, 0.55); padding: 0.2rem 0.18rem;
+  transition: color 0.2s ease;
+}
+.lang-btn:hover { color: rgba(239, 235, 224, 0.95); }
+.lang-btn.active { color: var(--orange); }
+.lang-sep { color: rgba(239, 235, 224, 0.28); font-size: 0.68rem; user-select: none; }
+/* mobile-menu copy: a touch larger, set off above the links */
+.lang-toggle-mobile {
+  margin-top: 1.2rem; padding-top: 1.1rem;
+  border-top: 1px solid rgba(239, 235, 224, 0.10); gap: 0.3rem;
+}
+.lang-toggle-mobile .lang-btn { font-size: 0.95rem; padding: 0.3rem 0.35rem; }
+.lang-toggle-mobile .lang-sep { font-size: 0.85rem; }
 
 /* Hamburger — hidden on desktop, shown < 768px */
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 6px; }
@@ -106,33 +184,57 @@ body { padding-top: 28px; } /* room for the fixed ribbon */
   display: none;
   position: fixed; top: 0; right: 0; bottom: 0; width: 78%; max-width: 320px;
   z-index: 1300;
-  background: var(--ocean-deep);
+  background: var(--char);
   padding: 5rem 1.8rem 2rem; flex-direction: column; gap: 0.4rem;
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
   transform: translateX(100%); transition: transform 0.3s ease;
 }
 #mobileMenu.open { display: flex; transform: translateX(0); }
-#mobileMenu a { color: #fff; font-size: 1.15rem; font-weight: 600; padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
-#mobileMenu a:hover { color: var(--sun); }
+#mobileMenu a { color: #fff; font-size: 1.15rem; font-weight: 600; padding: 0.7rem 0; border-bottom: 1px solid rgba(239, 235, 224, 0.10); }
+#mobileMenu a:hover { color: var(--orange); }
 #mobileMenu .close { position: absolute; top: 1.2rem; right: 1.4rem; font-size: 1.8rem; color: #fff; background: none; border: 0; cursor: pointer; }
-.menu-backdrop { display: none; position: fixed; inset: 0; z-index: 1250; background: rgba(0,0,0,0.5); }
+.menu-backdrop { display: none; position: fixed; inset: 0; z-index: 1250; background: rgba(0,0,0,0.55); }
 .menu-backdrop.open { display: block; }
 
-/* ---- Buttons -------------------------------------------------------------- */
+/* ---- Buttons --------------------------------------------------------------
+   Primary CTA reads --van-accent so it inherits the page's chapter colour:
+   orange on the house pages, rust on Koa, olive on Kuna, etc. */
 .btn {
   display: inline-block; font-family: var(--font-body); font-weight: 700;
-  font-size: 1rem; padding: 0.85rem 1.8rem; border-radius: 999px;
-  border: 0; cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease;
+  font-size: 1rem; padding: 0.85rem 1.85rem; border-radius: 999px;
+  border: 0; cursor: pointer; letter-spacing: 0.01em;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
   text-align: center;
 }
-.btn-primary { background: var(--sunset); color: #fff; box-shadow: 0 8px 22px rgba(31, 157, 82, 0.4); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(31, 157, 82, 0.55); }
-.btn-ghost { background: rgba(255,255,255,0.15); color: #fff; border: 1.5px solid rgba(255,255,255,0.6); }
-.btn-ghost:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
-.btn-teal { background: var(--ocean-teal); color: #fff; }
-.btn-teal:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0,180,166,0.4); }
+.btn-primary {
+  background: var(--van-accent); color: #fff;
+  box-shadow: 0 8px 22px rgba(26, 22, 18, 0.28);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(26, 22, 18, 0.40); filter: brightness(1.05); }
+.btn-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1.5px solid rgba(255,255,255,0.6); }
+.btn-ghost:hover { background: rgba(255,255,255,0.24); transform: translateY(-2px); }
+/* secondary "View van" button — charcoal outline, fills with the van accent on hover */
+.btn-teal {
+  background: transparent; color: var(--char);
+  border: 1.6px solid var(--char);
+}
+.btn-teal:hover { background: var(--van-accent); border-color: var(--van-accent); color: #fff; transform: translateY(-2px); }
 
-/* ---- Hero (full-bleed photo + dark gradient overlay) --------------------- */
+/* ---- Eyebrow + the signature thin accent rule ----------------------------
+   The media kit's recurring motif: a short horizontal rule in the accent
+   colour leading the eyebrow label. Pure CSS, no markup. */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  color: var(--van-accent); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.16em; font-size: 0.8rem;
+}
+.eyebrow::before {
+  content: ''; width: 30px; height: 2px; background: var(--van-accent); flex-shrink: 0;
+}
+.section-dark .eyebrow { color: var(--peach); }
+.section-dark .eyebrow::before { background: var(--peach); }
+
+/* ---- Hero (full-bleed photo + charcoal gradient wash) -------------------- */
 .hero {
   position: relative; min-height: 88vh;
   display: flex; align-items: center;
@@ -146,19 +248,17 @@ body { padding-top: 28px; } /* room for the fixed ribbon */
 .hero-media .hero-still.show { opacity: 1; }
 .hero-media::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(105deg, rgba(6,43,69,0.86) 0%, rgba(6,43,69,0.45) 45%, rgba(255,107,53,0.25) 100%);
+  background: linear-gradient(105deg, rgba(16,15,14,0.88) 0%, rgba(16,15,14,0.46) 46%, rgba(226,121,44,0.26) 100%);
 }
-.hero-inner { position: relative; z-index: 1; max-width: 720px; padding: 2rem 0; }
+.hero-inner { position: relative; z-index: 1; max-width: 720px; padding: 2rem 0; animation: riseIn 0.9s cubic-bezier(.2,.7,.3,1) both; }
 .hero h1 { font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 800; }
-.hero h1 .accent { color: var(--sun); }
+.hero h1 .accent { color: var(--orange); }
 .hero p.lead { font-size: clamp(1.05rem, 2.4vw, 1.4rem); margin: 1.2rem 0 2rem; max-width: 560px; color: rgba(255,255,255,0.92); }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 .video-note { margin-top: 1.6rem; font-size: 0.8rem; color: rgba(255,255,255,0.6); letter-spacing: 0.03em; }
 
 /* ---- Splash: full-screen drone video + glass entry card ------------------
-   The landing opens as a 100vh full-bleed drone loop. A centered frosted card
-   carries the logo + tagline + Enter. Pressing Enter (button or key) scrolls
-   to #content below. */
+   Harmonised to the charcoal palette (Phase 3 — William opened it to tweaks). */
 .splash {
   position: relative;
   height: calc(100svh - 28px);   /* fill the viewport below the sample ribbon */
@@ -174,38 +274,44 @@ body { padding-top: 28px; } /* room for the fixed ribbon */
   opacity: 0; transition: opacity 1.5s ease-in-out;
 }
 .splash-video.is-active { opacity: 1; }
-.splash::after {            /* legibility wash over the footage */
+.splash::after {            /* legibility wash over the footage — charcoal */
   content: ''; position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, rgba(6,43,69,0.50) 0%, rgba(6,43,69,0.20) 38%, rgba(6,43,69,0.66) 100%);
+  background: linear-gradient(180deg, rgba(16,15,14,0.52) 0%, rgba(16,15,14,0.22) 38%, rgba(16,15,14,0.70) 100%);
 }
 .splash-card {
   position: relative; z-index: 2; text-align: center;
-  padding: 2rem 2.3rem 1.9rem;
+  padding: 2.2rem 2.3rem 2rem;
   width: min(456px, calc(100vw - 2rem));
-  border-radius: 24px;
-  background: rgba(6, 43, 69, 0.15);
-  backdrop-filter: blur(8px) saturate(150%);
-  -webkit-backdrop-filter: blur(8px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+  border-radius: 22px;
+  background: rgba(20, 19, 18, 0.26);
+  backdrop-filter: blur(9px) saturate(150%);
+  -webkit-backdrop-filter: blur(9px) saturate(150%);
+  border: 1px solid rgba(239, 235, 224, 0.18);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+  animation: riseIn 0.8s cubic-bezier(.2,.7,.3,1) 0.15s both;
 }
 .splash-logo {
-  width: 380px; max-width: 100%; height: auto; margin: 0 auto 1.2rem;
-  filter: drop-shadow(0 3px 16px rgba(0, 0, 0, 0.45));
+  width: 380px; max-width: 100%; height: auto; margin: 0 auto 1rem;
+  filter: drop-shadow(0 3px 16px rgba(0, 0, 0, 0.5));
+}
+/* signature orange rule between logo and tagline */
+.splash-card .splash-tagline::before {
+  content: ''; display: block; width: 46px; height: 2px;
+  background: var(--orange); margin: 0 auto 1.1rem;
 }
 .splash-tagline {
   color: #fff; font-family: var(--font-display); font-weight: 600;
   font-size: clamp(1.1rem, 2.6vw, 1.6rem); letter-spacing: 0.01em;
-  margin-bottom: 1.9rem; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  margin-bottom: 1.8rem; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
 }
 .splash-enter {
   font-family: var(--font-body); font-weight: 700; font-size: 1.02rem;
-  color: #fff; background: var(--sunset); border: 0; border-radius: 999px;
+  color: #fff; background: var(--orange); border: 0; border-radius: 999px;
   padding: 0.9rem 2.5rem; cursor: pointer;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
-  box-shadow: 0 10px 28px rgba(31, 157, 82, 0.5);
+  box-shadow: 0 10px 28px rgba(226, 121, 44, 0.45);
 }
-.splash-enter:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(31, 157, 82, 0.65); }
+.splash-enter:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(226, 121, 44, 0.6); }
 .splash-hint {
   position: absolute; left: 0; right: 0; bottom: 1.5rem; z-index: 2;
   text-align: center; color: rgba(255, 255, 255, 0.85);
@@ -214,16 +320,26 @@ body { padding-top: 28px; } /* room for the fixed ribbon */
 }
 @keyframes splashBob { 0%,100% { transform: translateY(0); opacity: 0.65; } 50% { transform: translateY(6px); opacity: 1; } }
 
+/* page-load reveal used by hero + splash card */
+@keyframes riseIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
 /* ---- Sections ------------------------------------------------------------- */
-section { padding: 4.5rem 0; }
-.section-band { background: var(--sand-deep); }
-.section-dark { background: var(--ocean-deep); color: #fff; }
+section { padding: 4.8rem 0; }
+.section-band { background: var(--cream-warm); }
+/* Charcoal feature band — the structural rhythm of the site. Subtle layered
+   atmosphere (warm orange + olive glows) keeps it from being a flat black box. */
+.section-dark {
+  background:
+    radial-gradient(120% 90% at 88% -10%, rgba(226,121,44,0.14) 0%, transparent 55%),
+    radial-gradient(110% 100% at -5% 110%, rgba(81,99,47,0.16) 0%, transparent 55%),
+    var(--char);
+  color: #fff;
+}
 .section-head { max-width: 640px; margin-bottom: 2.6rem; }
-.eyebrow { color: var(--sunset); font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.82rem; }
-.section-dark .eyebrow { color: var(--sun); }
-.section-head h2 { font-size: clamp(2rem, 4.5vw, 3rem); margin: 0.5rem 0 0.8rem; }
+.section-head h2 { font-size: clamp(2rem, 4.6vw, 3.1rem); margin: 0.7rem 0 0.8rem; }
 .section-head p { color: var(--ink-soft); font-size: 1.1rem; }
-.section-dark .section-head p { color: rgba(255,255,255,0.75); }
+.section-dark .section-head h2 { color: #fff; }
+.section-dark .section-head p { color: rgba(239, 235, 224, 0.78); }
 
 /* ---- Card grid ------------------------------------------------------------ */
 .grid { display: grid; gap: 1.6rem; }
@@ -231,53 +347,80 @@ section { padding: 4.5rem 0; }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 
 .card {
-  background: #fff; border-radius: var(--radius); overflow: hidden;
-  box-shadow: var(--shadow-sm); transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--surface); border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
   display: flex; flex-direction: column;
+  border: 1px solid var(--line);
+  position: relative;
+}
+/* the chapter colour as a top rule that grows on hover */
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--van-accent); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s ease; z-index: 2;
 }
 .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.card:hover::before { transform: scaleX(1); }
 .card-img { aspect-ratio: 4 / 3; overflow: hidden; }
-.card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .card:hover .card-img img { transform: scale(1.06); }
 .card-body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
-.card-body h3 { font-size: 1.4rem; margin-bottom: 0.4rem; color: var(--ocean-deep); }
+.card-body h3 { font-size: 1.45rem; margin-bottom: 0.4rem; color: var(--char); }
 .card-body p { color: var(--ink-soft); font-size: 0.96rem; flex: 1; }
 .card-meta { display: flex; align-items: center; justify-content: space-between; margin: 1rem 0 1.1rem; }
-.price { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--sunset); }
+.price { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--van-accent); }
 .price span { font-size: 0.78rem; font-weight: 500; color: var(--ink-soft); }
-.duration { font-size: 0.85rem; color: var(--ink-soft); background: var(--sand-deep); padding: 0.3rem 0.7rem; border-radius: 999px; }
+.duration {
+  font-size: 0.82rem; font-weight: 600; color: var(--van-accent);
+  background: color-mix(in srgb, var(--van-accent) 12%, transparent);
+  padding: 0.32rem 0.8rem; border-radius: 999px; letter-spacing: 0.02em;
+}
 
-/* ---- Frosted-glass placeholder (the "service seam" boxes) ---------------- */
+/* ---- Frosted placeholder (the "service seam" boxes) ---------------------- */
 .seam {
-  border: 2px dashed rgba(0, 180, 166, 0.55);
-  background: rgba(0, 180, 166, 0.06);
+  border: 2px dashed color-mix(in srgb, var(--van-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--van-accent) 6%, transparent);
   border-radius: var(--radius); padding: 2.2rem; text-align: center;
 }
-.seam .seam-tag { display: inline-block; background: var(--ocean-teal); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 999px; margin-bottom: 1rem; }
-.seam h3 { color: var(--ocean-deep); font-size: 1.4rem; margin-bottom: 0.5rem; }
+.seam .seam-tag { display: inline-block; background: var(--van-accent); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 999px; margin-bottom: 1rem; }
+.seam h3 { color: var(--char); font-size: 1.4rem; margin-bottom: 0.5rem; }
 .seam p { color: var(--ink-soft); max-width: 520px; margin: 0 auto; }
 
 /* ---- Instagram strip ------------------------------------------------------ */
 .ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
-.ig-grid img { aspect-ratio: 1; object-fit: cover; width: 100%; filter: saturate(1.05); }
+.ig-grid img { aspect-ratio: 1; object-fit: cover; width: 100%; border-radius: 4px; filter: saturate(1.04); transition: transform 0.3s ease, filter 0.3s ease; }
+.ig-grid img:hover { transform: scale(1.04); filter: saturate(1.12); }
 
 /* ---- Reviews -------------------------------------------------------------- */
-.review { background: #fff; border-radius: var(--radius); padding: 1.6rem 1.7rem; box-shadow: var(--shadow-sm); }
-.review .stars { color: var(--sun); letter-spacing: 2px; margin-bottom: 0.6rem; }
+.review { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.6rem 1.7rem; box-shadow: var(--shadow-sm); }
+.review .stars { color: var(--orange); letter-spacing: 2px; margin-bottom: 0.6rem; }
 .review p { font-size: 1.02rem; color: var(--ink); }
-.review .who { margin-top: 0.9rem; font-weight: 700; color: var(--ocean-deep); }
+.review .who { margin-top: 0.9rem; font-weight: 700; color: var(--char); }
 .review .who span { display: block; font-weight: 500; font-size: 0.85rem; color: var(--ink-soft); }
 
 /* ---- Footer --------------------------------------------------------------- */
-.footer { background: var(--ocean-deep); color: rgba(255,255,255,0.8); padding: 3rem 0 2rem; }
+.footer {
+  background:
+    radial-gradient(100% 120% at 100% 0%, rgba(226,121,44,0.10) 0%, transparent 50%),
+    var(--char-deep);
+  color: rgba(239, 235, 224, 0.78); padding: 3.2rem 0 2rem;
+}
 .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
 .footer h4 { font-family: var(--font-display); color: #fff; margin-bottom: 0.8rem; font-size: 1.05rem; }
-.footer a { color: rgba(255,255,255,0.8); display: block; padding: 0.2rem 0; transition: color 0.2s; }
-.footer a:hover { color: var(--sun); }
+.footer a { color: rgba(239, 235, 224, 0.78); display: block; padding: 0.2rem 0; transition: color 0.2s; }
+.footer a:hover { color: var(--orange); }
 .footer-brand { max-width: 280px; }
 .footer-brand .navbar-brand { margin-bottom: 0.8rem; }
-.footer-note { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 1.4rem; font-size: 0.85rem; color: rgba(255,255,255,0.55); }
-.footer-note b { color: rgba(255,255,255,0.8); }
+.footer-note { border-top: 1px solid rgba(239, 235, 224, 0.12); padding-top: 1.4rem; font-size: 0.85rem; color: rgba(239, 235, 224, 0.55); }
+.footer-note b { color: rgba(239, 235, 224, 0.82); }
+
+/* ---- Reduced motion: honour the OS preference ---------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-inner, .splash-card { animation: none; }
+  .splash-hint { animation: none; }
+  html { scroll-behavior: auto; }
+}
 
 /* ---- Responsive: the 768px hamburger switch (oceandatum's breakpoint) ---- */
 @media (max-width: 768px) {
@@ -290,3 +433,87 @@ section { padding: 4.5rem 0; }
   .hero { min-height: 80vh; }
   .splash-card { padding: 2.1rem 1.3rem 1.9rem; }
 }
+
+/* ---- Landing entry GATE (index only) — no scroll past the splash ----------
+   <body class="gate"> locks the viewport to the splash. The footer is kept in
+   the DOM but sits below the fold and is unreachable. The navbar becomes a
+   fixed overlay so the splash fills the viewport exactly (no nav-height
+   overflow that would otherwise let the page scroll a sliver). */
+html:has(body.gate) { overflow: hidden; height: 100svh; }
+body.gate { overflow: hidden; height: 100svh; }
+body.gate .navbar { position: fixed; left: 0; right: 0; }
+body.gate .splash { margin-top: 0; height: calc(100svh - 28px); }
+
+/* ---- Scroll-reveal + per-van colour "chapters" (vans.html staggered rows) --
+   Lifted from the landing redesign (commit eb53739). Each .chapter carries a
+   van-* class, so its --van-accent drives the outlined numeral + CTA. ovp.js
+   adds .in-view as each row scrolls into frame (reduced-motion aware). */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.7,.3,1); }
+.reveal.in-view { opacity: 1; transform: none; }
+
+.chapter {
+  display: grid; grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2rem, 5vw, 5rem); align-items: center;
+  padding: clamp(2.4rem, 5vw, 4rem) 0;
+  border-top: 1px solid var(--line);
+}
+.chapter:first-of-type { border-top: 0; }
+.chapter--flip .chapter-media { order: 2; }
+.chapter-media { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 5 / 4; }
+.chapter-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.chapter:hover .chapter-media img { transform: scale(1.04); }
+.chapter-copy { position: relative; }
+/* the signature move: an oversized numeral, outlined in the chapter's accent */
+.chapter-num {
+  display: block; font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(3rem, 7vw, 5.4rem); line-height: 0.85; letter-spacing: -0.04em;
+  color: transparent; -webkit-text-stroke: 2px var(--van-accent);
+  margin-bottom: 0.4rem;
+}
+.chapter-name { font-size: clamp(2.1rem, 5vw, 3.3rem); color: var(--char); margin: 0 0 0.7rem; }
+.chapter-line { color: var(--ink-soft); font-size: 1.08rem; max-width: 44ch; }
+.chapter-copy .duration { display: inline-block; margin: 1.2rem 0 1.5rem; }
+.chapter-cta { display: block; width: max-content; }
+
+@media (max-width: 768px) {
+  .chapter { grid-template-columns: 1fr; gap: 1.3rem; }
+  .chapter--flip .chapter-media { order: 0; }
+  .chapter-num { font-size: clamp(2.6rem, 14vw, 3.4rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---- Van page photo gallery — horizontal "filmstrip" (scroll-snap, no JS) --
+   Each van page leads with a swipeable row of photos. Real photos where we have
+   them; dashed .gal-ph tiles stand in for the rest (June-shoot media to come).
+   Reads --van-accent for the scrollbar + placeholder tint. */
+.van-gallery {
+  display: flex; gap: 12px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px; margin-bottom: 1.8rem;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--van-accent) 45%, transparent) transparent;
+}
+.van-gallery::-webkit-scrollbar { height: 8px; }
+.van-gallery::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--van-accent) 45%, transparent); border-radius: 999px; }
+.van-gallery::-webkit-scrollbar-track { background: transparent; }
+.van-gallery > * {
+  flex: 0 0 auto; width: min(82%, 540px); aspect-ratio: 4 / 3;
+  scroll-snap-align: center; border-radius: var(--radius); overflow: hidden; margin: 0;
+}
+.van-gallery figure { box-shadow: var(--shadow-md); }
+.van-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.van-gallery .gal-ph {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem;
+  background: color-mix(in srgb, var(--van-accent) 7%, var(--surface));
+  border: 2px dashed color-mix(in srgb, var(--van-accent) 42%, transparent);
+  color: var(--ink-soft);
+}
+.van-gallery .gal-ph::before {
+  content: '+'; font-family: var(--font-display); font-size: 2rem; line-height: 1;
+  color: color-mix(in srgb, var(--van-accent) 55%, transparent);
+}
+.van-gallery .gal-ph span { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.03em; }
+@media (max-width: 768px) { .van-gallery > * { width: 86%; } }

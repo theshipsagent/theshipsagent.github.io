@@ -76,8 +76,9 @@
   var splashRoot = document.getElementById('splash');
   if (splashRoot) {
     var PLAYLIST = [
-      'assets/video/splash-river.mp4',
-      'assets/video/splash-surf.mp4',
+      'assets/video/splash-van-transit.mp4',
+      'assets/video/splash-coast.mp4',
+      'assets/video/splash-van-tree.mp4',
       'assets/video/splash-waterfall.mp4'
     ];
     var layers = [document.getElementById('splashA'), document.getElementById('splashB')];
@@ -108,18 +109,141 @@
     }
   }
 
-  // --- Splash "Enter" → reveal the content below (index page only) ---------
-  // The landing opens as a full-screen drone splash; the Enter button OR the
-  // Enter key smooth-scrolls down to the first content section. Guarded so it
-  // only fires on the splash page and only while still near the top.
-  var splash  = document.getElementById('splash');
-  var content = document.getElementById('content');
-  function enterSite() { if (content) content.scrollIntoView({ behavior: 'smooth' }); }
+  // --- Splash "Enter" → navigate INTO the site (index gate only) -----------
+  // The landing is a pure entry gate: a full-screen drone splash with no scroll
+  // content below it. The Enter button OR the Enter key takes you into the site,
+  // landing on the mission page. Guarded by #splash so it only fires on the gate.
+  var splash      = document.getElementById('splash');
+  var ENTER_TARGET = 'about.html';
+  function enterSite() { window.location.href = ENTER_TARGET; }
   var enterBtn = document.getElementById('enterBtn');
   if (enterBtn) enterBtn.addEventListener('click', enterSite);
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && splash && window.scrollY < window.innerHeight * 0.6) {
-      enterSite();
-    }
+    if (e.key === 'Enter' && splash) enterSite();
   });
+
+  // --- i18n: trilingual EN / ES / DE toggle --------------------------------
+  // Source-string translation: pages are authored in English; we walk text
+  // nodes and swap their text via a dictionary keyed by the English source
+  // (window.OVP_I18N, defined in assets/js/i18n.js and loaded before this).
+  // Strings absent from the dict pass through unchanged — so brand names, van
+  // names, emails and model numbers stay safe by default. The toggle UI is
+  // INJECTED here (same pattern as the logo) so no page markup changes.
+  var I18N  = window.OVP_I18N || {};
+  var LANGS = ['en', 'es', 'de'];
+  var LSKEY = 'ovp-lang';
+  function tableFor(lang) { return (lang === 'en' ? I18N.en : I18N[lang]) || {}; }
+
+  // Cache every translatable text node + its original (English) value, once.
+  var i18nNodes = [];
+  if (document.body) {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        if (!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        for (var p = n.parentNode; p && p !== document.body; p = p.parentNode) {
+          var tag = p.nodeName.toLowerCase();
+          if (tag === 'script' || tag === 'style' || tag === 'svg') return NodeFilter.FILTER_REJECT;
+          if (p.classList && p.classList.contains('lang-toggle')) return NodeFilter.FILTER_REJECT;
+          if (p.hasAttribute && p.hasAttribute('data-no-i18n')) return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var tn;
+    while ((tn = walker.nextNode())) i18nNodes.push({ node: tn, en: tn.nodeValue });
+  }
+  // Placeholders + <title> live outside the body-text-node set.
+  var i18nPh = [];
+  document.querySelectorAll('[placeholder]').forEach(function (el) {
+    i18nPh.push({ el: el, en: el.getAttribute('placeholder') });
+  });
+  var titleEN = document.title;
+
+  function swap(text, lang) {
+    var t = tableFor(lang), key = text.trim();
+    if (t[key] == null) return text;                 // not translated → leave as-is
+    return text.match(/^\s*/)[0] + t[key] + text.match(/\s*$/)[0]; // keep surrounding space
+  }
+
+  function applyLang(lang) {
+    if (LANGS.indexOf(lang) < 0) lang = 'en';
+    i18nNodes.forEach(function (o) { o.node.nodeValue = swap(o.en, lang); });
+    i18nPh.forEach(function (o) { o.el.setAttribute('placeholder', swap(o.en, lang)); });
+    var tt = tableFor(lang);
+    document.title = tt[titleEN.trim()] != null ? tt[titleEN.trim()] : titleEN;
+    document.documentElement.setAttribute('lang', lang);
+    try { localStorage.setItem(LSKEY, lang); } catch (e) {}
+    document.querySelectorAll('.lang-btn').forEach(function (b) {
+      var on = b.getAttribute('data-lang') === lang;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  // Build an EN · ES · DE toggle (one for the navbar, one for the mobile menu).
+  function buildToggle() {
+    var wrap = document.createElement('div');
+    wrap.className = 'lang-toggle';
+    wrap.setAttribute('role', 'group');
+    wrap.setAttribute('aria-label', 'Language');
+    LANGS.forEach(function (l, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lang-btn';
+      b.setAttribute('data-lang', l);
+      b.textContent = l.toUpperCase();
+      b.addEventListener('click', function () { applyLang(l); });
+      wrap.appendChild(b);
+      if (i < LANGS.length - 1) {
+        var sep = document.createElement('span');
+        sep.className = 'lang-sep';
+        sep.setAttribute('aria-hidden', 'true');
+        sep.textContent = '·';
+        wrap.appendChild(sep);
+      }
+    });
+    return wrap;
+  }
+
+  var navLinks = document.querySelector('.navbar-links');
+  if (navLinks) {
+    var socials = navLinks.querySelector('.social-icons');
+    navLinks.insertBefore(buildToggle(), socials || null);
+  }
+  if (menu) {
+    var mTog = buildToggle();
+    mTog.classList.add('lang-toggle-mobile');
+    menu.appendChild(mTog);
+  }
+
+  // Initial language: saved choice → browser language → English.
+  var initialLang = 'en';
+  try {
+    var savedLang = localStorage.getItem(LSKEY);
+    if (savedLang && LANGS.indexOf(savedLang) >= 0) {
+      initialLang = savedLang;
+    } else {
+      var navLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+      if (LANGS.indexOf(navLang) >= 0) initialLang = navLang;
+    }
+  } catch (e) {}
+  applyLang(initialLang);
+
+  // --- Scroll-reveal: fade/rise elements in as they enter the viewport ------
+  // Progressive enhancement: elements start with .reveal (hidden via CSS); we
+  // add .in-view when they scroll into frame, then stop observing. If the API
+  // is missing or the user prefers reduced motion, everything is shown at once.
+  var revealEls = document.querySelectorAll('.reveal');
+  var reduceReveal = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (revealEls.length && 'IntersectionObserver' in window && !reduceReveal) {
+    var revealIO = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { revealIO.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  }
 })();

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koa — OnlyVans Panamá</title>
+  <meta name="description" content="Koa: a fully-equipped OnlyVans camper. Request it for your dates in Panama.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/ovp.css">
+  <style>
+    /* Van page (stub) — Phase 2 swaps in real VanCampGo photos + per-van bios. */
+    .van-hero { aspect-ratio:16/9; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-md); margin-bottom:1.8rem; }
+    .van-hero img { width:100%; height:100%; object-fit:cover; }
+    .van-head h1 { font-size:clamp(2.2rem,5.5vw,3.4rem); color:var(--ocean-deep); }
+    .van-vehicle { color:var(--ink-soft); font-size:1.05rem; margin-top:.2rem; }
+    .van-loc { color:var(--ink-soft); font-size:.95rem; margin-top:.2rem; }
+    .spec-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin:1.8rem 0; }
+    .spec { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm); padding:1.1rem; text-align:center; }
+    .spec b { display:block; font-family:var(--font-display); font-size:1.2rem; color:var(--van-accent); }
+    .spec span { font-size:.78rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em; }
+    .tag-group h3 { color:var(--ocean-deep); font-size:1.25rem; margin:1.6rem 0 .8rem; }
+    .tags { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .tag { background:var(--sand-deep); color:var(--ink); border-radius:999px; padding:.4rem .9rem; font-size:.88rem; }
+    @media (max-width:768px){ .spec-row{ grid-template-columns:repeat(2,1fr); } }
+  </style>
+</head>
+<body class="van-koa">
+
+  <div class="sample-ribbon">Sample build for Claas — <b>placeholder content &amp; stock photos</b>, not final</div>
+
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">OnlyVans&nbsp;<span class="pin">Panamá</span></a>
+    <div class="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="vans.html" class="active">Vans</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="merch.html">Merch</a>
+      <span class="social-icons">
+        <a href="https://instagram.com/onlyvanspanama" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@onlyvanspanama" target="_blank" rel="noopener" class="social-icon" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </span>
+      <a href="request.html" class="btn btn-primary" style="padding:0.55rem 1.3rem;">Get info</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <div id="mobileMenu">
+    <button class="close" aria-label="Close menu">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="vans.html">Vans</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="request.html">Get info</a>
+    <a href="contact.html">Contact</a>
+    <a href="merch.html">Merch</a>
+    <a href="about.html">About</a>
+    <a href="https://instagram.com/onlyvanspanama" target="_blank" rel="noopener">Instagram</a>
+  </div>
+
+  <header style="background:var(--ocean-deep); color:#fff; padding:3rem 0 2.5rem;">
+    <div class="wrap">
+      <a href="vans.html" style="color:var(--sun); font-weight:700; font-size:.9rem;">&larr; All vans</a>
+    </div>
+  </header>
+
+  <section style="padding-top:2.5rem;">
+    <div class="wrap" style="max-width:920px;">
+      <div class="van-gallery">
+        <figure><img src="assets/img/koa-exterior.jpg" alt="Koa — tan Ford E-350 camper with roof rack"></figure>
+        <figure><img src="assets/img/koa-interior.jpg" alt="Koa — interior"></figure>
+        <figure><img src="assets/img/koa-rear.jpg" alt="Koa — rear doors and storage"></figure>
+        <div class="gal-ph"><span>Photo coming</span></div>
+        <div class="gal-ph"><span>Photo coming</span></div>
+      </div>
+
+      <div class="van-head">
+        <h1>Koa</h1>
+        <p class="van-vehicle">2010 Ford E-350 XLT Super Duty</p>
+        <p class="van-loc">📍 Bocas del Toro, Panamá</p>
+      </div>
+
+      <div class="spec-row">
+        <div class="spec"><b>4 (2 + 2)</b><span>Sleeps</span></div>
+        <div class="spec"><b>Gasolina</b><span>Fuel</span></div>
+        <div class="spec"><b>Automática</b><span>Transmission</span></div>
+        <div class="spec"><b>2WD</b><span>Drivetrain</span></div>
+      </div>
+
+      <p style="color:var(--ink-soft); font-size:1.1rem;">The most versatile van in the fleet: Koa sleeps three but seats up to eight, with plenty of room for luggage. Take it camping, or use it to move a whole group. Up top, a spacious king bed with a vestibule for privacy; inside, a 40&nbsp;L two-compartment electric fridge, gas stove, portable toilet and an outdoor shower.</p>
+
+      <div class="tag-group">
+        <h3>Features</h3>
+        <div class="tags">
+          <span class="tag">Rooftop king bed</span><span class="tag">Kitchen</span><span class="tag">Gas stove</span>
+          <span class="tag">40 L fridge</span><span class="tag">Water tank</span><span class="tag">Water pump</span>
+          <span class="tag">Outdoor shower</span><span class="tag">Cassette toilet</span><span class="tag">WiFi</span>
+        </div>
+      </div>
+
+      <div class="tag-group">
+        <h3>What's included</h3>
+        <div class="tags">
+          <span class="tag">Bedding provided</span><span class="tag">Camp chairs</span><span class="tag">Kitchen kit</span>
+          <span class="tag">First-aid kit</span><span class="tag">Cooler</span>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:1rem;">
+        <a href="request.html" class="btn btn-primary">Get info</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand">OnlyVans&nbsp;<span class="pin">Panamá</span></a>
+          <p style="font-size:.92rem;">Self-drive camper rentals across Panama. Operated by OnlyVans Panamá S.A.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="vans.html">The vans</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="request.html">Get info</a>
+          <a href="merch.html">Merch</a>
+          <a href="about.html">About</a>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <a href="contact.html">Contact us</a>
+          <a href="https://instagram.com/onlyvanspanama" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@onlyvanspanama" target="_blank" rel="noopener">TikTok</a>
+          <a href="mailto:hola@onlyvanspanama.com">hola@onlyvanspanama.com</a>
+        </div>
+      </div>
+      <div class="footer-note">
+        © 2026 OnlyVans Panamá S.A. · Demo build. <b>Email stays on One.com</b> through any rebuild — only the website moves.
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/ovp.js"></script>
+</body>
+</html>
